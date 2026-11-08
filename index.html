@@ -39,8 +39,14 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 .chat{height:200px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:8px 12px;font-size:15px}.chat.big{height:60vh}
 .msg{padding:2px 0;word-break:break-word}.msg b{margin-right:4px}.msg b.me{color:var(--acc)}.msg.sys{color:var(--mu);font-style:italic}
 .cin{display:flex;gap:8px;margin-top:8px}.cin .btn{width:84px;margin:0;flex:none}.crow{display:flex;justify-content:space-between;align-items:center}
+#fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--bg);border:0;font-family:inherit;font-weight:600;font-size:14px;display:none;align-items:center;justify-content:center;z-index:8;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+#fab i{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:var(--acc);color:#fff;font-size:12px;line-height:20px;font-style:normal;text-align:center;display:none;padding:0 5px}
+#fpanel{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:480px;height:65vh;background:var(--bg);border:1px solid var(--line);border-radius:16px 16px 0 0;z-index:10;display:none;flex-direction:column;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+#fpanel .chat{flex:1;height:auto;margin-top:8px}
 #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;display:none;z-index:9;font-size:15px}
 </style></head><body><div id="app"></div><div id="toast"></div>
+<button id="fab" data-a="fopen">Chat<i id="fbadge"></i></button>
+<div id="fpanel"><div class="crow"><b>Chat</b><button class="btn s o" data-a="fclose">Close</button></div><div class="chat" id="fchat"></div><div class="cin"><input type="text" id="fci" maxlength="80" placeholder="Say something" autocomplete="off"><button class="btn a" data-a="csend" data-i="fci">Send</button></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* ---------- Registry: add new games here ---------- */
@@ -111,7 +117,7 @@ async function enter(code){
  await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
    if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.pick=[200,50,60]}}
-   S.R=n;syncArt();pictSync();render();paintPict();tick()}),
+   S.R=n;syncArt();chatSync();pictSync();render();paintPict();tick()}),
   db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render();paintPict()}),
   db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
 }
@@ -123,7 +129,7 @@ function syncArt(){
  else if(key[0]==='d'){const a=R.assign[S.id];S.artU=db.doc(`rooms/${S.code}/art/${a}`).onSnapshot(s=>{S.arts={};if(s.exists)S.arts[a]=s.data();render()})}
 }
 function leave(gone){
- pictOff();
+ pictOff();chatOff();
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
  S.un=[];S.code=null;S.R=null;S.P={};S.A={};render();
@@ -228,14 +234,17 @@ const ACT={
  done(){submitArt()},
  guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
  cpick(){submitAct(S.pick.slice())},
- csend(){const i=$('#ci');if(!i)return;const v=i.value.trim().slice(0,80);if(!v)return;i.value='';i.focus();db.logAdd(lp('guess'),{a:S.id,t:v})},
+ csend(d){const i=$('#'+((d&&d.i)||'ci'));if(!i)return;const v=i.value.trim().slice(0,80);if(!v)return;i.value='';i.focus();
+  if(S.R.game==='pict')db.logAdd(lp('guess'),{a:S.id,t:v});else db.logAdd(lp('chat'),{ts:Date.now(),a:S.id,n:(S.P[S.id]?.name)||S.name,t:v})},
+ fopen(){$('#fpanel').style.display='flex';$('#fab').style.display='none';S.unread=0;updBadge();const l=$('#fchat');l.scrollTop=l.scrollHeight;$('#fci').focus()},
+ fclose(){$('#fpanel').style.display='none';if(S.code)$('#fab').style.display='flex'},
  cexp(){S.cexp=!S.cexp;const e=$('#chat');e&&e.classList.toggle('big',!!S.cexp)},
  pundo(){if(!isDrawer()||P.cur)return;P.st.pop();pRedraw();db.logAdd(lp('draw'),{a:S.id,u:1})},
  pclr(){if(!isDrawer())return;P.st=[];P.cur=null;pRedraw();db.logAdd(lp('draw'),{a:S.id,x:1})},
  pskip(){db.logAdd(lp('guess'),{a:S.id,cmd:'skip'})},
  pnext(){if(isHost()&&S.R.phase==='tr'&&!S.busy){S.busy=true;nextTurn()}}
 };
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='ci'){e.preventDefault();ACT.csend()}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&(e.target.id==='ci'||e.target.id==='fci')){e.preventDefault();ACT.csend({i:e.target.id})}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&ACT[b.dataset.a])ACT[b.dataset.a](b.dataset)});
 setInterval(()=>{const R=S.R;if(!R)return;const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000));
  const p=$('#pg');if(p&&R.pl)p.textContent=R.pl.filter(x=>S.A[x]&&S.A[x].k===R.k).length+' of '+R.pl.length+' done';
@@ -353,11 +362,11 @@ const chatBox=()=>{const R=S.R,ph=R.phase==='draw'?(R.drawer===S.id?'Chat (donâ€
 function pictSync(){
  const R=S.R,want=R&&R.game==='pict'?S.code:null;
  if(want!==P.code){pictOff();if(want){P.code=want;
-  P.ud=[db.logSub(lp('draw'),onDraw),db.logSub(lp('chat'),onChat)];
+  P.ud=[db.logSub(lp('draw'),onDraw)];
   if(isHost())P.ud.push(db.logSub(lp('guess'),onGuess))}}
  if(want){const tk=R.g+':'+R.turn;if(tk!==P.tk){P.tk=tk;P.st=[];P.cur=null}}
 }
-function pictOff(){P.ud&&P.ud.forEach(u=>u());P.ud=null;P.code=null;P.st=[];P.chat=[];P.cur=null;P.tk='';P.gq=0;P.gInit=0}
+function pictOff(){P.ud&&P.ud.forEach(u=>u());P.ud=null;P.code=null;P.st=[];P.cur=null;P.tk='';P.gq=0;P.gInit=0}
 /* drawing: strokes are replayed from a shared log so late joiners see everything */
 const pxCtx=()=>{const c=$('#pcv');return c&&c.getContext('2d')};
 function strokePath(x,s){x.strokeStyle=s.c;x.lineWidth=s.w;x.lineCap=x.lineJoin='round';x.beginPath();const p=s.p;x.moveTo(p[0],p[1]);if(p.length<4)x.lineTo(p[0]+.1,p[1]);else for(let i=2;i<p.length;i+=2)x.lineTo(p[i],p[i+1]);x.stroke()}
@@ -389,11 +398,18 @@ function initPcv(){
  c.onpointerup=c.onpointercancel=()=>{if(d){d=false;pFlush();P.cur=null}};
 }
 /* chat */
-function onChat(m){if(m.full)P.chat=m.items.slice();else P.chat.push(...m.items);if(P.chat.length>500)P.chat.splice(0,P.chat.length-500);paintChat()}
-function paintChat(){const el=$('#chat');if(!el)return;
+function onChat(m){const n=m.full?0:m.items.filter(x=>!x.s&&x.a!==S.id).length;
+ if(m.full)P.chat=m.items.slice();else P.chat.push(...m.items);if(P.chat.length>500)P.chat.splice(0,P.chat.length-500);
+ if(n&&$('#fpanel').style.display!=='flex'){S.unread=(S.unread||0)+n;updBadge()}paintChat()}
+function updBadge(){const b=$('#fbadge');b.textContent=S.unread>99?'99+':S.unread||'';b.style.display=S.unread?'block':'none'}
+function fillChat(el){if(!el)return;
  const stick=!el.dataset.i||el.scrollTop+el.clientHeight>=el.scrollHeight-40;
  el.innerHTML=P.chat.length?P.chat.map(m=>m.s?`<div class="msg sys">${esc(m.t)}</div>`:`<div class="msg"><b class="${m.a===S.id?'me':''}">${esc(m.n)}</b>${esc(m.t)}</div>`).join(''):'<div class="mu">No messages yet.</div>';
- el.classList.toggle('big',!!S.cexp);el.dataset.i=1;if(stick)el.scrollTop=el.scrollHeight}
+ if(el.id==='chat')el.classList.toggle('big',!!S.cexp);el.dataset.i=1;if(stick)el.scrollTop=el.scrollHeight}
+function paintChat(){fillChat($('#chat'));fillChat($('#fchat'))}
+function chatSync(){if(S.code&&!P.cc)P.cc=db.logSub(lp('chat'),onChat)}
+function chatOff(){P.cc&&P.cc();P.cc=null;P.chat=[];S.unread=0;updBadge();paintChat()}
+function fabShow(on){const o=$('#fpanel').style.display==='flex';$('#fab').style.display=on&&!o?'flex':'none';if(!on)$('#fpanel').style.display='none'}
 function paintHint(){
  const el=$('#pword'),R=S.R;if(!el||R.phase!=='draw')return;
  const me=S.id,dr=R.drawer===me,got=!!(R.solved&&R.solved[me]!=null),full=dr||got,w=R.word||'';
@@ -478,14 +494,14 @@ function pictTick(R,now){
 }
 
 function render(){
- if(!$('#app'))return;const R=S.R;let h;
+ if(!$('#app'))return;const R=S.R;let h;fabShow(!!(S.code&&R));
  if(!S.code||!R)h=home();
  else{const g=G(R.game);
   h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;
   h+=R.phase==='lobby'?lobby():R.game==='pict'?pictView():R.phase==='over'?over():R.game==='mafia'?mafiaView():R.game==='imposter'?imposterView():partyView();
  }
  const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
- if(ae&&ae.tagName==='INPUT'&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
+ if(ae&&ae.tagName==='INPUT'&&ae.closest('#app')&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
  if(h===render.h)return;const y=window.scrollY;
  $('#app').classList.toggle('noanim',key===render.key);
  $('#app').innerHTML=h;window.scrollTo(0,y);render.h=h;render.key=key;after();
