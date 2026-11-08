@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Party games</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f0e8;--card:#fbf9f4;--ink:#161616;--mu:#77736a;--line:#d9d4c7;--acc:#d9412b;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#121211;--card:#1a1a18;--ink:#ecebe6;--mu:#8c8a82;--line:#2e2d2a;--acc:#ff6a4d}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 'Bricolage Grotesque',system-ui,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:20px 20px 60px}
+#app:not(.noanim) main{animation:f .25s}@keyframes f{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h1{font-size:44px;line-height:1;letter-spacing:-.03em;margin:28px 0 8px;font-weight:700}
+.bar{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}.bar b{font-size:18px}.bar>span{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.mu{color:var(--mu);font-size:14px}.lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin:26px 0 8px}
+.big{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:4px 0 10px}
+input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:18px;outline:none}input[type=text]:focus{border-color:var(--ink)}
+.btn{display:block;width:100%;height:52px;border-radius:12px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font:600 16px inherit;font-family:inherit;margin:10px 0;cursor:pointer}
+.btn:active{transform:scale(.98)}.btn.o{background:transparent;color:var(--ink)}.btn.a{background:var(--acc);border-color:var(--acc);color:#fff}.btn[disabled]{opacity:.35;pointer-events:none}.btn.s{width:auto;height:34px;padding:0 14px;margin:0;font-size:14px}
+.g{display:flex;gap:14px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer}.g:active{opacity:.6}.g i{font-style:normal;color:var(--mu);width:20px}.g b{font-size:22px;letter-spacing:-.01em}.g span{display:block;color:var(--mu);font-size:14px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0 6px 6px 0;font-size:15px}.chip.me{border-color:var(--ink)}.chip.dead{color:var(--mu);text-decoration:line-through}
+.code{font:600 64px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;margin:6px 0}#qr{margin:14px 0}#qr img,#qr canvas{background:#fff;padding:8px;border-radius:10px;border:1px solid var(--line)}
+.step{display:flex;gap:14px;align-items:center}.step button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 20px inherit;cursor:pointer}.step b{min-width:28px;text-align:center}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cat{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px 4px;text-align:center;cursor:pointer;font-size:14px}.cat.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pick button{display:flex;width:100%;justify-content:space-between;padding:14px 16px;margin:0 0 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:17px;cursor:pointer}.pick button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.reveal{border:1px dashed var(--mu);border-radius:16px;padding:40px 16px;text-align:center;cursor:pointer;user-select:none;margin:16px 0}
+.note{border-left:3px solid var(--acc);padding:4px 0 4px 12px;margin:16px 0}.win{font-size:34px;font-weight:700;letter-spacing:-.02em;margin:18px 0 6px}
+#cv{width:100%;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:12px;touch-action:none;display:block;margin-top:10px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.tool{height:38px;min-width:38px;padding:0 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-size:14px;cursor:pointer}.tool.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.tool.sw{width:38px;padding:0;border-radius:50%}.tool.sw.on{outline:2px solid var(--ink);outline-offset:2px}
+.sl{display:block}.sl input{width:100%;height:30px;-webkit-appearance:none;appearance:none;border-radius:8px;outline:none;margin:4px 0 8px;border:1px solid var(--line)}.sl input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:38px;border-radius:6px;background:#fff;border:2px solid #111}.sl input::-moz-range-thumb{width:18px;height:34px;border-radius:6px;background:#fff;border:2px solid #111}
+.swatch{height:150px;border-radius:14px;border:1px solid var(--line)}.sw2{display:inline-block;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);vertical-align:middle;margin-right:8px}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:14px}.gal img{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}.gal small{display:block;color:var(--mu);font-size:13px;line-height:1.3;margin-top:4px}
+.bar2{height:6px;background:var(--ink);border-radius:3px;margin-top:4px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;display:none;z-index:9;font-size:15px}
+</style></head><body><div id="app"></div><div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ---------- Registry: add new games here ---------- */
+const GAMES=[
+ {id:'mafia',n:'Mafia',d:'Hidden roles. Kill at night, vote by day.',min:4},
+ {id:'imposter',n:'Imposter',d:'Everyone gets the same word, except the imposters.',min:3},
+ {id:'draw',n:'Draw & Guess',d:'Draw a secret word. A stranger guesses it.',min:3},
+ {id:'color',n:'Color Match',d:'Memorize a color, then recreate it exactly.',min:2},
+ {id:'likely',n:'Most Likely To',d:'Vote for who fits the prompt best.',min:3}];
+const DEF={mafia:{mafia:1,doctor:1,police:1},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{}};
+const CATS=`Fruit|Apple-Pear,Mango-Peach,Orange-Tangerine,Banana-Plantain,Lemon-Lime,Grapes-Berry
+Food|Pizza-Burger,Samosa-Kachori,Dosa-Uttapam,Biryani-Pulao,Pasta-Noodles,Jalebi-Imarti
+Actor|Shah Rukh Khan-Salman Khan,Tom Cruise-Brad Pitt,Amitabh Bachchan-Rajinikanth,Leonardo DiCaprio-Matt Damon,Deepika Padukone-Priyanka Chopra,Ranbir Kapoor-Ranveer Singh
+Object|Pen-Pencil,Chair-Stool,Spoon-Fork,Mirror-Window,Bag-Backpack,Clock-Watch
+Animal|Lion-Tiger,Dog-Wolf,Cat-Leopard,Horse-Donkey,Elephant-Rhino,Rabbit-Hare
+Bird|Crow-Raven,Eagle-Hawk,Parrot-Macaw,Sparrow-Finch,Duck-Goose,Pigeon-Dove`.split('\n').map(l=>{const[n,w]=l.split('|');return{n,w:w.split(',').map(x=>x.split('-'))}});
+const WORDS='cat,house,tree,sun,car,fish,pizza,guitar,rocket,umbrella,elephant,bicycle,flower,moon,clock,apple,bridge,crown,robot,snowman,castle,butterfly,cake,camera,key,boat,mountain,rainbow,snake,spider,glasses,phone,ghost,dragon,airplane,banana,cloud,shoe,candle,train,penguin,lighthouse,tent,pumpkin,diamond,balloon,owl,giraffe,volcano,windmill'.split(',');
+const PROMPTS=['Most likely to be late to their own wedding','Most likely to become famous','Most likely to survive a zombie apocalypse','Most likely to cry at a movie','Most likely to forget a birthday','Most likely to get lost with GPS on','Most likely to win a cooking show','Most likely to start a business','Most likely to talk to strangers','Most likely to oversleep tomorrow','Most likely to adopt ten pets','Most likely to laugh at a funeral','Most likely to spend all their money in a day','Most likely to travel the world alone','Most likely to become a millionaire','Most likely to break a world record'];
+const ROLES={mafia:'Mafia',doctor:'Doctor',police:'Police',civilian:'Civilian'};
+const RDESC={mafia:'Each night your team picks one person to eliminate.',doctor:'Each night your team picks one person to save.',police:'Each night your team picks one person to investigate.',civilian:'Find the mafia and vote them out.'};
+const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b'];
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:''};
+try{S.name=localStorage.getItem('pg-name')||''}catch(e){}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2500)}
+const nm=p=>esc(S.P[p]?.name||'?'),G=id=>GAMES.find(g=>g.id===id),note=t=>`<div class="note">${t}</div>`;
+const sc=(R,d)=>{const o={...(R.scores||{})};for(const p in d)o[p]=(o[p]||0)+d[p];return o};
+const safe=i=>typeof i==='string'&&i.startsWith('data:image/jpeg;base64,')?i:'';
+/* ---------- realtime store client ---------- */
+function connectDB(){
+ let ws,n=0,open=false;const out=[],subs=new Map(),pend={};
+ const send=o=>{const j=JSON.stringify(o);open?ws.send(j):out.push(j)};
+ const rpc=o=>new Promise(r=>{const rid=++n;pend[rid]=r;send({...o,rid})});
+ const sd=(p,d)=>({id:p.split('/').pop(),exists:d!=null,data:()=>d,metadata:{}});
+ const sub=(p,k,f)=>{const sid=++n;subs.set(sid,{p,k,f});send({t:'sub',sid,p,k});return()=>{subs.delete(sid);send({t:'unsub',sid})}};
+ const doc=p=>({get:async()=>sd(p,(await rpc({t:'get',p})).d),set:d=>rpc({t:'set',p,d}),update:d=>rpc({t:'upd',p,d}),delete:()=>rpc({t:'del',p}),onSnapshot:f=>sub(p,'d',m=>f(sd(p,m.d))),collection:c=>col(p+'/'+c)});
+ const col=c=>({doc:id=>doc(c+'/'+id),onSnapshot:f=>sub(c,'c',m=>f({docs:m.docs.map(x=>sd(x.p,x.d))}))});
+ return new Promise((res,rej)=>{let first=true;
+  (function conn(){
+   ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
+   ws.onopen=()=>{open=true;subs.forEach((s,sid)=>ws.send(JSON.stringify({t:'sub',sid,p:s.p,k:s.k})));out.splice(0).forEach(j=>ws.send(j));if(first){first=false;res({doc,collection:col})}else toast('Reconnected')};
+   ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.t==='ack'){pend[m.rid]&&pend[m.rid](m);delete pend[m.rid]}else if(subs.get(m.sid))subs.get(m.sid).f(m)};
+   ws.onclose=()=>{open=false;if(first)rej();else{toast('Reconnecting…');setTimeout(conn,1000)}};
+  })();
+ });
+}
+(async()=>{
+ try{S.id=sessionStorage.getItem('pg-id');if(!S.id){S.id='u'+Math.random().toString(36).slice(2,10);sessionStorage.setItem('pg-id',S.id)}}catch(e){S.id='u'+Math.random().toString(36).slice(2,10)}
+ try{db=await connectDB()}catch(e){S.err='Can’t reach the game server. Start it with “npm start” and open the address it prints.'}
+ render();const h=location.hash.replace('#','').toUpperCase();if(h&&$('#code'))$('#code').value=h;
+})();
+/* ---------- rooms ---------- */
+async function createRoom(game){
+ if(!S.name.trim())return toast('Enter your name first');
+ const code=Array.from({length:4},()=>rnd([...'ABCDEFGHJKLMNPQRSTUVWXYZ'])).join('');
+ await db.doc('rooms/'+code).set({host:S.id,game,phase:'lobby',cfg:DEF[game],round:0,scores:{}});await enter(code);
+}
+async function joinRoom(code){
+ if(!S.name.trim())return toast('Enter your name first');
+ code=(code||'').trim().toUpperCase();const s=await db.doc('rooms/'+code).get();
+ if(!s.exists)return toast('Room not found');await enter(code);
+}
+async function enter(code){
+ S.code=code;try{localStorage.setItem('pg-name',S.name)}catch(e){}
+ await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
+ S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
+   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.pick=[200,50,60]}}
+   S.R=n;syncArt();render();tick()}),
+  db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render()}),
+  db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
+}
+function syncArt(){
+ const R=S.R;let key='';
+ if(R&&R.game==='draw'){if(R.phase==='result')key='c'+R.g+R.round;else if((R.phase==='draw'||R.phase==='guess')&&R.assign&&R.assign[S.id])key='d'+R.assign[S.id]+R.g+R.round}
+ if(key===S.artKey)return;S.artU&&S.artU();S.artU=null;S.artKey=key;S.arts={};
+ if(key[0]==='c')S.artU=db.collection(`rooms/${S.code}/art`).onSnapshot(q=>{S.arts={};q.docs.forEach(d=>S.arts[d.id]=d.data());render()});
+ else if(key[0]==='d'){const a=R.assign[S.id];S.artU=db.doc(`rooms/${S.code}/art/${a}`).onSnapshot(s=>{S.arts={};if(s.exists)S.arts[a]=s.data();render()})}
+}
+function leave(gone){
+ S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
+ if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
+ S.un=[];S.code=null;S.R=null;S.P={};S.A={};render();
+}
+const upd=o=>db.doc('rooms/'+S.code).update(o),isHost=()=>S.R&&S.R.host===S.id;
+/* ---------- color maths ---------- */
+const rgb=([h,s,v])=>{s/=100;v/=100;const f=n=>{const k=(n+h/60)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return[f(5),f(3),f(1)].map(x=>Math.round(x*255))};
+const css=c=>`rgb(${rgb(c)})`;
+const lab=c=>{const[r,g,b]=rgb(c).map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4});const f=t=>t>.008856?Math.cbrt(t):7.787*t+16/116;const X=f((r*.4124+g*.3576+b*.1805)/.95047),Y=f(r*.2126+g*.7152+b*.0722),Z=f((r*.0193+g*.1192+b*.9505)/1.08883);return[116*Y-16,500*(X-Y),200*(Y-Z)]};
+const acc=(a,b)=>{const x=lab(a),y=lab(b);return Math.max(0,100-Math.hypot(x[0]-y[0],x[1]-y[1],x[2]-y[2])*2)};
+const lev=(a,b)=>{const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]};
+const close=(a,b)=>{a=a.toLowerCase().replace(/[^a-z]/g,'');b=b.toLowerCase().replace(/[^a-z]/g,'');return a&&(a===b||(b.length>4&&lev(a,b)<=1))};
+/* ---------- referee (runs on the host device) ---------- */
+const alive=R=>Object.keys(R.roles||{}).filter(p=>R.alive[p]);
+function tops(arr){const c={};arr.forEach(t=>c[t]=(c[t]||0)+1);const m=Math.max(0,...Object.values(c));return Object.keys(c).filter(k=>c[k]===m)}
+function winner(R,al){
+ if(R.game==='mafia'){const m=al.filter(p=>R.roles[p]==='mafia').length;return m===0?'town':m>=al.length-m?'mafia':null}
+ const i=al.filter(p=>R.roles[p]==='imp').length;return i===0?'crew':i>=al.length-i?'imps':null}
+function tick(){
+ const R=S.R;if(!isHost()||S.busy||!R||!R.pl||R.phase==='lobby')return;
+ const now=Date.now(),ok=p=>S.A[p]&&S.A[p].k===R.k,ph=R.phase,g=R.game,late=R.end&&now>R.end+(ph==='draw'?5000:1500);
+ if(g==='mafia'&&ph==='night'){
+  const al=alive(R),lock={...(R.lock||{})},bad=[];let wait=false;
+  for(const r of ['mafia','doctor','police']){if(r in lock)continue;
+   const m=al.filter(p=>R.roles[p]===r);if(!m.length){lock[r]=null;continue}
+   if(!m.every(ok)){wait=true;continue}
+   const t=[...new Set(m.map(p=>S.A[p].t))];t.length===1?lock[r]=t[0]:bad.push(r)}
+  if(wait)return;S.busy=true;
+  if(bad.length){const n=(R.nrv||0)+1;if(n<=3)return upd({lock,nrv:n,rej:bad,k:`${R.g}:${R.round}:n:${n}`});bad.forEach(r=>lock[r]=null)}
+  const t=lock.mafia,saved=lock.doctor,inv={...R.inv},alv={...R.alive};
+  al.filter(p=>R.roles[p]==='police').forEach(p=>{if(lock.police)inv[p]={t:lock.police,m:R.roles[lock.police]==='mafia',r:R.round}});
+  let log='Nobody died tonight.';
+  if(t&&t!==saved){alv[t]=false;log=`${nm(t)} was killed in the night.`}else if(t)log='The doctor made a save. Nobody died tonight.';
+  const w=winner(R,Object.keys(alv).filter(p=>alv[p]));
+  return upd({inv,alive:alv,log,next:'day',lock:{},nrv:0,rej:[],phase:w?'over':'morning',winner:w||null,scores:w?fin(R,w):R.scores});
+ }
+ if((g==='mafia'&&ph==='day')||(g==='imposter'&&ph==='vote')){
+  const al=alive(R);if(!al.every(ok))return;S.busy=true;
+  const top=tops(al.map(p=>S.A[p].t)),rv=R.rv||0;
+  if(top.length>1&&rv<3)return upd({cands:top,rv:rv+1,k:`${R.g}:${R.round}:${ph[0]}:${rv+1}`,log:`Tie between ${top.map(nm).join(' and ')}. Vote again.`});
+  const t=top.length===1?top[0]:null,alv={...R.alive};let log='Tie again. Nobody was eliminated.';
+  if(t){alv[t]=false;log=`${nm(t)} was voted out.${g==='mafia'?'':' They were '+(R.roles[t]==='imp'?'an imposter.':'crew.')}`}
+  const w=winner(R,Object.keys(alv).filter(p=>alv[p]));
+  return upd({alive:alv,log,cands:null,rv:0,next:g==='mafia'?'night':'play',round:R.round+1,phase:w?'over':g==='mafia'?'morning':'result',winner:w||null,scores:w?fin(R,w):R.scores});
+ }
+ if(g==='draw'){
+  if(ph==='draw'){if(!R.pl.every(ok)&&!late)return;S.busy=true;return upd({phase:'guess',k:`${R.g}:${R.round}:g`,end:now+45000})}
+  if(ph==='guess'){if(!R.pl.every(ok)&&!late)return;S.busy=true;const d={};
+   const res=R.pl.map(gu=>{const a=R.assign[gu],w=R.words[a],tx=ok(gu)?S.A[gu].t:'',hit=!!close(tx,w);if(hit){d[gu]=(d[gu]||0)+2;d[a]=(d[a]||0)+1}return{a,gu,w,tx,hit}});
+   return upd({phase:'result',res,scores:sc(R,d)})}
+ }
+ if(g==='color'){
+  if(ph==='show'){if(now<R.end)return;S.busy=true;return upd({phase:'pick',k:`${R.g}:${R.round}:p`,end:now+25000})}
+  if(ph==='pick'){if(!R.pl.every(ok)&&!late)return;S.busy=true;
+   const res=R.pl.map(p=>{const c=ok(p)?S.A[p].t:null;return{p,c,acc:c?acc(R.tc,c):0}}).sort((a,b)=>b.acc-a.acc),d={};res.forEach(r=>d[r.p]=Math.round(r.acc/10));
+   return upd({phase:'result',res,scores:sc(R,d)})}
+ }
+ if(g==='likely'&&ph==='vote'){
+  if(!R.pl.every(ok))return;S.busy=true;const c={};R.pl.forEach(p=>c[S.A[p].t]=(c[S.A[p].t]||0)+1);
+  return upd({phase:'result',res:Object.keys(c).map(p=>({p,n:c[p]})).sort((a,b)=>b.n-a.n),scores:sc(R,c)})}
+}
+const fin=(R,w)=>{const bad=p=>R.roles[p]==='mafia'||R.roles[p]==='imp',bw=w==='mafia'||w==='imps',d={};Object.keys(R.roles).forEach(p=>{if(bad(p)===bw)d[p]=3});return sc(R,d)};
+function startRound(R,rn){
+ const g=R.g||Date.now(),ids=Object.keys(S.P),now=Date.now(),b={g,pl:ids,round:rn,res:null,log:''};
+ if(R.game==='draw'){const pool=shuf(WORDS),words={},s=shuf(ids),assign={};ids.forEach((p,i)=>words[p]=pool[i%pool.length]);s.forEach((p,i)=>assign[p]=s[(i+1)%s.length]);
+  return upd({...b,words,assign,phase:'draw',k:`${g}:${rn}:d`,end:now+R.cfg.secs*1000})}
+ if(R.game==='color')return upd({...b,tc:[Math.floor(Math.random()*360),30+Math.floor(Math.random()*70),35+Math.floor(Math.random()*65)],phase:'show',k:`${g}:${rn}:s`,end:now+5000});
+ let used=R.used||[],pool=PROMPTS.filter(x=>!used.includes(x));if(!pool.length){pool=PROMPTS;used=[]}const pr=rnd(pool);
+ return upd({...b,prompt:pr,used:[...used,pr],phase:'vote',k:`${g}:${rn}:v`});
+}
+async function submitArt(){
+ const R=S.R;if(S.sub===R.k)return;S.sub=R.k;const c=$('#cv');let img=S.artData||'';
+ if(c){const f=(w,q)=>{const t=document.createElement('canvas');t.width=t.height=w;const x=t.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,w);x.drawImage(c,0,0,w,w);return t.toDataURL('image/jpeg',q)};img=f(260,.6);if(img.length>55000)img=f(180,.45)}
+ await db.doc(`rooms/${S.code}/art/${S.id}`).set({k:R.g+':'+R.round,img});
+ await db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,done:1});render();
+}
+const submitAct=async t=>{S.sub=S.R.k;await db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:S.R.k,t});render()};
+const ACT={
+ pick(d){if(S.R.alive&&!S.R.alive[S.id])return;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:S.R.k,t:d.p})},
+ cfg(d){const c={...S.R.cfg};c[d.f]=Math.max(+d.m,(c[d.f]||0)+ +d.d);upd({cfg:c})},
+ cat(d){upd({cfg:{...S.R.cfg,cat:+d.i}})},
+ start(){
+  const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),roles={},alive={};
+  if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
+   if(R.game==='mafia'){const c=R.cfg;let i=0;['mafia','doctor','police'].forEach(r=>{for(let n=0;n<c[r];n++)roles[ids[i++]]=r});ids.slice(i).forEach(p=>roles[p]='civilian');
+    return upd({g,pl:ids,roles,alive,inv:{},lock:{},nrv:0,rej:[],log:'',winner:null,round:1,phase:'reveal',k:g+':r'})}
+   const cat=CATS[R.cfg.cat||0],pr=shuf(rnd(cat.w).slice());ids.forEach((p,i)=>roles[p]=i<R.cfg.imp?'imp':'crew');
+   return upd({g,pl:ids,roles,alive,log:'',winner:null,round:1,phase:'play',k:g+':1:p',words:{crew:pr[0],imp:pr[1]},cat:cat.n,first:rnd(ids)});}
+  startRound({...R,g:null},1);
+ },
+ begin(){upd({phase:'night',k:`${S.R.g}:${S.R.round}:n`})},
+ toDay(){upd({phase:'day',k:`${S.R.g}:${S.R.round}:d`})},
+ nextRound(){const R=S.R;if(R.game==='mafia')upd({phase:'night',k:`${R.g}:${R.round}:n`});else if(R.game==='imposter')upd({phase:'play',k:`${R.g}:${R.round}:p`});else startRound(R,R.round+1)},
+ toVote(){upd({phase:'vote',k:`${S.R.g}:${S.R.round}:v`})},
+ flip(){S.show=!S.show;render()},
+ again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{}})},
+ leave(){leave()},join(){joinRoom($('#code').value)},create(d){createRoom(d.g)},
+ tool(d){S.tool=d.t;markTools()},col(d){S.col=d.c;S.tool='pen';markTools()},sz(d){S.sz=+d.s;markTools()},
+ clr(){const c=$('#cv');if(c){const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,480,480);S.artData=''}},
+ done(){submitArt()},
+ guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
+ cpick(){submitAct(S.pick.slice())}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&ACT[b.dataset.a])ACT[b.dataset.a](b.dataset)});
+setInterval(()=>{const R=S.R;if(!R)return;const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000));
+ const p=$('#pg');if(p&&R.pl)p.textContent=R.pl.filter(x=>S.A[x]&&S.A[x].k===R.k).length+' of '+R.pl.length+' done';
+ if(R.end&&Date.now()>=R.end&&S.sub!==R.k&&R.pl&&R.pl.includes(S.id)){if(R.game==='draw'&&R.phase==='draw')submitArt();if(R.game==='color'&&R.phase==='pick')ACT.cpick()}
+ tick()},400);
+/* ---------- views ---------- */
+function home(){
+ if(S.err)return `<main><h1>Party games</h1>${note(S.err)}</main>`;
+ return `<main><h1>Party games</h1><div class="mu">Play together on your phones.</div>
+ <div class="lbl">Your name</div><input type="text" id="nm" maxlength="14" placeholder="Name" value="${esc(S.name)}" oninput="S.name=this.value">
+ <div class="lbl">Start a game</div>${GAMES.map((g,i)=>`<div class="g" data-a="create" data-g="${g.id}"><i>${i+1}</i><div><b>${g.n}</b><span>${g.d}</span></div></div>`).join('')}
+ <div class="lbl">Join with a code</div><input type="text" id="code" maxlength="4" placeholder="ABCD" style="text-transform:uppercase;letter-spacing:.3em;text-align:center"><button class="btn o" data-a="join">Join room</button></main>`;
+}
+const stepper=(l,f,v,step=1,min=0)=>`<div class="row"><span>${l}</span><span class="step"><button data-a="cfg" data-f="${f}" data-d="${-step}" data-m="${min}">−</button><b>${v}</b><button data-a="cfg" data-f="${f}" data-d="${step}" data-m="${min}">+</button></span></div>`;
+const board=R=>{const ids=Object.keys(S.P).sort((a,b)=>((R.scores||{})[b]||0)-((R.scores||{})[a]||0));if(!ids.length||!Object.values(R.scores||{}).some(x=>x))return '';
+ return `<div class="lbl">Scores</div>${ids.map((p,i)=>`<div class="row"><span>${i+1}. ${nm(p)}</span><b>${(R.scores||{})[p]||0}</b></div>`).join('')}`};
+const hostBtns=(next)=>isHost()?`${next?`<button class="btn" data-a="nextRound">Next round</button>`:''}<button class="btn o" data-a="again">Back to lobby</button>`:`<p class="mu">Waiting for the host…</p>`;
+function lobby(){
+ const R=S.R,g=G(R.game),n=Object.keys(S.P).length,c=R.cfg;let cfg='',ok=n>=g.min,msg=`Need at least ${g.min} players`;
+ if(R.game==='mafia'){const sp=c.mafia+c.doctor+c.police;cfg=stepper('Mafia','mafia',c.mafia,1,1)+stepper('Doctor','doctor',c.doctor)+stepper('Police','police',c.police)+`<div class="mu" style="margin-top:8px">Civilians: ${Math.max(0,n-sp)}</div>`;ok=ok&&sp<n&&c.mafia<n-c.mafia;if(n>=g.min&&!ok)msg='Too many special roles for this many players'}
+ else if(R.game==='imposter'){cfg=`<div class="mu" style="margin-bottom:8px">Category</div><div class="cats">${CATS.map((x,i)=>`<div class="cat ${i===(c.cat||0)?'on':''}" data-a="cat" data-i="${i}">${x.n}</div>`).join('')}</div>`+stepper('Imposters','imp',c.imp,1,1);ok=ok&&c.imp<n-c.imp;if(n>=g.min&&!ok)msg='Too many imposters'}
+ else if(R.game==='draw')cfg=stepper('Seconds to draw','secs',c.secs,15,30);
+ else cfg=`<div class="mu">No settings. Just start.</div>`;
+ return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
+ <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}
+ ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}</main>`;
+}
+const pickList=(ids,me)=>{const m=S.A[S.id]?.k===S.R.k?S.A[S.id].t:null;return `<div class="pick">${ids.filter(p=>p!==me).map(p=>`<button class="${m===p?'on':''}" data-a="pick" data-p="${p}">${nm(p)}</button>`).join('')}</div>`};
+const waitN=need=>`<p class="mu">${need.filter(p=>S.A[p]?.k===S.R.k).length} of ${need.length} done</p>`;
+const logBox=R=>R.log?note(R.log):'';
+const chipsAll=R=>`<div class="lbl">Players</div>${Object.keys(R.roles||{}).map(p=>`<span class="chip ${p===S.id?'me':''} ${R.alive[p]?'':'dead'}">${nm(p)}</span>`).join('')}`;
+function mafiaView(){
+ const R=S.R,me=S.id,role=R.roles[me],al=alive(R),dead=!R.alive[me],ph=R.phase;
+ if(!role)return `<main>${note('Game in progress. You will join the next round.')}</main>`;
+ if(ph==='reveal')return `<main><div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">You are</div><div class="big">${ROLES[role]}</div><div class="mu">${RDESC[role]}</div><div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your role</div><div class="mu">Keep it secret</div>`}</div>${isHost()?`<button class="btn a" data-a="begin">Everyone is ready. Begin night</button>`:`<p class="mu">Waiting for the host…</p>`}</main>`;
+ if(ph==='night'){
+  if(dead)return `<main>${note('You are out. Watch quietly.')}</main>`;
+  if(role==='civilian')return `<main><div class="big">Night</div><p class="mu">Everyone sleeps. Wait for morning.</p></main>`;
+  const cnt={};al.filter(p=>R.roles[p]===role&&S.A[p]?.k===R.k).forEach(p=>cnt[S.A[p].t]=(cnt[S.A[p].t]||0)+1);
+  const ttl={mafia:'Who do you eliminate?',doctor:'Who do you save?',police:'Who do you investigate?'}[role],opts=role==='doctor'?al:al.filter(p=>p!==me);
+  return `<main><div class="lbl" style="margin-top:8px">${ROLES[role]}</div><div class="big">${ttl}</div>${(R.rej||[]).includes(role)?note('Your team did not agree. Choose again.'):''}${pickList(opts,null)}
+  <div class="lbl">Team picks (anonymous)</div>${Object.keys(cnt).length?Object.keys(cnt).map(t=>`<div class="row"><span>${nm(t)}</span><span>${cnt[t]} ${cnt[t]>1?'votes':'vote'}</span></div>`).join(''):'<p class="mu">No picks yet.</p>'}
+  <p class="mu">If you have teammates, everyone on your team must pick the same person. You won’t see who they are.</p></main>`;
+ }
+ if(ph==='morning'){const r=R.inv?.[me];return `<main><div class="lbl" style="margin-top:8px">${R.next==='day'?'Morning':'Day result'}</div>${logBox(R)||''}${role==='police'&&r&&r.r===R.round&&R.next==='day'?note(`Investigation: ${nm(r.t)} is ${r.m?'<b>Mafia</b>':'<b>not Mafia</b>'}.`):''}${isHost()?`<button class="btn a" data-a="${R.next==='day'?'toDay':'nextRound'}">${R.next==='day'?'Start discussion and vote':'Next night'}</button>`:`<p class="mu">Waiting for the host…</p>`}${chipsAll(R)}</main>`}
+ if(ph==='day'){
+  if(dead)return `<main>${note('You are out. Watch the vote.')}${waitN(al)}</main>`;
+  return `<main><div class="lbl" style="margin-top:8px">Vote</div><div class="big">Who is the mafia?</div>${logBox(R)}${pickList(R.cands||al,me)}${waitN(al)}${chipsAll(R)}</main>`;
+ }
+}
+function imposterView(){
+ const R=S.R,me=S.id,role=R.roles[me],al=alive(R),dead=!R.alive[me];
+ if(!role)return `<main>${note('Game in progress. You will join the next round.')}</main>`;
+ const word=role==='imp'?R.words.imp:R.words.crew,wd=`<div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">${esc(R.cat)}</div><div class="big">${esc(word)}</div><div class="mu">Tap to hide</div>`:`<div class="big">Tap to see your word</div>`}</div>`;
+ if(R.phase==='play')return `<main>${wd}<p>Take turns describing your word without saying it. <b>${nm(R.first)}</b> goes first.</p><p class="mu">Someone has a slightly different word. Can you spot them?</p>${logBox(R)}${isHost()?`<button class="btn a" data-a="toVote">Start voting</button>`:''}${chipsAll(R)}</main>`;
+ if(R.phase==='vote')return `<main>${wd}${dead?note('You are out.'):`<div class="lbl">Vote</div><div class="big">Who is the imposter?</div>${logBox(R)}${pickList(R.cands||al,me)}`}${waitN(al)}${chipsAll(R)}</main>`;
+ return `<main>${logBox(R)}${wd}${isHost()?`<button class="btn a" data-a="nextRound">Next round</button>`:`<p class="mu">Waiting for the host…</p>`}${chipsAll(R)}</main>`;
+}
+function over(){
+ const R=S.R,w=R.winner,T={town:'Town wins',mafia:'Mafia wins',crew:'Crew wins',imps:'Imposters win'}[w];
+ return `<main><div class="win">${T}</div>${logBox(R)}${R.game==='imposter'?`<p>Crew word: <b>${esc(R.words.crew)}</b><br>Imposter word: <b>${esc(R.words.imp)}</b></p>`:''}
+ <div class="lbl">Roles</div>${Object.keys(R.roles).map(p=>`<div class="row"><span>${nm(p)}</span><span>${R.game==='mafia'?ROLES[R.roles[p]]:(R.roles[p]==='imp'?'Imposter':'Crew')}</span></div>`).join('')}${board(R)}${hostBtns(false)}</main>`;
+}
+const TOOLS=`<div class="tools"><button class="tool" data-a="tool" data-t="pen">Pencil</button><button class="tool" data-a="tool" data-t="eraser">Eraser</button><button class="tool" data-a="clr">Clear</button></div>
+<div class="tools">${COLS.map(c=>`<button class="tool sw" data-a="col" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
+<div class="tools"><button class="tool" data-a="sz" data-s="3">Thin</button><button class="tool" data-a="sz" data-s="6">Medium</button><button class="tool" data-a="sz" data-s="12">Thick</button></div>`;
+const sl=(i,l,mx)=>`<label class="sl"><span class="lbl" style="margin:10px 0 0">${l}</span><input type="range" id="s${i}" min="0" max="${mx}" oninput="onSl(${i},this.value)"></label>`;
+function partyView(){
+ const R=S.R,me=S.id,ph=R.phase,g=R.game;
+ if(!R.pl.includes(me))return `<main>${note('Round in progress. You will join the next one.')}</main>`;
+ const waiting=`<p class="mu" style="margin-top:20px">Submitted. Waiting for others… <span id="tm"></span>s · <span id="pg"></span></p>`;
+ if(g==='draw'){
+  if(ph==='draw')return S.sub===R.k?`<main><div class="big">Nice.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Draw this · <span id="tm"></span>s</div><div class="big">${esc(R.words[me])}</div><canvas id="cv" width="480" height="480"></canvas>${TOOLS}<button class="btn a" data-a="done">Done</button></main>`;
+  if(ph==='guess'){const a=S.arts[R.assign[me]],img=a&&a.k===R.g+':'+R.round?safe(a.img):'';
+   return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">What is this drawing? · <span id="tm"></span>s</div>${img?`<img src="${img}" style="width:100%;border:1px solid var(--line);border-radius:12px;background:#fff">`:'<p class="mu">Loading drawing…</p>'}<div style="height:12px"></div><input type="text" id="gs" maxlength="30" placeholder="Your guess" autocomplete="off"><button class="btn a" data-a="guess">Submit guess</button></main>`}
+  return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} results</div><div class="gal">${R.res.map(r=>{const a=S.arts[r.a],img=a&&a.k===R.g+':'+R.round?safe(a.img):'';return `<div><img src="${img}"><small><b>${nm(r.a)}</b> drew “${esc(r.w)}”<br>${nm(r.gu)} guessed “${esc(r.tx||'—')}” · ${r.hit?'<b>correct</b>':'wrong'}</small></div>`}).join('')}</div>${board(R)}${hostBtns(true)}</main>`;
+ }
+ if(g==='color'){
+  if(ph==='show')return `<main><div class="lbl" style="margin-top:8px">Memorize this color · <span id="tm"></span>s</div><div class="swatch" style="height:320px;background:${css(R.tc)}"></div></main>`;
+  if(ph==='pick')return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Recreate it · <span id="tm"></span>s</div><div class="swatch" id="pv"></div>${sl(0,'Hue',360)}${sl(1,'Saturation',100)}${sl(2,'Brightness',100)}<button class="btn a" data-a="cpick">Lock in</button></main>`;
+  return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} · target</div><div class="swatch" style="background:${css(R.tc)}"></div><div class="lbl">Accuracy</div>${R.res.map((r,i)=>`<div class="row"><span><span class="sw2" style="background:${r.c?css(r.c):'transparent'}"></span>${i+1}. ${nm(r.p)}</span><b>${r.acc.toFixed(1)}%</b></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
+ }
+ if(ph==='vote')return `<main><div class="lbl" style="margin-top:8px">Round ${R.round}</div><div class="big">${esc(R.prompt)}</div>${S.sub===R.k?'':''}${pickList(R.pl,me)}${waitN(R.pl)}</main>`;
+ const mx=R.res[0]?.n||1;
+ return `<main><div class="lbl" style="margin-top:8px">${esc(R.prompt)}</div>${R.res.map(r=>`<div style="padding:10px 0"><div style="display:flex;justify-content:space-between"><span>${nm(r.p)}</span><b>${r.n}</b></div><div class="bar2" style="width:${r.n/mx*100}%"></div></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
+}
+/* ---------- widgets that must survive re-renders ---------- */
+function markTools(){document.querySelectorAll('.tool').forEach(b=>{const d=b.dataset;b.classList.toggle('on',(d.a==='tool'&&d.t===S.tool)||(d.a==='col'&&d.c===S.col&&S.tool==='pen')||(d.a==='sz'&&+d.s===S.sz))})}
+function initCv(){
+ const c=$('#cv'),x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,480,480);x.lineCap=x.lineJoin='round';
+ if(S.artData){const i=new Image;i.onload=()=>x.drawImage(i,0,0,480,480);i.src=S.artData}
+ let d=false,l;const pt=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*480/r.width,(e.clientY-r.top)*480/r.height]};
+ const dot=(a,b)=>{x.strokeStyle=S.tool==='eraser'?'#fff':S.col;x.lineWidth=S.tool==='eraser'?S.sz*3:S.sz;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke()};
+ c.onpointerdown=e=>{d=true;l=pt(e);c.setPointerCapture(e.pointerId);dot(l,[l[0]+.1,l[1]])};
+ c.onpointermove=e=>{if(!d)return;const p=pt(e);dot(l,p);l=p};
+ c.onpointerup=c.onpointercancel=()=>{if(d){d=false;S.artData=c.toDataURL('image/jpeg',.6)}};
+}
+function paintSl(){const[h,s,v]=S.pick;$('#pv').style.background=css(S.pick);
+ $('#s1').style.background=`linear-gradient(90deg,${css([h,0,v])},${css([h,100,v])})`;$('#s2').style.background=`linear-gradient(90deg,#000,${css([h,s,100])})`}
+function onSl(i,v){S.pick[i]=+v;paintSl()}
+function initSl(){$('#s0').style.background='linear-gradient(90deg,'+[0,60,120,180,240,300,360].map(h=>css([h,100,100])).join(',')+')';[0,1,2].forEach(i=>$('#s'+i).value=S.pick[i]);paintSl()}
+function after(){
+ if($('#cv'))initCv();if($('#s0'))initSl();markTools();
+ if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
+}
+function render(){
+ if(!$('#app'))return;const R=S.R;let h;
+ if(!S.code||!R)h=home();
+ else{const g=G(R.game);
+  h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;
+  h+=R.phase==='lobby'?lobby():R.phase==='over'?over():R.game==='mafia'?mafiaView():R.game==='imposter'?imposterView():partyView();
+ }
+ const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
+ if(ae&&ae.tagName==='INPUT'&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
+ if(h===render.h)return;const y=window.scrollY;
+ $('#app').classList.toggle('noanim',key===render.key);
+ $('#app').innerHTML=h;window.scrollTo(0,y);render.h=h;render.key=key;after();
+}
+</script></body></html>
