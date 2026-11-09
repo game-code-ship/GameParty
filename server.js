@@ -2,7 +2,10 @@
 const http=require('http'),fs=require('fs'),path=require('path'),os=require('os');
 const {WebSocketServer}=require('ws');
 const store=new Map();            // "rooms/ABCD/players/u1" -> object
+<<<<<<< HEAD
 const logs=new Map();             // "rooms/ABCD/log/chat" -> {n:seq,a:[items]}  append-only logs (drawing strokes, chat)
+=======
+>>>>>>> test
 const touched=new Map();          // room code -> last activity
 const par=p=>p.split('/').slice(0,-1).join('/');
 const server=http.createServer((req,res)=>{
@@ -30,6 +33,7 @@ wss.on('connection',ws=>{
     const code=m.p.split('/')[1];
     const ack=o=>ws.send(JSON.stringify({t:'ack',rid:m.rid,...o}));
     if(m.t==='get')return ack({d:store.has(m.p)?store.get(m.p):null});
+<<<<<<< HEAD
     if(m.t==='sub'){ws.subs.set(m.sid,{p:m.p,k:m.k});
       if(m.k==='l')return ws.send(JSON.stringify({t:'log',sid:m.sid,full:1,items:(logs.get(m.p)||{a:[]}).a}));
       return ws.send(JSON.stringify({...(m.k==='d'?snapDoc(m.p):snapCol(m.p)),sid:m.sid}))}
@@ -46,6 +50,13 @@ wss.on('connection',ws=>{
     if(m.t==='set'||m.t==='upd'){
       if(!m.d||typeof m.d!=='object'||JSON.stringify(m.d).length>70000)return ack({});
       store.set(m.p,m.t==='set'?m.d:{...(store.get(m.p)||{}),...m.d});
+=======
+    if(m.t==='sub'){ws.subs.set(m.sid,{p:m.p,k:m.k});return ws.send(JSON.stringify({...(m.k==='d'?snapDoc(m.p):snapCol(m.p)),sid:m.sid}))}
+    if(m.t==='set'||m.t==='upd'){
+      if(!m.d||typeof m.d!=='object'||JSON.stringify(m.d).length>70000)return ack({});
+      let d=m.d;if(/\/acts\/[^/]+$/.test(m.p))d={...d,_ts:Date.now()}; // server time = fair 'fastest finger' ordering
+      store.set(m.p,m.t==='set'?d:{...(store.get(m.p)||{}),...d});
+>>>>>>> test
     }else if(m.t==='del')store.delete(m.p);
     else return;
     touched.set(code,Date.now());notify(m.p);ack({});
@@ -54,7 +65,10 @@ wss.on('connection',ws=>{
 setInterval(()=>{ // drop rooms idle for 6 hours
   for(const [code,t] of touched)if(Date.now()-t>6*3600e3){
     for(const k of [...store.keys()])if(k.split('/')[1]===code)store.delete(k);
+<<<<<<< HEAD
     for(const k of [...logs.keys()])if(k.split('/')[1]===code)logs.delete(k);
+=======
+>>>>>>> test
     touched.delete(code);
   }
 },600e3);
@@ -64,4 +78,8 @@ server.listen(PORT,'0.0.0.0',()=>{
   console.log(`   This computer:  http://localhost:${PORT}`);
   for(const l of Object.values(os.networkInterfaces()))for(const i of l)
     if(i.family==='IPv4'&&!i.internal)console.log(`   Same Wi-Fi:     http://${i.address}:${PORT}   <- open THIS on the host device so the QR works for phones\n`);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> test

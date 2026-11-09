@@ -31,6 +31,7 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 .swatch{height:150px;border-radius:14px;border:1px solid var(--line)}.sw2{display:inline-block;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);vertical-align:middle;margin-right:8px}
 .gal{display:grid;grid-template-columns:1fr 1fr;gap:14px}.gal img{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}.gal small{display:block;color:var(--mu);font-size:13px;line-height:1.3;margin-top:4px}
 .bar2{height:6px;background:var(--ink);border-radius:3px;margin-top:4px}
+<<<<<<< HEAD
 #pcv{width:100%;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:12px;touch-action:none;display:block;margin-top:10px}
 .phead{display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-size:14px;color:var(--mu)}.phead b{color:var(--ink);font-size:22px}
 .pword{margin-top:6px;text-align:center}.pword .lbl{margin:6px 0}
@@ -47,6 +48,13 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 </style></head><body><div id="app"></div><div id="toast"></div>
 <button id="fab" data-a="fopen">Chat<i id="fbadge"></i></button>
 <div id="fpanel"><div class="crow"><b>Chat</b><button class="btn s o" data-a="fclose">Close</button></div><div class="chat" id="fchat"></div><div class="cin"><input type="text" id="fci" maxlength="80" placeholder="Say something" autocomplete="off"><button class="btn a" data-a="csend" data-i="fci">Send</button></div></div>
+=======
+.tgl{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:.15s}.tgl i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.35);transition:.15s}.tgl.on{background:var(--acc)}.tgl.on i{left:21px}
+.badge{display:inline-block;border:1px solid var(--mu);border-radius:999px;padding:2px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.mv{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;margin:12px 0}.mv .big{font-size:30px;margin:8px 0 4px}.mv p{margin:8px 0 0}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;display:none;z-index:9;font-size:15px}
+</style></head><body><div id="app"></div><div id="toast"></div>
+>>>>>>> test
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* ---------- Registry: add new games here ---------- */
@@ -56,6 +64,7 @@ const GAMES=[
  {id:'draw',n:'Draw & Guess',d:'Draw a secret word. A stranger guesses it.',min:3},
  {id:'color',n:'Color Match',d:'Memorize a color, then recreate it exactly.',min:2},
  {id:'likely',n:'Most Likely To',d:'Vote for who fits the prompt best.',min:3},
+<<<<<<< HEAD
  {id:'pict',n:'Pictionary',d:'One draws live, the rest guess in chat. Half-right words get locked in.',min:2}];
 const DEF={mafia:{mafia:1,doctor:1,police:1},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},pict:{secs:80,rounds:2}};
 const CATS=`Fruit|Apple-Pear,Mango-Peach,Orange-Tangerine,Banana-Plantain,Lemon-Lime,Grapes-Berry,Strawberry-Raspberry,Blueberry-Blackberry,Cherry-Plum,Apricot-Peach,Watermelon-Muskmelon,Pineapple-Jackfruit,Guava-Pomegranate,Papaya-Mango,Kiwi-Gooseberry,Lychee-Longan,Fig-Date,Coconut-Walnut,Grapefruit-Pomelo,Custard Apple-Soursop,Dragon Fruit-Passion Fruit,Mulberry-Blackberry,Cranberry-Cherry,Nectarine-Peach,Persimmon-Tomato,Apple-Guava,Pear-Quince,Orange-Mango,Banana-Papaya,Sapota-Kiwi,Amla-Gooseberry,Jamun-Grapes,Tamarind-Date,Raisin-Grapes,Melon-Watermelon,Cantaloupe-Honeydew,Avocado-Mango,Starfruit-Guava,Mandarin-Orange,Clementine-Tangerine,Lemon-Orange,Lime-Green Apple,Pomegranate-Cherry,Strawberry-Cherry,Raspberry-Blackberry,Blueberry-Grapes,Plum-Peach,Apricot-Mango,Jackfruit-Durian,Durian-Pineapple,Mango-Pineapple,Banana-Apple,Watermelon-Papaya,Kiwi-Avocado,Coconut-Pineapple,Fig-Raisin,Date-Prune,Prune-Plum,Chikoo-Persimmon,Lychee-Rambutan,Rambutan-Mangosteen,Mangosteen-Lychee,Guava-Pear,Papaya-Melon,Orange-Grapefruit,Lemon-Grapefruit,Apple-Peach,Apple-Plum,Pear-Peach,Cherry-Grapes,Strawberry-Tomato,Strawberry-Watermelon,Mango-Banana,Mango-Guava,Banana-Jackfruit,Pineapple-Orange,Pineapple-Papaya,Pomegranate-Apple,Pomegranate-Grapes,Grapes-Plum,Grapes-Lychee,Kiwi-Lime,Kiwi-Strawberry,Lime-Orange,Tangerine-Mandarin,Pomelo-Orange,Blackcurrant-Blueberry,Redcurrant-Cranberry,Elderberry-Blueberry,Gooseberry-Grapes,Cherry-Apricot,Peach-Orange,Watermelon-Cucumber,Muskmelon-Cantaloupe,Honeydew-Watermelon,Papaya-Pumpkin,Dragon Fruit-Kiwi,Passion Fruit-Guava,Custard Apple-Jackfruit,Jackfruit-Breadfruit,Coconut-Melon,Avocado-Pear
@@ -73,6 +82,459 @@ const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
 let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:''};
+=======
+ {id:'charades',n:'Dumb Charades',d:'Act out underrated movies. Bollywood, Hollywood or both.',min:2},
+ {id:'trivia',n:'Quick Trivia',d:'Fastest finger first. The first correct answer takes the points.',min:2},
+ {id:'wyr',n:'Would You Rather',d:'Pick a side. Score by landing with the majority.',min:3}];
+const DEF={mafia:{mafia:1,doctor:1,police:1,anon:true},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},charades:{ind:'both',secs:90,mode:'ffa'},trivia:{secs:20},wyr:{}};
+
+/* Trivia: question|correct answer|wrong|wrong|wrong (options are shuffled each round) */
+const QS=`What is the capital of Australia?|Canberra|Sydney|Melbourne|Perth
+Which planet is known as the Red Planet?|Mars|Venus|Jupiter|Mercury
+Who wrote the Indian national anthem?|Rabindranath Tagore|Bankim Chandra Chatterjee|Sarojini Naidu|Muhammad Iqbal
+How many players are in a cricket team on the field?|11|9|10|12
+Which is the largest ocean on Earth?|Pacific|Atlantic|Indian|Arctic
+In which year did India win its first Cricket World Cup?|1983|1975|1987|1992
+What is the chemical symbol for gold?|Au|Ag|Gd|Go
+Which city is known as the Pink City of India?|Jaipur|Jodhpur|Udaipur|Agra
+Who painted the Mona Lisa?|Leonardo da Vinci|Michelangelo|Raphael|Vincent van Gogh
+How many continents are there?|7|5|6|8
+Which gas do plants absorb for photosynthesis?|Carbon dioxide|Oxygen|Nitrogen|Hydrogen
+The Taj Mahal is in which city?|Agra|Delhi|Lucknow|Jaipur
+What is the smallest prime number?|2|1|3|0
+Who is called the Father of the Nation in India?|Mahatma Gandhi|Jawaharlal Nehru|Sardar Patel|B. R. Ambedkar
+What is the hardest natural substance?|Diamond|Quartz|Iron|Granite
+What is the national animal of India?|Tiger|Lion|Elephant|Leopard
+How many sides does a hexagon have?|6|5|7|8
+Which country gifted the Statue of Liberty to the USA?|France|England|Spain|Italy
+What is the largest mammal?|Blue whale|African elephant|Giraffe|Hippopotamus
+Which instrument has 88 keys?|Piano|Guitar|Violin|Flute
+Who directed the 1997 film Titanic?|James Cameron|Steven Spielberg|Christopher Nolan|Ridley Scott
+Which film has the dialogue "Mogambo khush hua"?|Mr. India|Sholay|Don|Deewaar
+What is the currency of Japan?|Yen|Won|Yuan|Ringgit
+Which planet is famous for its bright rings?|Saturn|Mars|Mercury|Venus
+H2O is the chemical formula of what?|Water|Hydrogen peroxide|Salt|Ammonia
+Which festival is called the Festival of Lights?|Diwali|Holi|Eid|Navratri
+How many strings does a standard guitar have?|6|4|5|7
+Which element has atomic number 1?|Hydrogen|Helium|Oxygen|Carbon
+What is the tallest mountain above sea level?|Mount Everest|K2|Kangchenjunga|Kilimanjaro
+In which sport do you do a slam dunk?|Basketball|Volleyball|Handball|Netball
+Who was the first person to walk on the Moon?|Neil Armstrong|Buzz Aldrin|Yuri Gagarin|Rakesh Sharma
+Which Indian city is called the Silicon Valley of India?|Bengaluru|Hyderabad|Pune|Chennai
+How many days are in a leap year?|366|365|364|367
+What is the largest planet in our solar system?|Jupiter|Saturn|Neptune|Earth
+Which animal is called the Ship of the Desert?|Camel|Horse|Donkey|Elephant
+Which city has the Gateway of India?|Mumbai|Kolkata|Chennai|Delhi
+Who wrote the Harry Potter books?|J. K. Rowling|J. R. R. Tolkien|Roald Dahl|Suzanne Collins
+Which blood group is the universal donor?|O negative|AB positive|A positive|B negative
+What is the national flower of India?|Lotus|Rose|Marigold|Jasmine
+Which vitamin does sunlight help your body make?|Vitamin D|Vitamin C|Vitamin A|Vitamin B12
+How many hours are there in a week?|168|144|156|172
+Who was the first Prime Minister of India?|Jawaharlal Nehru|Sardar Patel|Lal Bahadur Shastri|Indira Gandhi
+Which is the national bird of India?|Peacock|Parrot|Sparrow|Eagle
+In which year did India gain independence?|1947|1950|1942|1948
+Which river is considered the holiest in India?|Ganga|Yamuna|Godavari|Narmada
+Which Indian state has the largest area?|Rajasthan|Madhya Pradesh|Maharashtra|Uttar Pradesh
+What is the capital of Kerala?|Thiruvananthapuram|Kochi|Kozhikode|Thrissur
+Which city is known as the City of Joy?|Kolkata|Mumbai|Varanasi|Lucknow
+Who was the first woman Prime Minister of India?|Indira Gandhi|Sarojini Naidu|Pratibha Patil|Sonia Gandhi
+Which monument is called the Symbol of Love?|Taj Mahal|Red Fort|Qutub Minar|India Gate
+Who is known as the Missile Man of India?|A. P. J. Abdul Kalam|Vikram Sarabhai|Homi Bhabha|C. V. Raman
+Who won the Nobel Prize in Literature in 1913?|Rabindranath Tagore|Premchand|R. K. Narayan|Harivansh Rai Bachchan
+Where is the headquarters of ISRO?|Bengaluru|Mumbai|Hyderabad|Thiruvananthapuram
+What was India's Mars mission launched in 2013 called?|Mangalyaan|Chandrayaan|Aditya|Gaganyaan
+Chandrayaan-3 landed near which part of the Moon?|The south pole region|The north pole|The far side|The equator
+Which sport is Neeraj Chopra famous for?|Javelin throw|Shot put|Discus throw|Hammer throw
+Who has scored the most international centuries in men's cricket?|Sachin Tendulkar|Virat Kohli|Ricky Ponting|Jacques Kallis
+Which country won the FIFA World Cup in 2022?|Argentina|France|Brazil|Croatia
+Which country hosted the 2016 Summer Olympics?|Brazil|China|United Kingdom|Japan
+How many rings are on the Olympic flag?|5|4|6|7
+In which sport is the term "love" used for zero?|Tennis|Cricket|Golf|Hockey
+Which Indian cricketer is nicknamed Captain Cool?|MS Dhoni|Virat Kohli|Rohit Sharma|Sourav Ganguly
+Which team won the first IPL in 2008?|Rajasthan Royals|Chennai Super Kings|Mumbai Indians|Deccan Chargers
+Which film has the dialogue "Kitne aadmi the?"|Sholay|Deewaar|Don|Zanjeer
+Who played Raj in Dilwale Dulhania Le Jayenge?|Shah Rukh Khan|Aamir Khan|Salman Khan|Saif Ali Khan
+Which film's song "Naatu Naatu" won an Oscar?|RRR|Baahubali 2|Pushpa|KGF Chapter 2
+Who directed 3 Idiots?|Rajkumar Hirani|Karan Johar|Rohit Shetty|Sanjay Leela Bhansali
+Which actor is known as Big B?|Amitabh Bachchan|Anil Kapoor|Abhishek Bachchan|Akshay Kumar
+Who sang Lag Ja Gale in the 1964 film Woh Kaun Thi?|Lata Mangeshkar|Asha Bhosle|Shreya Ghoshal|Alka Yagnik
+A. R. Rahman won his Oscars for which film?|Slumdog Millionaire|Lagaan|Rang De Basanti|Dil Se
+Which movie features the character Rancho?|3 Idiots|PK|Dangal|Taare Zameen Par
+Who played the title role in Munna Bhai M.B.B.S.?|Sanjay Dutt|Arshad Warsi|Salman Khan|Ajay Devgn
+In Harry Potter, which house is Harry sorted into?|Gryffindor|Slytherin|Hufflepuff|Ravenclaw
+Which animated film features a clownfish named Nemo?|Finding Nemo|Shark Tale|Moana|Madagascar
+Who plays Iron Man in the Marvel films?|Robert Downey Jr.|Chris Evans|Chris Hemsworth|Mark Ruffalo
+Which film won Best Picture at the Oscars held in 2020?|Parasite|1917|Joker|Ford v Ferrari
+Which series features a place called the Upside Down?|Stranger Things|Dark|Black Mirror|The Witcher
+Who created Sherlock Holmes?|Arthur Conan Doyle|Agatha Christie|Charles Dickens|Edgar Allan Poe
+Who wrote Romeo and Juliet?|William Shakespeare|Charles Dickens|Jane Austen|Mark Twain
+Who is traditionally credited with writing the Mahabharata?|Ved Vyasa|Valmiki|Kalidasa|Tulsidas
+Who is traditionally credited with writing the Ramayana?|Valmiki|Ved Vyasa|Tulsidas|Kalidasa
+What is the capital of Canada?|Ottawa|Toronto|Vancouver|Montreal
+What is the capital of Brazil?|Brasília|Rio de Janeiro|São Paulo|Salvador
+Which river flows through Egypt?|Nile|Tigris|Danube|Volga
+Which is the smallest country in the world?|Vatican City|Monaco|San Marino|Liechtenstein
+Which country has the largest population today?|India|China|United States|Indonesia
+What is the capital of Japan?|Tokyo|Kyoto|Osaka|Seoul
+In which country is the Eiffel Tower?|France|Italy|Belgium|Spain
+In which city is the Colosseum?|Rome|Athens|Paris|Milan
+Which is the largest country by area?|Russia|Canada|China|United States
+Which continent is the Sahara Desert in?|Africa|Asia|Australia|South America
+Mount Fuji is in which country?|Japan|China|South Korea|Nepal
+Which sea is so salty that you float easily in it?|Dead Sea|Red Sea|Black Sea|Yellow Sea
+What is the capital of the USA?|Washington, D.C.|New York|Los Angeles|Chicago
+Which country is called the Land of the Rising Sun?|Japan|China|Thailand|South Korea
+The Great Wall is in which country?|China|India|Japan|Mongolia
+What is the capital of Egypt?|Cairo|Alexandria|Giza|Luxor
+Kangaroos are native to which country?|Australia|New Zealand|South Africa|Brazil
+Which ocean lies to the south of India?|Indian Ocean|Pacific Ocean|Atlantic Ocean|Arctic Ocean
+What is the powerhouse of the cell?|Mitochondria|Nucleus|Ribosome|Golgi body
+How many bones are in an adult human body?|206|186|226|256
+At sea level, water boils at how many degrees Celsius?|100|90|120|80
+Which planet is closest to the Sun?|Mercury|Venus|Earth|Mars
+Roughly how fast does light travel?|300,000 km/s|150,000 km/s|3,000 km/s|30,000 km/s
+What is the chemical symbol for sodium?|Na|S|So|Sd
+Which gas makes up most of Earth's atmosphere?|Nitrogen|Oxygen|Carbon dioxide|Argon
+Which organ pumps blood around the body?|Heart|Liver|Lungs|Kidney
+Who proposed the theory of relativity?|Albert Einstein|Isaac Newton|Galileo Galilei|Nikola Tesla
+What is the chemical symbol for iron?|Fe|Ir|In|I
+What is the closest star to Earth?|The Sun|Proxima Centauri|Sirius|Polaris
+Which force pulls objects towards the Earth?|Gravity|Magnetism|Friction|Inertia
+How many planets are in our solar system?|8|9|7|10
+Which blood cells carry oxygen?|Red blood cells|White blood cells|Platelets|Plasma
+What is the largest organ of the human body?|Skin|Liver|Brain|Heart
+What is the SI unit of force?|Newton|Joule|Watt|Pascal
+Who discovered penicillin?|Alexander Fleming|Louis Pasteur|Marie Curie|Edward Jenner
+Which metal is liquid at room temperature?|Mercury|Lead|Aluminium|Tin
+What type of animal is a dolphin?|Mammal|Fish|Reptile|Amphibian
+Who was the first President of the United States?|George Washington|Abraham Lincoln|Thomas Jefferson|John Adams
+In which year did World War II end?|1945|1939|1950|1943
+Who is commonly credited with reaching the Americas in 1492?|Christopher Columbus|Vasco da Gama|Marco Polo|Ferdinand Magellan
+Which Mughal emperor built the Taj Mahal?|Shah Jahan|Akbar|Babur|Aurangzeb
+Who was the first Mughal emperor?|Babur|Akbar|Humayun|Jahangir
+Which civilisation built the pyramids of Giza?|Ancient Egyptians|Romans|Greeks|Mayans
+Who led the Dandi Salt March in 1930?|Mahatma Gandhi|Subhas Chandra Bose|Bhagat Singh|Jawaharlal Nehru
+Who gave the slogan "Jai Jawan Jai Kisan"?|Lal Bahadur Shastri|Jawaharlal Nehru|Indira Gandhi|Sardar Patel
+Who is known as the Iron Man of India?|Sardar Vallabhbhai Patel|Subhas Chandra Bose|Bal Gangadhar Tilak|Lala Lajpat Rai
+In which year did the Titanic sink?|1912|1905|1920|1898
+Who co-founded Microsoft with Paul Allen?|Bill Gates|Steve Jobs|Elon Musk|Mark Zuckerberg
+What does WWW stand for?|World Wide Web|World Web Window|Wide World Web|Web World Wire
+Which company makes the iPhone?|Apple|Samsung|Google|Nokia
+What does CPU stand for?|Central Processing Unit|Central Program Unit|Core Processing Utility|Computer Personal Unit
+Which company develops the Android operating system?|Google|Apple|Microsoft|Meta
+Which language has the most native speakers in India?|Hindi|Bengali|Tamil|Telugu
+Mixing blue and yellow gives which colour?|Green|Purple|Orange|Brown
+How many minutes are there in a day?|1,440|1,240|1,640|2,400
+How many letters are in the English alphabet?|26|24|25|28
+Which is the only mammal that can truly fly?|Bat|Flying squirrel|Sugar glider|Colugo
+Which dish is a fermented rice and lentil crepe?|Dosa|Paratha|Roti|Puri
+Paneer is made from what?|Milk|Soy|Cashew|Coconut
+Which is the largest hot desert in the world?|Sahara|Gobi|Thar|Kalahari
+Which bird is a symbol of peace?|Dove|Crow|Owl|Eagle
+Which festival is known for throwing colours?|Holi|Diwali|Baisakhi|Onam
+Which instrument is associated with Pandit Ravi Shankar?|Sitar|Tabla|Flute|Sarod
+How many players are in a football (soccer) team on the pitch?|11|9|10|12
+Which fruit is known as the king of fruits in India?|Mango|Banana|Apple|Jackfruit`.split('\n').map(l=>{const[q,...o]=l.split('|');return{q,o}});
+/* Would You Rather: option A|option B */
+const WYRS=`Be able to fly|Be invisible
+Always be 10 minutes late|Always be 20 minutes early
+Live without music|Live without movies
+Eat biryani every day for life|Eat pizza every day for life
+Travel to the past|Travel to the future
+Be famous but broke|Be rich but unknown
+Speak every language|Talk to animals
+Never use social media again|Never watch a movie or series again
+Have a rewind button for your life|Have a pause button for your life
+Live in the mountains|Live by the beach
+Fight one horse-sized duck|Fight a hundred duck-sized horses
+Give up chai and coffee forever|Give up sweets forever
+Always know when someone lies|Always get away with lying
+Be the funniest person in the room|Be the smartest person in the room
+Lose your phone for a month|Lose your wallet for a month
+Only eat spicy food|Only eat bland food
+Be a superhero|Be a billionaire
+Wake up at 5 AM every day|Sleep at 3 AM every day
+Never be stuck in traffic again|Never wait in a queue again
+Have a personal chef|Have a personal driver
+Explore space|Explore the deep ocean
+Always have to sing instead of talking|Always have to dance instead of walking
+Be able to read minds|Be able to see the future
+Live without AC|Live without a fridge
+Have a pet dinosaur|Have a pet dragon
+Relive your school days|Skip ahead to retirement
+Have an extra pair of arms|Have an extra pair of eyes
+Win a free holiday but go alone|Pay for a holiday and go with your best friends
+Eat only street food for a year|Eat only home food for a year
+Be stuck in a lift for an hour with no phone|Be stuck in traffic for three hours with no music
+Teleport anywhere instantly|Never need to sleep
+Breathe underwater|Survive in space without a suit
+Have unlimited free flights|Have unlimited free food delivery
+Never feel cold|Never feel hot
+Live in a treehouse|Live on a houseboat
+Always say what you think|Never say what you think
+Be a famous singer|Be a famous cricketer
+Be a Bollywood star|Be a Hollywood star
+Have an undo button for money spent|Have a rewind button for conversations
+Win the lottery today|Get your dream job tomorrow
+Have a perfect memory|Have perfect intuition
+Live in the 1990s|Live in the year 2100
+Sit through a five-day Test match|Sit through a five-hour wedding ceremony
+Eat only dessert for a week|Eat only vegetables for a week
+Have a huge family dinner every day|Eat alone in peace every day
+Own a bookstore|Own a café
+Be the best player on a bad team|Be the worst player on a great team
+Know every secret about your friends|Have none of your secrets ever known
+Never do office or school work again|Never do household chores again
+Lose all your photos|Lose all your contacts
+Have free Wi-Fi everywhere|Have free chai everywhere
+Have the hiccups all day|Have a song stuck in your head all day
+Be a great dancer|Be a great singer
+Take a cold shower every morning|Skip breakfast every morning
+Live in a big city|Live in a small village
+Be a detective|Be an astronaut
+Have a monkey butler|Have a parrot that repeats all your secrets
+Never get lost again|Never lose anything again
+Have every traffic light turn green for you|Always find a parking spot instantly
+Own a private island|Own a castle
+Only watch old movies|Only watch new movies
+Be a world-class chef|Be a world-class painter
+Go to a concert of your favourite artist|Go on a trip to your dream destination
+Get a lump sum of money today|Get a fixed monthly income for life
+Always have a full phone battery|Always have unlimited mobile data
+Visit any country for free whenever you like|Visit any time period just once
+Freeze time whenever you want|Speed up time whenever you want
+Have everyone laugh at your jokes|Have everyone remember your name
+Run a chai stall|Run a pani puri stall
+Be known as the kindest person|Be known as the cleverest person
+Eat dosa every morning|Eat paratha every morning
+Watch cricket all day|Play video games all day
+Cook anything perfectly|Fix anything instantly
+Be a contestant on a reality show|Be a judge on a reality show
+Always get the window seat|Always get the aisle seat
+Eat with chopsticks forever|Eat with a spoon forever
+Meet your future self|Meet your past self
+Have endless ice cream|Have endless chocolate
+Be an expert at every sport|Be an expert at every instrument
+Live where it is always monsoon|Live where it is always summer
+Never feel hungry|Never feel tired
+Be the main character in a movie|Be the author of a bestselling book
+Have an hour-long call with a celebrity|Have an hour-long dinner with a historical figure
+Work four long days a week|Work five short days a week
+Always arrive too early|Always arrive exactly on time but stressed
+Get free movie tickets for life|Get free restaurant meals for life
+Be able to talk to ghosts|Be able to talk to aliens
+Have a flat in the city centre|Have a farmhouse in the countryside
+Have a tail like a monkey|Have wings like a bird
+Lose your sense of smell|Lose your sense of taste
+Always speak in rhymes|Always speak in a whisper
+Spend a day as a cat|Spend a day as a dog
+Dance at every wedding|Eat first at every wedding
+Have a magic pen that brings drawings to life|Have a magic wand with three spells
+Take a long train journey|Take a short flight
+Do a road trip with friends|Do a solo backpacking trip
+Have a rooftop pool|Have a home cinema
+Never catch a cold again|Never get a headache again
+Always win at board games|Always win at cricket
+Eat only your favourite food every day|Eat a different cuisine every day
+Be famous on Instagram|Be famous on YouTube
+Be a genius coder|Be a genius doctor
+Be the oldest sibling|Be the youngest sibling
+Have a two-hour lunch break every day|Leave work two hours early every day
+Have a pet elephant|Have a pet panda
+Wear pyjamas everywhere you go|Wear formal clothes everywhere you go
+Hear your pet's thoughts|Hear your best friend's thoughts
+Pause the rain whenever you want|Summon snow whenever you want
+Spend a month in a jungle|Spend a month in a desert
+Never have exams again|Never have homework again
+Celebrate Diwali every month|Celebrate Holi every month
+Be the host of every party|Be the best guest at every party
+Eat a whole ghost pepper|Drink a glass of bitter gourd juice
+Spend a day with no phone|Spend a day with no electricity
+Be invited to every party but leave at 9 PM|Be invited to a few parties and stay as long as you like
+Have a bike that flies|Have a car that swims
+Have a magic carpet|Have a teleporting door
+Get a surprise party|Get a surprise trip
+Share your phone gallery with your friends|Share your browsing history with your friends
+Be the first to arrive at every party|Be the last to leave every party
+Eat anything without gaining weight|Stay up all night without feeling tired
+Have a lifetime supply of chai|Have a lifetime supply of cold coffee
+Spend a night in a haunted house|Spend a night alone in a jungle
+Be a bird for a day|Be a fish for a day
+Have a theme song play whenever you enter a room|Have a laugh track play after everything you say
+Have a free lifetime gym pass|Have a free lifetime spa pass
+Always win every quiz|Always win every argument
+Visit your childhood home again|Visit your first school again
+Have a day where everything you say comes true|Have a day where everything you think is heard by all
+Be able to pause your alarm forever|Be able to wake up fully fresh in one second`.split('\n').map(l=>l.split('|'));
+const CATS=`Fruit|Apple-Pear,Mango-Peach,Orange-Tangerine,Banana-Plantain,Lemon-Lime,Grapes-Berry
+Food|Pizza-Burger,Samosa-Kachori,Dosa-Uttapam,Biryani-Pulao,Pasta-Noodles,Jalebi-Imarti
+Actor|Shah Rukh Khan-Salman Khan,Tom Cruise-Brad Pitt,Amitabh Bachchan-Rajinikanth,Leonardo DiCaprio-Matt Damon,Deepika Padukone-Priyanka Chopra,Ranbir Kapoor-Ranveer Singh
+Object|Pen-Pencil,Chair-Stool,Spoon-Fork,Mirror-Window,Bag-Backpack,Clock-Watch
+Animal|Lion-Tiger,Dog-Wolf,Cat-Leopard,Horse-Donkey,Elephant-Rhino,Rabbit-Hare
+Bird|Crow-Raven,Eagle-Hawk,Parrot-Macaw,Sparrow-Finch,Duck-Goose,Pigeon-Dove`.split('\n').map(l=>{const[n,w]=l.split('|');return{n,w:w.split(',').map(x=>x.split('-'))}});
+/* Underrated and hard-to-guess post-2000 movies. i: B=Bollywood H=Hollywood | title | year | actors | what makes it unique */
+const MOVIES=`B|Tumbbad|2018|Sohum Shah, Jyoti Malshe, Anita Date|Gothic folk-horror about greed and a cursed god, made over years with rain-soaked, hand-built sets.
+B|Masaan|2015|Richa Chadha, Vicky Kaushal, Sanjay Mishra, Shweta Tripathi|Two quiet stories of love and loss by the Ganga in Varanasi, told with raw realism and very little melodrama.
+B|A Wednesday!|2008|Naseeruddin Shah, Anupam Kher, Jimmy Shergill|A tense one-day thriller where an anonymous common man holds a city's police to ransom over phone calls.
+B|Udaan|2010|Rajat Barmecha, Ronit Roy, Ram Kapoor|A tender coming-of-age drama about a teen in Jamshedpur breaking free from a harsh father. Screened at Cannes.
+B|Dev.D|2009|Abhay Deol, Mahie Gill, Kalki Koechlin|A neon, punk-pop retelling of Devdas with a genre-hopping Amit Trivedi soundtrack.
+B|Gulaal|2009|Kay Kay Menon, Raj Singh Chaudhary, Abhimanyu Singh, Mahie Gill|A gritty campus-politics saga in Rajasthan, carried by Piyush Mishra's protest songs.
+B|Paan Singh Tomar|2012|Irrfan Khan, Mahie Gill|True story of a national steeplechase champion turned Chambal rebel, told with dry humour and heart.
+B|Johnny Gaddar|2007|Neil Nitin Mukesh, Dharmendra, Vinay Pathak, Rimi Sen|A twisty pulp-noir heist of betrayal among friends, styled like a 1960s-70s crime thriller.
+B|Khosla Ka Ghosla|2006|Anupam Kher, Boman Irani, Parvin Dabas, Tara Sharma|A warm middle-class Delhi comedy about outsmarting a land-grabber to win a family's plot back.
+B|Oye Lucky! Lucky Oye!|2008|Abhay Deol, Paresh Rawal, Neetu Chandra|A breezy comic caper inspired by a real-life serial thief who charmed Delhi's elite.
+B|Ship of Theseus|2012|Aida El-Kashef, Neeraj Kabi, Sohum Shah|A philosophical three-part film about identity and ethics, linked together by organ transplants.
+B|The Lunchbox|2013|Irrfan Khan, Nimrat Kaur, Nawazuddin Siddiqui|A mistaken tiffin delivery in Mumbai sparks a love story told through handwritten notes.
+B|Lootera|2013|Ranveer Singh, Sonakshi Sinha|A slow, painterly 1950s Bengal romance loosely inspired by O. Henry's The Last Leaf.
+B|Mukti Bhawan|2016|Adil Hussain, Lalit Behl, Palomi Ghosh|A gentle tragicomedy about a father who moves to a Varanasi guesthouse to await his end.
+B|Aankhon Dekhi|2013|Sanjay Mishra, Rajat Kapoor, Seema Pahwa|A quirky family comedy about a man who decides to believe only what he sees with his own eyes.
+B|Newton|2017|Rajkummar Rao, Pankaj Tripathi, Anjali Patil|A deadpan satire about an honest clerk running an election in a conflict-hit forest. India's 2018 Oscar entry.
+B|Sonchiriya|2019|Sushant Singh Rajput, Bhumi Pednekar, Manoj Bajpayee, Ranvir Shorey|A dusty ravine western about Chambal dacoits in 1975, in earthy regional dialect.
+B|Karthik Calling Karthik|2010|Farhan Akhtar, Deepika Padukone, Ram Kapoor|A psychological thriller about a timid man taking orders from a mysterious voice on the phone.
+B|Wake Up Sid|2009|Ranbir Kapoor, Konkona Sen Sharma, Anupam Kher|A soft, slice-of-life Mumbai story of a spoilt rich kid growing up through a new friendship.
+B|Trapped|2016|Rajkummar Rao, Geetanjali Thapa|A survival thriller set almost entirely inside one locked, empty high-rise flat.
+B|Dhobi Ghat|2010|Aamir Khan, Prateik Babbar, Monica Dogra, Kriti Malhotra|Four lives in Mumbai woven together through video diaries and monsoon streets; the city is the real star.
+B|Lipstick Under My Burkha|2016|Konkona Sen Sharma, Ratna Pathak Shah, Aahana Kumra, Plabita Borthakur|Four women in Bhopal chase secret freedoms in a bold, darkly funny ensemble.
+B|Iqbal|2005|Shreyas Talpade, Naseeruddin Shah, Shweta Prasad|An uplifting underdog sports drama about a deaf-mute village boy who dreams of playing for India.
+B|Swades|2004|Shah Rukh Khan, Gayatri Joshi, Kishori Ballal|A NASA scientist returns to a village in a slow, thoughtful drama with an A. R. Rahman score.
+B|Maqbool|2003|Irrfan Khan, Tabu, Pankaj Kapur, Om Puri|Shakespeare's Macbeth reborn in the Mumbai underworld, moody and fatalistic.
+B|Lakshya|2004|Hrithik Roshan, Preity Zinta, Amitabh Bachchan|A drifting young man finds purpose in the army, building up to the Kargil war.
+B|Kai Po Che!|2013|Sushant Singh Rajput, Rajkummar Rao, Amit Sadh|Three friends and a sports shop in Ahmedabad, set against cricket dreams and the turbulent early 2000s.
+B|Tere Bin Laden|2010|Ali Zafar, Pradhuman Singh, Piyush Mishra|A zany satire where a Pakistani reporter hires an Osama lookalike for a fake video to get a US visa.
+B|Jolly LLB|2013|Arshad Warsi, Boman Irani, Amrita Rao, Saurabh Shukla|A scrappy lawyer takes on a hit-and-run case in a funny but sharp courtroom satire.
+B|Special 26|2013|Akshay Kumar, Anupam Kher, Manoj Bajpayee, Kajal Aggarwal|A 1980s con-job thriller about fake CBI officers pulling off raids, inspired by a real heist.
+B|Andhadhun|2018|Ayushmann Khurrana, Tabu, Radhika Apte|A twisty black comedy about a pianist pretending to be blind who witnesses a murder.
+B|Bheja Fry|2007|Rajat Kapoor, Vinay Pathak|A one-evening comedy of errors where a clueless guest wrecks a rich man's cruel dinner game.
+H|Moon|2009|Sam Rockwell, Kevin Spacey (voice)|A near one-man sci-fi drama on a lonely lunar base, built with practical miniatures instead of heavy CGI.
+H|Primer|2004|Shane Carruth, David Sullivan|A time-travel puzzle made for about $7,000, intentionally dense and never explained twice.
+H|Predestination|2014|Ethan Hawke, Sarah Snook, Noah Taylor|A mind-bending time-loop story adapted from Heinlein's short story All You Zombies.
+H|The Prestige|2006|Hugh Jackman, Christian Bale, Michael Caine, Scarlett Johansson|Rival magicians in Victorian London, told in a structure that mimics a magic trick.
+H|Children of Men|2006|Clive Owen, Julianne Moore, Michael Caine, Chiwetel Ejiofor|A bleak near-future chase with long, handheld single-take action scenes.
+H|The Fall|2006|Lee Pace, Catinca Untaru|A hospital-bed storyteller spins a fantasy epic, filmed in more than 20 real countries with minimal CGI.
+H|Sunshine|2007|Cillian Murphy, Chris Evans, Michelle Yeoh, Rose Byrne|A claustrophobic mission to reignite the dying sun that slides from sci-fi into psychological horror.
+H|The Man from Earth|2007|David Lee Smith, John Billingsley, Tony Todd|A whole sci-fi film set in one cabin room, powered purely by conversation.
+H|Coherence|2013|Emily Baldoni, Maury Sterling, Nicholas Brendon|A dinner party during a comet pass, shot in one house with improvised dialogue.
+H|Blue Ruin|2013|Macon Blair, Devin Ratray, Amy Hargreaves|A crowdfunded revenge thriller starring a clumsy, unprepared avenger.
+H|Edge of Tomorrow|2014|Tom Cruise, Emily Blunt|A soldier relives the same day over and over in an alien war, a Groundhog Day-style action film.
+H|Dredd|2012|Karl Urban, Olivia Thirlby, Lena Headey|A tight one-building action film with a drug that slows time into glowing slow-motion.
+H|Scott Pilgrim vs. the World|2010|Michael Cera, Mary Elizabeth Winstead, Kieran Culkin, Chris Evans|A comic-book and video-game styled rom-com with on-screen sound effects and boss fights.
+H|The Nice Guys|2016|Ryan Gosling, Russell Crowe, Angourie Rice|A sun-baked 1970s Los Angeles buddy noir with sharp, slapstick-heavy humour.
+H|In Bruges|2008|Colin Farrell, Brendan Gleeson, Ralph Fiennes|Two hitmen hiding in a fairytale Belgian city in a darkly funny, surprisingly emotional crime film.
+H|Source Code|2011|Jake Gyllenhaal, Michelle Monaghan, Vera Farmiga|A soldier relives the final eight minutes before a train bombing again and again to find the bomber.
+H|Locke|2013|Tom Hardy (the only person on screen)|A whole film inside one car on one night drive, told through phone calls alone.
+H|Buried|2010|Ryan Reynolds|A claustrophobic thriller set entirely inside a wooden coffin with one actor on screen.
+H|Kiss Kiss Bang Bang|2005|Robert Downey Jr., Val Kilmer, Michelle Monaghan|A comic noir with a narrator who breaks the fourth wall and admits his own mistakes.
+H|Zodiac|2007|Jake Gyllenhaal, Mark Ruffalo, Robert Downey Jr.|A patient, procedural true-crime film about obsession, deliberately without a tidy ending.
+H|Safety Not Guaranteed|2012|Aubrey Plaza, Mark Duplass, Jake Johnson|An indie comedy-romance sparked by a classified ad seeking a time-travel partner.
+H|Ex Machina|2014|Domhnall Gleeson, Alicia Vikander, Oscar Isaac|A cool, minimalist chamber thriller about testing an AI in a remote research house.
+H|Cloud Atlas|2012|Tom Hanks, Halle Berry, Hugo Weaving, Jim Broadbent|Six stories across centuries with the same actors playing different roles in every era.
+H|The Fountain|2006|Hugh Jackman, Rachel Weisz, Ellen Burstyn|Three timelines about love and death, with visuals built from chemical reactions filmed up close.
+H|Bone Tomahawk|2015|Kurt Russell, Patrick Wilson, Matthew Fox, Richard Jenkins|A slow, talky western that suddenly turns into brutal cave-horror.
+H|Hell or High Water|2016|Chris Pine, Ben Foster, Jeff Bridges|Two brothers rob banks in modern West Texas while an old ranger closes in; a dusty neo-western.
+H|Tucker and Dale vs Evil|2010|Alan Tudyk, Tyler Labine, Katrina Bowden|A horror-comedy flipped on its head, where kind hillbillies are mistaken for slashers.
+H|Stranger Than Fiction|2006|Will Ferrell, Emma Thompson, Maggie Gyllenhaal, Dustin Hoffman|A gentle fantasy comedy where a tax man hears his own life narrated by a novelist.
+H|10 Cloverfield Lane|2016|Mary Elizabeth Winstead, John Goodman, John Gallagher Jr.|A tight, three-person bunker thriller where you never know who to trust.
+H|Warrior|2011|Tom Hardy, Joel Edgerton, Nick Nolte|Two estranged brothers meet in an MMA tournament, a heart-first sports drama.
+H|Drive|2011|Ryan Gosling, Carey Mulligan, Bryan Cranston, Albert Brooks|A neon 1980s-style crime film with a near-silent hero and bursts of sudden violence.
+H|Chronicle|2012|Dane DeHaan, Alex Russell, Michael B. Jordan|Teen superpowers told entirely through found-footage cameras.
+B|Delhi Belly|2011|Imran Khan, Vir Das, Kunaal Roy Kapur|A fast, crude, Hinglish crime-comedy where three flatmates get tangled with gangsters over a mixed-up package.
+B|Jaane Tu... Ya Jaane Na|2008|Imran Khan, Genelia D'Souza, Prateik Babbar|A mellow, charming college rom-com about two best friends who are the last to realise they are in love.
+B|Rock On!!|2008|Farhan Akhtar, Arjun Rampal, Purab Kohli, Luke Kenny|A band of old friends reunites a decade after their dreams fell apart, with a rock soundtrack that defined a generation.
+B|No Smoking|2007|John Abraham, Ayesha Takia, Paresh Rawal|A surreal, Kafka-style fable about a chain-smoker sent to a bizarre clinic that forces him to quit.
+B|Dor|2006|Ayesha Takia, Gul Panag, Shreyas Talpade|Two women from very different worlds are bound together by a life-or-death favour in a simple, heartfelt road drama.
+B|Hazaaron Khwaishein Aisi|2005|Kay Kay Menon, Chitrangda Singh, Shiney Ahuja|Three idealistic friends drift apart through the turbulent politics of 1970s India.
+B|Aamir|2008|Rajeev Khandelwal, Gajraj Rao|A tense one-man-against-the-city thriller where a man returning home is steered around Mumbai by phone.
+B|Detective Byomkesh Bakshy!|2015|Sushant Singh Rajput, Anand Tiwari, Swastika Mukherjee|A stylish 1943 Calcutta noir, with period trams and gramophones, about a young sleuth's first big case.
+B|Mard Ko Dard Nahi Hota|2018|Abhimanyu Dassani, Radhika Madan, Gulshan Devaiah|A comic martial-arts homage about a boy who cannot feel pain and learns kung fu from old VHS tapes.
+B|Bulbbul|2020|Tripti Dimri, Avinash Tiwary, Rahul Bose, Paoli Dam|A blood-red gothic fairytale set in 1880s Bengal, full of folklore and a chilling secret.
+B|Titli|2014|Shashank Arora, Ranvir Shorey, Shivani Raghuvanshi|A raw, dark family drama about three brothers who run carjackings in Delhi, and the youngest who wants out.
+B|Dhanak|2016|Krrish Chhabria, Hetal Gadhia|A sweet road-movie about two Rajasthani kids who walk across the desert to meet their hero, Shah Rukh Khan.
+B|Chillar Party|2011|Rohan Grover, Irrfan Khan (guest), Sanath Menon, Vedant Desai|A joyful kids' comedy about neighbourhood children who protect a stray dog from a local politician.
+B|Qarib Qarib Singlle|2017|Irrfan Khan, Parvathy Thiruvothu|A light, witty road-trip romance between two mismatched singles who meet on a dating site.
+B|October|2018|Varun Dhawan, Banita Sandhu|A quiet, understated drama about a hotel intern and the colleague whose accident changes his life.
+B|Barah Aana|2009|Naseeruddin Shah, Vijay Raaz, Arjun Mathur, Tillotama Shome|Three working-class Mumbai men make a desperate plan for money in a tragicomic slice-of-life drama.
+B|Tamasha|2015|Ranbir Kapoor, Deepika Padukone|A stage-play-like romance that moves from Corsica to Delhi, about finding the real you beneath a 9-to-5 mask.
+B|Raincoat|2004|Ajay Devgn, Aishwarya Rai Bachchan|A single rainy afternoon in one house, a hushed reunion of ex-lovers inspired by O. Henry's The Gift of the Magi.
+B|Page 3|2005|Konkona Sen Sharma, Atul Kulkarni, Tara Sharma|A young journalist discovers the glossy, hollow side of Mumbai's high society.
+B|Zubeidaa|2001|Karisma Kapoor, Rekha, Manoj Bajpayee, Rajit Kapoor|A son pieces together the story of his actress mother in a lush, period tale of princely India.
+B|Ek Hasina Thi|2004|Saif Ali Khan, Urmila Matondkar|A slick, stylish revenge thriller about a woman betrayed by her lover, the debut of director Sriram Raghavan.
+B|Kadvi Hawa|2017|Sanjay Mishra, Ranvir Shorey, Bhupesh Singh|A blind old farmer and a loan-recovery agent strike an unlikely bond in a drought-hit village.
+B|Stanley Ka Dabba|2011|Partho Gupte, Amole Gupte, Divya Dutta|A bright schoolboy who never brings lunch becomes the heart of a class, and the target of a greedy teacher.
+B|Shaitan|2011|Kalki Koechlin, Rajeev Khandelwal, Gulshan Devaiah, Shiv Pandit|A restless, edgy thriller about bored rich Mumbai youths spiralling into a dangerous prank.
+B|Sarkar|2005|Amitabh Bachchan, Abhishek Bachchan, Kay Kay Menon, Katrina Kaif|A shadowy, Godfather-inspired Mumbai political-crime saga told in dark, low-lit frames.
+B|Shor in the City|2010|Tusshar Kapoor, Sendhil Ramamurthy, Pitobash, Radhika Apte|Interwoven Mumbai stories, from a bookie to a cricketer, filmed with the city's festivals and noise.
+B|Dum Laga Ke Haisha|2015|Ayushmann Khurrana, Bhumi Pednekar|A 1990s Haridwar romance with cassette tapes and a husband who must win over his bigger wife.
+B|Waiting|2015|Naseeruddin Shah, Kalki Koechlin|Two strangers wait outside a Kochi hospital for loved ones in comas, in a gentle, funny, moving drama.
+H|Sound of My Voice|2011|Brit Marling, Christopher Denham, Nicole Vicius|Two filmmakers infiltrate a basement cult whose leader claims to come from the future, made on a tiny budget.
+H|The Invitation|2015|Logan Marshall-Green, Tammy Blanchard, Michiel Huisman|A slow-burn dinner party where one guest grows convinced the hosts are hiding something sinister.
+H|Under the Skin|2013|Scarlett Johansson|An alien seducer drifts through Scotland, with real strangers filmed on hidden cameras.
+H|Donnie Darko|2001|Jake Gyllenhaal, Jena Malone, Drew Barrymore, Maggie Gyllenhaal|A moody cult sci-fi about a teen, a giant rabbit and a ticking-clock doom.
+H|The Machinist|2004|Christian Bale, Jennifer Jason Leigh, Aitana Sanchez-Gijon|A washed-out, paranoid psychological thriller where Bale famously lost huge weight to play an insomniac.
+H|Lars and the Real Girl|2007|Ryan Gosling, Emily Mortimer, Paul Schneider, Patricia Clarkson|A gentle comedy-drama about a shy man whose whole small town supports his relationship with a doll.
+H|Big Fish|2003|Ewan McGregor, Albert Finney, Billy Crudup, Jessica Lange|A son tries to untangle his dying father's tall tales in Tim Burton's warm, colourful fantasy.
+H|Sorry to Bother You|2018|Lakeith Stanfield, Tessa Thompson, Armie Hammer, Steven Yeun|A wild, absurdist satire about a telemarketer who finds success with his 'white voice'.
+H|Brick|2005|Joseph Gordon-Levitt, Lukas Haas, Nora Zehetner|A hard-boiled detective noir played out entirely in a modern California high school.
+H|Spring|2014|Lou Taylor Pucci, Nadia Hilker|A romance on the Italian coast that quietly turns into creature-horror.
+H|Idiocracy|2006|Luke Wilson, Maya Rudolph, Dax Shepard|A cult satire about an average man frozen for centuries who wakes up as the smartest person alive.
+H|Equilibrium|2002|Christian Bale, Emily Watson, Taye Diggs|A grey dystopia where feelings are banned, with its own 'gun kata' fighting style.
+H|Midnight Special|2016|Michael Shannon, Joel Edgerton, Kirsten Dunst, Adam Driver|A father races across the South to protect a boy with strange powers, in a quiet 1980s-style sci-fi chase.
+H|Take Shelter|2011|Michael Shannon, Jessica Chastain|A father haunted by storm visions starts building a shelter while everyone doubts him.
+H|Margin Call|2011|Kevin Spacey, Paul Bettany, Jeremy Irons, Zachary Quinto|A single tense night inside an investment bank on the eve of the 2008 crash, driven by dialogue.
+H|Seven Psychopaths|2012|Colin Farrell, Sam Rockwell, Christopher Walken, Woody Harrelson|A meta crime-comedy about a screenwriter who stumbles into the plot of his own script.
+H|The Way Way Back|2013|Liam James, Steve Carell, Sam Rockwell, Toni Collette|A shy teen finds a new family at a run-down waterpark during an awkward summer.
+H|Hanna|2011|Saoirse Ronan, Eric Bana, Cate Blanchett|A fairy-tale chase film about a teenage girl raised as an assassin, set to a pounding Chemical Brothers score.
+H|The Cabin in the Woods|2012|Kristen Connolly, Chris Hemsworth, Fran Kranz, Richard Jenkins|A horror film that flips its genre on its head with a big, clever twist.
+H|Sunshine Cleaning|2008|Amy Adams, Emily Blunt, Alan Arkin|Two sisters start a crime-scene cleanup business in a small, warm, dark-comic indie.
+H|Thank You for Smoking|2005|Aaron Eckhart, Maria Bello, Cameron Bright, Robert Duvall|A sharp satire about a charming tobacco lobbyist who can argue his way out of anything.
+H|Real Steel|2011|Hugh Jackman, Evangeline Lilly, Dakota Goyo|A father-and-son sports drama set in a near-future world of boxing robots.
+H|Super|2010|Rainn Wilson, Elliot Page, Kevin Bacon, Liv Tyler|A dark comedy about an ordinary man who becomes a homemade superhero armed with a wrench.
+H|Adaptation|2002|Nicolas Cage, Meryl Streep, Chris Cooper|A screenwriter writes himself into his own movie, with Cage playing twin brothers.
+H|Punch-Drunk Love|2002|Adam Sandler, Emily Watson, Philip Seymour Hoffman|An odd, tender romance with saturated colour, a harmonium and a very anxious Sandler.
+H|Upstream Color|2013|Amy Seimetz, Shane Carruth|A dreamlike puzzle about a parasite, pigs and two people trying to rebuild their lives.
+H|Whip It|2009|Elliot Page, Drew Barrymore, Marcia Gay Harden, Kristen Wiig|A bored Texas teen finds herself in a roller-derby league, in Barrymore's feel-good directing debut.
+H|Duplicity|2009|Julia Roberts, Clive Owen, Paul Giamatti, Tom Wilkinson|Two rival corporate spies fall for each other in a twisty, jet-setting heist-romance.
+B|Matru Ki Bijlee Ka Mandola|2013|Imran Khan, Anushka Sharma, Pankaj Kapur, Shabana Azmi|A quirky Haryana satire about a kind-when-sober, wild-when-drunk landlord, a defiant daughter and a pink buffalo he sees in his visions.
+B|Miss Tanakpur Haazir Ho|2015|Annu Kapoor, Rahul Bagga, Hrishitaa Bhatt, Om Puri, Ravi Kishan, Sanjay Mishra|A Haryana village satire in Hindi and Haryanvi where a village head's buffalo ends up at the centre of a court case.
+B|Sonu Ke Titu Ki Sweety|2018|Kartik Aaryan, Nushrratt Bharuccha, Sunny Singh|A bromance-meets-rom-com about a best friend who tries to wreck his buddy's arranged engagement.
+B|Eeb Allay Ooo!|2019|Shardul Bhardwaj, Shashi Bhushan, Nutan Sinha|A quiet, observational drama about a migrant hired to scare off monkeys in Delhi, with the title as the sound he makes.
+B|Thappad|2020|Taapsee Pannu, Pavail Gulati, Dia Mirza, Tanvi Azmi|A calm, powerful drama about a wife who questions her whole marriage after one slap at a party.
+B|Kabhi Khushi Kabhie Gham|2001|Amitabh Bachchan, Jaya Bachchan, Shah Rukh Khan, Kajol, Hrithik Roshan, Kareena Kapoor|A glitzy, tear-jerking family epic about a rich household torn apart, with grand sets and big songs.
+B|Rocky Aur Rani Kii Prem Kahaani|2023|Ranveer Singh, Alia Bhatt, Dharmendra, Jaya Bachchan, Shabana Azmi|A Punjabi foodie and a Bengali journalist swap homes for three months to test whether their families can ever mix.
+B|Humpty Sharma Ki Dulhania|2014|Varun Dhawan, Alia Bhatt, Ashutosh Rana|A Delhi boy follows his girlfriend to Ambala to win over her stern father before her wedding.
+B|Bareilly Ki Barfi|2017|Kriti Sanon, Ayushmann Khurrana, Rajkummar Rao, Pankaj Tripathi|A small-town love triangle sparked by a novel, a printer and a fake author.
+B|Shubh Mangal Saavdhan|2017|Ayushmann Khurrana, Bhumi Pednekar|A frank, funny arranged-marriage comedy about a groom's embarrassing secret and two meddling families.
+B|Shuddh Desi Romance|2013|Sushant Singh Rajput, Parineeti Chopra, Vaani Kapoor|A Jaipur rom-com about commitment-shy couples who hire fake wedding guests and run from the mandap.
+B|Tanu Weds Manu|2011|R. Madhavan, Kangana Ranaut, Jimmy Shergill, Deepak Dobriyal|A Kanpur comedy about a straight-laced London doctor and a wild, free-spirited girl in an arranged match.
+B|Badhaai Ho|2018|Ayushmann Khurrana, Sanya Malhotra, Neena Gupta, Gajraj Rao, Surekha Sikri|A warm, laugh-out-loud family comedy about parents in their fifties announcing a late pregnancy.
+B|Sui Dhaaga|2018|Varun Dhawan, Anushka Sharma, Raghubir Yadav|A heartfelt story of a tailor and his wife starting their own Made in India brand, with colourful handloom visuals.
+B|Yeh Jawaani Hai Deewani|2013|Ranbir Kapoor, Deepika Padukone, Aditya Roy Kapur, Kalki Koechlin|A road-trip friendship film, from a Manali trek to a Udaipur wedding, remembered for its party anthems.
+B|Band Baaja Baaraat|2010|Ranveer Singh, Anushka Sharma|Two Delhi wedding planners whose business booms while their romance wobbles, in a lively, music-packed debut.
+B|Ek Main Aur Ekk Tu|2012|Imran Khan, Kareena Kapoor Khan|A Las Vegas night turns into a light, witty love story that finishes in Pune.
+B|Jab Tak Hai Jaan|2012|Shah Rukh Khan, Katrina Kaif, Anushka Sharma|Yash Chopra's last film, a sweeping London-and-Kashmir love story told in flashback.
+B|Tumhari Sulu|2017|Vidya Balan, Manav Kaul, Neha Dhupia|A cheerful housewife becomes a late-night radio host in a warm, middle-class Mumbai comedy.
+B|Karwaan|2018|Irrfan Khan, Dulquer Salmaan, Mithila Palkar|A road-trip comedy where two strangers and a young woman drive south after a coffin mix-up.
+B|Badla|2019|Amitabh Bachchan, Taapsee Pannu, Amrita Singh|A tight, twisty mystery set mostly in one room as a lawyer interrogates a woman accused of murder.
+B|Pink|2016|Amitabh Bachchan, Taapsee Pannu, Kirti Kulhari, Andrea Tariang|A gripping courtroom drama about three women and what 'no' really means.
+B|Queen|2014|Kangana Ranaut, Lisa Haydon, Rajkummar Rao|A jilted bride takes her honeymoon alone to Paris and Amsterdam and finds herself.
+B|Chhichhore|2019|Sushant Singh Rajput, Shraddha Kapoor, Varun Sharma, Tahir Raj Bhasin|Hostel 'losers' reunite to teach a young man that failing is okay, in a nostalgic, feel-good comedy-drama.
+B|Fukrey|2013|Pulkit Samrat, Varun Sharma, Manjot Singh, Ali Fazal, Richa Chadha|Four Delhi slackers turn dreams into lottery numbers in a loose, funny buddy comedy.
+B|Mimi|2021|Kriti Sanon, Pankaj Tripathi, Sai Tamhankar|A small-town dancer agrees to be a surrogate and is left stranded, in an emotional, funny drama.
+B|Vicky Donor|2012|Ayushmann Khurrana, Yami Gautam, Annu Kapoor|A bright, taboo-breaking Delhi comedy about a jobless young man who becomes a sperm donor.`.split('\n').map(l=>{const[i,t,y,a,s]=l.split('|');return{i,t,y,a,s}});
+function draw(ind,used,not){let all=MOVIES.filter(m=>(ind==='both'||m.i===ind)&&m.t!==not),pool=all.filter(m=>!used.includes(m.t)),reset=false;
+ if(!pool.length){pool=all;reset=true}
+ if(ind==='both'){const w=rnd(['B','H']),sub=pool.filter(m=>m.i===w);if(sub.length)pool=sub}
+ return{m:rnd(pool),used:reset?(not?[not]:[]):used}}
+const IND={B:'Bollywood',H:'Hollywood'},TN=['Red','Blue'];
+const WORDS='cat,house,tree,sun,car,fish,pizza,guitar,rocket,umbrella,elephant,bicycle,flower,moon,clock,apple,bridge,crown,robot,snowman,castle,butterfly,cake,camera,key,boat,mountain,rainbow,snake,spider,glasses,phone,ghost,dragon,airplane,banana,cloud,shoe,candle,train,penguin,lighthouse,tent,pumpkin,diamond,balloon,owl,giraffe,volcano,windmill'.split(',');
+const PROMPTS=['Most likely to be late to their own wedding','Most likely to become famous','Most likely to survive a zombie apocalypse','Most likely to cry at a movie','Most likely to forget a birthday','Most likely to get lost with GPS on','Most likely to win a cooking show','Most likely to start a business','Most likely to talk to strangers','Most likely to oversleep tomorrow','Most likely to adopt ten pets','Most likely to laugh at a funeral','Most likely to spend all their money in a day','Most likely to travel the world alone','Most likely to become a millionaire','Most likely to break a world record'];
+const ROLES={mafia:'Mafia',doctor:'Doctor',police:'Police',civilian:'Civilian'};
+const RDESC={mafia:'Each night your team picks one person to eliminate.',doctor:'Each night your team picks one person to save.',police:'Each night your team picks one person to investigate.',civilian:'Find the mafia and vote them out.'};
+const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b'];
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:''};
+>>>>>>> test
 try{S.name=localStorage.getItem('pg-name')||''}catch(e){}
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2500)}
 const nm=p=>esc(S.P[p]?.name||'?'),G=id=>GAMES.find(g=>g.id===id),note=t=>`<div class="note">${t}</div>`;
@@ -90,7 +552,11 @@ function connectDB(){
  return new Promise((res,rej)=>{let first=true;
   (function conn(){
    ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
+<<<<<<< HEAD
    ws.onopen=()=>{open=true;subs.forEach((s,sid)=>ws.send(JSON.stringify({t:'sub',sid,p:s.p,k:s.k})));out.splice(0).forEach(j=>ws.send(j));if(first){first=false;res({doc,collection:col,logAdd:(p,d)=>send({t:'ladd',p,d}),logSub:(p,f)=>sub(p,'l',f)})}else toast('Reconnected')};
+=======
+   ws.onopen=()=>{open=true;subs.forEach((s,sid)=>ws.send(JSON.stringify({t:'sub',sid,p:s.p,k:s.k})));out.splice(0).forEach(j=>ws.send(j));if(first){first=false;res({doc,collection:col})}else toast('Reconnected')};
+>>>>>>> test
    ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.t==='ack'){pend[m.rid]&&pend[m.rid](m);delete pend[m.rid]}else if(subs.get(m.sid))subs.get(m.sid).f(m)};
    ws.onclose=()=>{open=false;if(first)rej();else{toast('Reconnecting…');setTimeout(conn,1000)}};
   })();
@@ -116,9 +582,15 @@ async function enter(code){
  S.code=code;try{localStorage.setItem('pg-name',S.name)}catch(e){}
  await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
+<<<<<<< HEAD
    if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.pick=[200,50,60]}}
    S.R=n;syncArt();chatSync();pictSync();render();paintPict();tick()}),
   db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render();paintPict()}),
+=======
+   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60]}}
+   S.R=n;syncArt();render();tick()}),
+  db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render()}),
+>>>>>>> test
   db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
 }
 function syncArt(){
@@ -129,7 +601,10 @@ function syncArt(){
  else if(key[0]==='d'){const a=R.assign[S.id];S.artU=db.doc(`rooms/${S.code}/art/${a}`).onSnapshot(s=>{S.arts={};if(s.exists)S.arts[a]=s.data();render()})}
 }
 function leave(gone){
+<<<<<<< HEAD
  pictOff();chatOff();
+=======
+>>>>>>> test
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
  S.un=[];S.code=null;S.R=null;S.P={};S.A={};render();
@@ -151,7 +626,10 @@ function winner(R,al){
 function tick(){
  const R=S.R;if(!isHost()||S.busy||!R||!R.pl||R.phase==='lobby')return;
  const now=Date.now(),ok=p=>S.A[p]&&S.A[p].k===R.k,ph=R.phase,g=R.game,late=R.end&&now>R.end+(ph==='draw'?5000:1500);
+<<<<<<< HEAD
  if(g==='pict')return pictTick(R,now);
+=======
+>>>>>>> test
  if(g==='mafia'&&ph==='night'){
   const al=alive(R),lock={...(R.lock||{})},bad=[];let wait=false;
   for(const r of ['mafia','doctor','police']){if(r in lock)continue;
@@ -188,6 +666,24 @@ function tick(){
    const res=R.pl.map(p=>{const c=ok(p)?S.A[p].t:null;return{p,c,acc:c?acc(R.tc,c):0}}).sort((a,b)=>b.acc-a.acc),d={};res.forEach(r=>d[r.p]=Math.round(r.acc/10));
    return upd({phase:'result',res,scores:sc(R,d)})}
  }
+<<<<<<< HEAD
+=======
+ if(g==='charades'&&ph==='act'){
+  const a=R.actor,gone=now>R.end+30000;if(!ok(a)&&!gone)return;S.busy=true;
+  const tm=R.cfg.mode==='team',t=ok(a)?S.A[a].t:'none',hit=t!=='none'&&t!==a&&R.pl.includes(t)&&(!tm||R.teams[t]===R.teams[a]),d={},tsc={...(R.tsc||{0:0,1:0})};if(hit){d[t]=2;d[a]=1;if(tm)tsc[R.teams[a]]=(tsc[R.teams[a]]||0)+3}
+  return upd({phase:'result',res:{g:hit?t:null,a},scores:sc(R,d),tsc:tm?tsc:null})}
+
+ if(g==='trivia'&&ph==='ask'){
+  const win=R.pl.filter(p=>ok(p)&&S.A[p].t===R.q.a).sort((a,b)=>(S.A[a]._ts||0)-(S.A[b]._ts||0))[0];
+  if(!win&&!R.pl.every(ok)&&!late)return;S.busy=true;const d={};if(win)d[win]=2;
+  const res=R.pl.map(p=>({p,i:ok(p)?S.A[p].t:null,w:p===win})).sort((a,b)=>b.w-a.w);
+  return upd({phase:'result',res,win:win||null,scores:sc(R,d)})}
+ if(g==='wyr'&&ph==='vote'){
+  if(!R.pl.every(ok))return;S.busy=true;const c=[0,0],v={},d={};
+  R.pl.forEach(p=>{const t=S.A[p].t===1?1:0;v[p]=t;c[t]++});
+  const maj=c[0]===c[1]?null:(c[0]>c[1]?0:1);if(maj!==null)R.pl.forEach(p=>{if(v[p]===maj)d[p]=1});
+  return upd({phase:'result',res:{c,maj,v},scores:sc(R,d)})}
+>>>>>>> test
  if(g==='likely'&&ph==='vote'){
   if(!R.pl.every(ok))return;S.busy=true;const c={};R.pl.forEach(p=>c[S.A[p].t]=(c[S.A[p].t]||0)+1);
   return upd({phase:'result',res:Object.keys(c).map(p=>({p,n:c[p]})).sort((a,b)=>b.n-a.n),scores:sc(R,c)})}
@@ -198,6 +694,21 @@ function startRound(R,rn){
  if(R.game==='draw'){const pool=shuf(WORDS),words={},s=shuf(ids),assign={};ids.forEach((p,i)=>words[p]=pool[i%pool.length]);s.forEach((p,i)=>assign[p]=s[(i+1)%s.length]);
   return upd({...b,words,assign,phase:'draw',k:`${g}:${rn}:d`,end:now+R.cfg.secs*1000})}
  if(R.game==='color')return upd({...b,tc:[Math.floor(Math.random()*360),30+Math.floor(Math.random()*70),35+Math.floor(Math.random()*65)],phase:'show',k:`${g}:${rn}:s`,end:now+5000});
+<<<<<<< HEAD
+=======
+ if(R.game==='charades'){const ind=R.cfg.ind||'both',tm=R.cfg.mode==='team',dr=draw(ind,R.used||[],null),m=dr.m,used=dr.used;
+  let teams=null,actor=ids[(rn-1)%ids.length];
+  if(tm){teams={...(R.teams||{})};const cnt=[0,0];ids.forEach(p=>{if(teams[p]!==undefined)cnt[teams[p]]++});
+   (rn===1?shuf(ids):ids).forEach(p=>{if(teams[p]===undefined){const t=cnt[1]<cnt[0]?1:0;teams[p]=t;cnt[t]++}});
+   const lst=[0,1].map(t=>ids.filter(p=>teams[p]===t)),l=lst[(rn-1)%2].length?lst[(rn-1)%2]:ids;actor=l[Math.floor((rn-1)/2)%l.length]}
+  return upd({...b,movie:m,actor,teams,tsc:tm?(R.tsc||{0:0,1:0}):null,used:[...used,m.t],phase:'act',k:`${g}:${rn}:a`,end:now+(R.cfg.secs||90)*1000})}
+
+ if(R.game==='trivia'){let used=R.used||[],pool=QS.filter(x=>!used.includes(x.q));if(!pool.length){pool=QS;used=[]}
+  const x=rnd(pool),o=shuf(x.o.map((t,i)=>({t,i}))),q={q:x.q,o:o.map(y=>y.t),a:o.findIndex(y=>y.i===0)};
+  return upd({...b,q,used:[...used,x.q],phase:'ask',k:`${g}:${rn}:q`,end:now+(R.cfg.secs||20)*1000})}
+ if(R.game==='wyr'){let used=R.used||[],pool=WYRS.filter(x=>!used.includes(x[0]));if(!pool.length){pool=WYRS;used=[]}
+  const w=rnd(pool);return upd({...b,wq:w,used:[...used,w[0]],phase:'vote',k:`${g}:${rn}:w`})}
+>>>>>>> test
  let used=R.used||[],pool=PROMPTS.filter(x=>!used.includes(x));if(!pool.length){pool=PROMPTS;used=[]}const pr=rnd(pool);
  return upd({...b,prompt:pr,used:[...used,pr],phase:'vote',k:`${g}:${rn}:v`});
 }
@@ -212,12 +723,27 @@ const ACT={
  pick(d){if(S.R.alive&&!S.R.alive[S.id])return;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:S.R.k,t:d.p})},
  cfg(d){const c={...S.R.cfg};c[d.f]=Math.max(+d.m,(c[d.f]||0)+ +d.d);upd({cfg:c})},
  cat(d){upd({cfg:{...S.R.cfg,cat:+d.i}})},
+<<<<<<< HEAD
  start(){
   if(S.R.game==='pict')return pictStart();
   const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),roles={},alive={};
   if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
    if(R.game==='mafia'){const c=R.cfg;let i=0;['mafia','doctor','police'].forEach(r=>{for(let n=0;n<c[r];n++)roles[ids[i++]]=r});ids.slice(i).forEach(p=>roles[p]='civilian');
     return upd({g,pl:ids,roles,alive,inv:{},lock:{},nrv:0,rej:[],log:'',winner:null,round:1,phase:'reveal',k:g+':r'})}
+=======
+ anon(){const c=S.R.cfg;upd({cfg:{...c,anon:c.anon===false}})},
+ ind(d){upd({cfg:{...S.R.cfg,ind:d.v}})},
+ tans(d){if(S.sub!==S.R.k)submitAct(+d.i)},
+ wans(d){db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:S.R.k,t:+d.i})},
+ chsel(d){S.ch=d.p;render()},
+ chgo(){if(S.ch)submitAct(S.ch)},
+ team(){const c=S.R.cfg;upd({cfg:{...c,mode:c.mode==='team'?'ffa':'team'}})},
+ start(){
+  const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),roles={},alive={};
+  if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
+   if(R.game==='mafia'){const c=R.cfg;let i=0;['mafia','doctor','police'].forEach(r=>{for(let n=0;n<c[r];n++)roles[ids[i++]]=r});ids.slice(i).forEach(p=>roles[p]='civilian');
+    return upd({g,pl:ids,roles,alive,anon:c.anon!==false,inv:{},lock:{},nrv:0,rej:[],log:'',winner:null,round:1,phase:'reveal',k:g+':r'})}
+>>>>>>> test
    const cat=CATS[R.cfg.cat||0],pr=shuf(rnd(cat.w).slice());ids.forEach((p,i)=>roles[p]=i<R.cfg.imp?'imp':'crew');
    return upd({g,pl:ids,roles,alive,log:'',winner:null,round:1,phase:'play',k:g+':1:p',words:{crew:pr[0],imp:pr[1]},cat:cat.n,first:rnd(ids)});}
   startRound({...R,g:null},1);
@@ -227,12 +753,17 @@ const ACT={
  nextRound(){const R=S.R;if(R.game==='mafia')upd({phase:'night',k:`${R.g}:${R.round}:n`});else if(R.game==='imposter')upd({phase:'play',k:`${R.g}:${R.round}:p`});else startRound(R,R.round+1)},
  toVote(){upd({phase:'vote',k:`${S.R.g}:${S.R.round}:v`})},
  flip(){S.show=!S.show;render()},
+<<<<<<< HEAD
  again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{}})},
+=======
+ again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{},tsc:R.tsc||null})},
+>>>>>>> test
  leave(){leave()},join(){joinRoom($('#code').value)},create(d){createRoom(d.g)},
  tool(d){S.tool=d.t;markTools()},col(d){S.col=d.c;S.tool='pen';markTools()},sz(d){S.sz=+d.s;markTools()},
  clr(){const c=$('#cv');if(c){const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,480,480);S.artData=''}},
  done(){submitArt()},
  guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
+<<<<<<< HEAD
  cpick(){submitAct(S.pick.slice())},
  csend(d){const i=$('#'+((d&&d.i)||'ci'));if(!i)return;const v=i.value.trim().slice(0,80);if(!v)return;i.value='';i.focus();
   if(S.R.game==='pict')db.logAdd(lp('guess'),{a:S.id,t:v});else db.logAdd(lp('chat'),{ts:Date.now(),a:S.id,n:(S.P[S.id]?.name)||S.name,t:v})},
@@ -245,6 +776,10 @@ const ACT={
  pnext(){if(isHost()&&S.R.phase==='tr'&&!S.busy){S.busy=true;nextTurn()}}
 };
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&(e.target.id==='ci'||e.target.id==='fci')){e.preventDefault();ACT.csend({i:e.target.id})}});
+=======
+ cpick(){submitAct(S.pick.slice())}
+};
+>>>>>>> test
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&ACT[b.dataset.a])ACT[b.dataset.a](b.dataset)});
 setInterval(()=>{const R=S.R;if(!R)return;const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000));
  const p=$('#pg');if(p&&R.pl)p.textContent=R.pl.filter(x=>S.A[x]&&S.A[x].k===R.k).length+' of '+R.pl.length+' done';
@@ -259,11 +794,16 @@ function home(){
  <div class="lbl">Join with a code</div><input type="text" id="code" maxlength="4" placeholder="ABCD" style="text-transform:uppercase;letter-spacing:.3em;text-align:center"><button class="btn o" data-a="join">Join room</button></main>`;
 }
 const stepper=(l,f,v,step=1,min=0)=>`<div class="row"><span>${l}</span><span class="step"><button data-a="cfg" data-f="${f}" data-d="${-step}" data-m="${min}">−</button><b>${v}</b><button data-a="cfg" data-f="${f}" data-d="${step}" data-m="${min}">+</button></span></div>`;
+<<<<<<< HEAD
+=======
+const tgl=(l,a,on,sub)=>`<div class="row" data-a="${a}" style="cursor:pointer;gap:14px"><span>${l}<span class="mu" style="display:block">${sub}</span></span><span class="tgl ${on?'on':''}"><i></i></span></div>`;
+>>>>>>> test
 const board=R=>{const ids=Object.keys(S.P).sort((a,b)=>((R.scores||{})[b]||0)-((R.scores||{})[a]||0));if(!ids.length||!Object.values(R.scores||{}).some(x=>x))return '';
  return `<div class="lbl">Scores</div>${ids.map((p,i)=>`<div class="row"><span>${i+1}. ${nm(p)}</span><b>${(R.scores||{})[p]||0}</b></div>`).join('')}`};
 const hostBtns=(next)=>isHost()?`${next?`<button class="btn" data-a="nextRound">Next round</button>`:''}<button class="btn o" data-a="again">Back to lobby</button>`:`<p class="mu">Waiting for the host…</p>`;
 function lobby(){
  const R=S.R,g=G(R.game),n=Object.keys(S.P).length,c=R.cfg;let cfg='',ok=n>=g.min,msg=`Need at least ${g.min} players`;
+<<<<<<< HEAD
  if(R.game==='mafia'){const sp=c.mafia+c.doctor+c.police;cfg=stepper('Mafia','mafia',c.mafia,1,1)+stepper('Doctor','doctor',c.doctor)+stepper('Police','police',c.police)+`<div class="mu" style="margin-top:8px">Civilians: ${Math.max(0,n-sp)}</div>`;ok=ok&&sp<n&&c.mafia<n-c.mafia;if(n>=g.min&&!ok)msg='Too many special roles for this many players'}
  else if(R.game==='imposter'){cfg=`<div class="mu" style="margin-bottom:8px">Category</div><div class="cats">${CATS.map((x,i)=>`<div class="cat ${i===(c.cat||0)?'on':''}" data-a="cat" data-i="${i}">${x.n}</div>`).join('')}</div>`+stepper('Imposters','imp',c.imp,1,1);ok=ok&&c.imp<n-c.imp;if(n>=g.min&&!ok)msg='Too many imposters'}
  else if(R.game==='draw')cfg=stepper('Seconds to draw','secs',c.secs,15,30);
@@ -272,14 +812,35 @@ function lobby(){
  return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
  <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}
  ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}${R.game==='pict'?chatBox():''}</main>`;
+=======
+ if(R.game==='mafia'){const sp=c.mafia+c.doctor+c.police;cfg=stepper('Mafia','mafia',c.mafia,1,1)+stepper('Doctor','doctor',c.doctor)+stepper('Police','police',c.police)+tgl('Anonymous roles','anon',c.anon!==false,c.anon!==false?'On: nobody knows anyone else’s role.':'Off: teammates know each other (mafia see mafia, doctors see doctors, police see police).')+`<div class="mu" style="margin-top:8px">Civilians: ${Math.max(0,n-sp)}</div>`;ok=ok&&sp<n&&c.mafia<n-c.mafia;if(n>=g.min&&!ok)msg='Too many special roles for this many players'}
+ else if(R.game==='imposter'){cfg=`<div class="mu" style="margin-bottom:8px">Category</div><div class="cats">${CATS.map((x,i)=>`<div class="cat ${i===(c.cat||0)?'on':''}" data-a="cat" data-i="${i}">${x.n}</div>`).join('')}</div>`+stepper('Imposters','imp',c.imp,1,1);ok=ok&&c.imp<n-c.imp;if(n>=g.min&&!ok)msg='Too many imposters'}
+ else if(R.game==='draw')cfg=stepper('Seconds to draw','secs',c.secs,15,30);
+ else if(R.game==='charades'){const ind=c.ind||'both',tm=c.mode==='team',cnt=MOVIES.filter(m=>ind==='both'||m.i===ind).length;
+  cfg=tgl('Team mode','team',tm,tm?'On: players split into Red and Blue. Teams alternate turns, and only the actor’s teammates can guess.':'Off: free for all. Everyone takes turns, and anyone can guess.')+`<div class="mu" style="margin:14px 0 8px">Movies</div><div class="cats">${[['both','Both'],['B','Bollywood'],['H','Hollywood']].map(([v,l])=>`<div class="cat ${ind===v?'on':''}" data-a="ind" data-v="${v}">${l}</div>`).join('')}</div>`+stepper('Seconds to act','secs',c.secs||90,15,30)+`<div class="mu" style="margin-top:8px">${cnt} underrated movies, all from 2000 onwards.</div>`;
+  if(tm&&n<4){ok=false;msg='Team mode needs at least 4 players'}}
+ else if(R.game==='trivia')cfg=stepper('Seconds per question','secs',c.secs||20,5,10)+`<div class="mu" style="margin-top:8px">${QS.length} questions. Fastest finger first: only the first correct answer scores +2, and the round ends right then. One answer per question, so a wrong tap locks you out.</div>`;
+ else if(R.game==='wyr')cfg=`<div class="mu">${WYRS.length} dilemmas. Everyone on the majority side gets +1.</div>`;
+ else cfg=`<div class="mu">No settings. Just start.</div>`;
+ return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
+ <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}
+ ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}</main>`;
+>>>>>>> test
 }
 const pickList=(ids,me)=>{const m=S.A[S.id]?.k===S.R.k?S.A[S.id].t:null;return `<div class="pick">${ids.filter(p=>p!==me).map(p=>`<button class="${m===p?'on':''}" data-a="pick" data-p="${p}">${nm(p)}</button>`).join('')}</div>`};
 const waitN=need=>`<p class="mu">${need.filter(p=>S.A[p]?.k===S.R.k).length} of ${need.length} done</p>`;
 const logBox=R=>R.log?note(R.log):'';
+<<<<<<< HEAD
+=======
+const tboard=R=>{if(R.cfg.mode!=='team'||!R.teams)return board(R);return `<div class="lbl">Teams</div>`+[0,1].map(t=>`<div class="row" style="align-items:flex-start"><span><b>${TN[t]}</b><span class="mu" style="display:block">${R.pl.filter(p=>R.teams[p]===t).map(p=>nm(p)).join(', ')}</span></span><b>${(R.tsc||{})[t]||0}</b></div>`).join('')};
+const mateTxt=(R,role,me)=>{if(R.anon!==false||role==='civilian')return '';const m=Object.keys(R.roles).filter(p=>R.roles[p]===role&&p!==me);
+ return m.length?`Your ${ROLES[role]} teammate${m.length>1?'s':''}: ${m.map(p=>`<b style="${R.alive[p]?'':'text-decoration:line-through;opacity:.6'}">${nm(p)}</b>`).join(', ')}`:`You are the only ${ROLES[role]}.`};
+>>>>>>> test
 const chipsAll=R=>`<div class="lbl">Players</div>${Object.keys(R.roles||{}).map(p=>`<span class="chip ${p===S.id?'me':''} ${R.alive[p]?'':'dead'}">${nm(p)}</span>`).join('')}`;
 function mafiaView(){
  const R=S.R,me=S.id,role=R.roles[me],al=alive(R),dead=!R.alive[me],ph=R.phase;
  if(!role)return `<main>${note('Game in progress. You will join the next round.')}</main>`;
+<<<<<<< HEAD
  if(ph==='reveal')return `<main><div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">You are</div><div class="big">${ROLES[role]}</div><div class="mu">${RDESC[role]}</div><div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your role</div><div class="mu">Keep it secret</div>`}</div>${isHost()?`<button class="btn a" data-a="begin">Everyone is ready. Begin night</button>`:`<p class="mu">Waiting for the host…</p>`}</main>`;
  if(ph==='night'){
   if(dead)return `<main>${note('You are out. Watch quietly.')}</main>`;
@@ -289,6 +850,17 @@ function mafiaView(){
   return `<main><div class="lbl" style="margin-top:8px">${ROLES[role]}</div><div class="big">${ttl}</div>${(R.rej||[]).includes(role)?note('Your team did not agree. Choose again.'):''}${pickList(opts,null)}
   <div class="lbl">Team picks (anonymous)</div>${Object.keys(cnt).length?Object.keys(cnt).map(t=>`<div class="row"><span>${nm(t)}</span><span>${cnt[t]} ${cnt[t]>1?'votes':'vote'}</span></div>`).join(''):'<p class="mu">No picks yet.</p>'}
   <p class="mu">If you have teammates, everyone on your team must pick the same person. You won’t see who they are.</p></main>`;
+=======
+ if(ph==='reveal')return `<main><div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">You are</div><div class="big">${ROLES[role]}</div><div class="mu">${RDESC[role]}</div>${mateTxt(R,role,me)?`<div style="margin-top:14px">${mateTxt(R,role,me)}</div>`:''}<div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your role</div><div class="mu">Keep it secret</div>`}</div>${isHost()?`<button class="btn a" data-a="begin">Everyone is ready. Begin night</button>`:`<p class="mu">Waiting for the host…</p>`}</main>`;
+ if(ph==='night'){
+  if(dead)return `<main>${note('You are out. Watch quietly.')}</main>`;
+  if(role==='civilian')return `<main><div class="big">Night</div><p class="mu">Everyone sleeps. Wait for morning.</p></main>`;
+  const by={},open=R.anon===false;al.filter(p=>R.roles[p]===role&&S.A[p]?.k===R.k).forEach(p=>(by[S.A[p].t]=by[S.A[p].t]||[]).push(p));
+  const ttl={mafia:'Who do you eliminate?',doctor:'Who do you save?',police:'Who do you investigate?'}[role],opts=role==='doctor'?al:al.filter(p=>p!==me);
+  return `<main><div class="lbl" style="margin-top:8px">${ROLES[role]}</div><div class="big">${ttl}</div>${(R.rej||[]).includes(role)?note('Your team did not agree. Choose again.'):''}${pickList(opts,null)}
+  <div class="lbl">Team picks${open?'':' (anonymous)'}</div>${Object.keys(by).length?Object.keys(by).map(t=>`<div class="row"><span>${nm(t)}</span><span>${open?by[t].map(nm).join(', '):`${by[t].length} ${by[t].length>1?'votes':'vote'}`}</span></div>`).join(''):'<p class="mu">No picks yet.</p>'}
+  ${open?`<p class="mu">${mateTxt(R,role,me)}. If you have teammates, everyone on your team must pick the same person.</p>`:`<p class="mu">If you have teammates, everyone on your team must pick the same person. You won’t see who they are.</p>`}</main>`;
+>>>>>>> test
  }
  if(ph==='morning'){const r=R.inv?.[me];return `<main><div class="lbl" style="margin-top:8px">${R.next==='day'?'Morning':'Day result'}</div>${logBox(R)||''}${role==='police'&&r&&r.r===R.round&&R.next==='day'?note(`Investigation: ${nm(r.t)} is ${r.m?'<b>Mafia</b>':'<b>not Mafia</b>'}.`):''}${isHost()?`<button class="btn a" data-a="${R.next==='day'?'toDay':'nextRound'}">${R.next==='day'?'Start discussion and vote':'Next night'}</button>`:`<p class="mu">Waiting for the host…</p>`}${chipsAll(R)}</main>`}
  if(ph==='day'){
@@ -328,6 +900,27 @@ function partyView(){
   if(ph==='pick')return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Recreate it · <span id="tm"></span>s</div><div class="swatch" id="pv"></div>${sl(0,'Hue',360)}${sl(1,'Saturation',100)}${sl(2,'Brightness',100)}<button class="btn a" data-a="cpick">Lock in</button></main>`;
   return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} · target</div><div class="swatch" style="background:${css(R.tc)}"></div><div class="lbl">Accuracy</div>${R.res.map((r,i)=>`<div class="row"><span><span class="sw2" style="background:${r.c?css(r.c):'transparent'}"></span>${i+1}. ${nm(r.p)}</span><b>${r.acc.toFixed(1)}%</b></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
  }
+<<<<<<< HEAD
+=======
+ if(g==='trivia'){
+  const q=R.q;
+  if(ph==='ask')return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Fastest finger · Question ${R.round} · <span id="tm"></span>s</div><div class="big" style="font-size:30px">${esc(q.q)}</div><div class="pick">${q.o.map((o,i)=>`<button data-a="tans" data-i="${i}">${esc(o)}</button>`).join('')}</div></main>`;
+  return `<main><div class="lbl" style="margin-top:8px">Question ${R.round} · answer</div><div class="win">${R.win?nm(R.win)+' was fastest!':'Nobody got it'}</div><p>${esc(q.q)}<br><b>${esc(q.o[q.a])}</b>${R.win?' · +2 to '+nm(R.win):''}</p>${R.res.map(r=>`<div class="row"><span>${nm(r.p)}</span><span>${r.i==null?'No answer':esc(q.o[r.i])+(r.w?' · fastest':(r.i===q.a?' · correct':''))}</span></div>`).join('')}${board(R)}${hostBtns(true)}</main>`}
+ if(g==='wyr'){
+  const w=R.wq;
+  if(ph==='vote'){const mine=S.A[me]?.k===R.k?S.A[me].t:null;
+   return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} · Would you rather</div><div class="pick">${w.map((o,i)=>`<button class="${mine===i?'on':''}" data-a="wans" data-i="${i}">${esc(o)}</button>`).join('')}</div><p class="mu">The majority side scores +1. You can change your pick until everyone has voted.</p>${waitN(R.pl)}</main>`}
+  return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} result</div><div class="win">${R.res.maj===null?'It’s a tie':'Majority decided'}</div>${w.map((o,i)=>`<div class="mv"><b>${esc(o)}</b><div class="mu">${R.res.c[i]} vote${R.res.c[i]===1?'':'s'}${R.res.maj===i?' · majority, +1 each':''}</div><div>${R.pl.filter(p=>R.res.v[p]===i).map(nm).join(', ')||'—'}</div></div>`).join('')}${board(R)}${hostBtns(true)}</main>`}
+ if(g==='charades'){
+  const m=R.movie,card=`<div class="mv"><span class="badge">${IND[m.i]} · ${esc(m.y)}</span><div class="big">${esc(m.t)}</div><div class="mu">Starring</div><div>${esc(m.a)}</div><div class="mu" style="margin-top:10px">What makes it unique</div><div>${esc(m.s)}</div></div>`;
+  if(ph==='act'){
+   const tm=R.cfg.mode==='team',mine=tm&&R.teams[me]===R.teams[R.actor];
+   if(R.actor!==me)return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} · <span id="tm"></span>s</div><div class="big">${nm(R.actor)} is acting</div>${tm?`<p><b>${TN[R.teams[R.actor]]} team</b> is up. ${mine?'Shout your guesses!':'Stay quiet and let them guess.'}</p>`:''}${tm&&!mine?'':`<p>Guess the movie out loud. It is a <b>${IND[m.i]}</b> film from 2000 onwards.</p>`}<p class="mu">Put your phone down and watch.</p>${tboard(R)}</main>`;
+   if(S.sub===R.k)return `<main><div class="big">Locked in.</div><p class="mu">Waiting for the result…</p></main>`;
+   const others=R.pl.filter(p=>p!==me&&(!tm||R.teams[p]===R.teams[me]));
+   return `<main><div class="lbl" style="margin-top:8px">${tm?TN[R.teams[me]]+' team · ':''}Your turn · <span id="tm"></span>s</div><div class="reveal" data-a="flip">${S.show?`<span class="badge">${IND[m.i]} · ${esc(m.y)}</span><div class="big">${esc(m.t)}</div><div class="mu">Starring</div><div>${esc(m.a)}</div><div class="mu" style="margin-top:10px">What makes it unique</div><div>${esc(m.s)}</div><div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your movie</div><div class="mu">Don’t let anyone peek</div>`}</div><p>Act it out with no words. Then pick who guessed it.</p><div class="lbl">Who guessed it?</div><div class="pick">${others.map(p=>`<button class="${S.ch===p?'on':''}" data-a="chsel" data-p="${p}">${nm(p)}</button>`).join('')}<button class="${S.ch==='none'?'on':''}" data-a="chsel" data-p="none">Nobody guessed it</button></div><button class="btn a" data-a="chgo" ${S.ch?'':'disabled'}>Confirm</button></main>`}
+  return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} result</div><div class="win">${R.res.g?`${nm(R.res.g)} got it!`:'Nobody guessed it'}</div><p class="mu">${nm(R.res.a)} acted${R.res.g?' · +2 guesser, +1 actor'+(R.cfg.mode==='team'?` · ${TN[R.teams[R.res.a]]} team +3`:''):''}</p>${card}${tboard(R)}${hostBtns(true)}</main>`}
+>>>>>>> test
  if(ph==='vote')return `<main><div class="lbl" style="margin-top:8px">Round ${R.round}</div><div class="big">${esc(R.prompt)}</div>${S.sub===R.k?'':''}${pickList(R.pl,me)}${waitN(R.pl)}</main>`;
  const mx=R.res[0]?.n||1;
  return `<main><div class="lbl" style="margin-top:8px">${esc(R.prompt)}</div>${R.res.map(r=>`<div style="padding:10px 0"><div style="display:flex;justify-content:space-between"><span>${nm(r.p)}</span><b>${r.n}</b></div><div class="bar2" style="width:${r.n/mx*100}%"></div></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
@@ -348,6 +941,7 @@ function paintSl(){const[h,s,v]=S.pick;$('#pv').style.background=css(S.pick);
 function onSl(i,v){S.pick[i]=+v;paintSl()}
 function initSl(){$('#s0').style.background='linear-gradient(90deg,'+[0,60,120,180,240,300,360].map(h=>css([h,100,100])).join(',')+')';[0,1,2].forEach(i=>$('#s'+i).value=S.pick[i]);paintSl()}
 function after(){
+<<<<<<< HEAD
  if($('#cv'))initCv();if($('#s0'))initSl();markTools();pictAfter();
  if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
 }
@@ -502,8 +1096,26 @@ function render(){
  }
  const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
  if(ae&&ae.tagName==='INPUT'&&ae.closest('#app')&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
+=======
+ if($('#cv'))initCv();if($('#s0'))initSl();markTools();
+ if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
+}
+function render(){
+ if(!$('#app'))return;const R=S.R;let h;
+ if(!S.code||!R)h=home();
+ else{const g=G(R.game);
+  h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;
+  h+=R.phase==='lobby'?lobby():R.phase==='over'?over():R.game==='mafia'?mafiaView():R.game==='imposter'?imposterView():partyView();
+ }
+ const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
+ if(ae&&ae.tagName==='INPUT'&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
+>>>>>>> test
  if(h===render.h)return;const y=window.scrollY;
  $('#app').classList.toggle('noanim',key===render.key);
  $('#app').innerHTML=h;window.scrollTo(0,y);render.h=h;render.key=key;after();
 }
+<<<<<<< HEAD
 </script></body></html>
+=======
+</script></body></html>
+>>>>>>> test
