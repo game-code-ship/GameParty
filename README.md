@@ -1,11 +1,18 @@
 # Party games
 
-<<<<<<< HEAD
-Six realtime multiplayer games, played on phones with a room code or QR. No player limit.
-Mafia, Imposter, Draw & Guess, Color Match, Most Likely To, Pictionary. Scores are tracked per room across rounds.
-=======
-Eight realtime multiplayer games, played on phones with a room code or QR. No player limit.
-Mafia, Imposter, Draw & Guess, Color Match, Most Likely To, Dumb Charades, Quick Trivia, Would You Rather. Scores are tracked per room across rounds.
+Eleven realtime multiplayer games, played on phones with a room code or QR. No player limit.
+Mafia, Imposter, Draw & Guess, Color Match, Most Likely To, Dumb Charades, Quick Trivia, Would You Rather, Two Truths and a Lie, Fake Fact, Taboo. Scores are tracked per room across rounds.
+
+Every game shows a "How to play" section in the waiting room (the `HOW` map in `index.html`, one entry per game id).
+
+## Two Truths and a Lie (3+)
+One player per round writes three statements and marks the lie. The others vote on a shuffled list. +1 per correct guess, writer +2 per player fooled. Everyone writes once before anyone repeats.
+
+## Fake Fact (3+)
+Everyone writes a fake answer to a quirky question; fakes and the real answer are shuffled and everyone picks the real one. +2 for the truth, +1 per player your fake fools. Fakes matching the real answer (or its alternates) are rejected, and identical fakes are merged. Questions live in `FACTS` (`Question with ___|Answer|alt;alt`).
+
+## Taboo (4+, Red vs Blue)
+Teams alternate timed turns. The describer taps Got it (+1), Buzz (-1) or Skip (free, max 3). The other team's phones show the card so they can shout when a banned word slips out. Cards live in `TABOO` (`Word|ban|ban|ban|ban`). Teams and team scores carry over when you go back to the lobby.
 
 ## Mafia: anonymous roles
 Host lobby toggle, ON by default. ON: nobody knows anyone else's role. OFF: teammates see each other
@@ -27,7 +34,6 @@ The host sets seconds per question. Questions live in the `QS` list in `index.ht
 ## Would You Rather
 Everyone picks A or B on a dilemma. Everyone on the majority side gets +1 (a tie scores nobody). Needs 3+ players.
 Dilemmas live in the `WYRS` list in `index.html` (`Option A|Option B`).
->>>>>>> test
 
 ## Run it
 1. Install Node.js 18+
@@ -39,12 +45,3 @@ Deploy this folder to any Node host (Render, Railway, Fly.io, a VPS). It uses th
 
 ## Add a game
 Add an entry to `GAMES` and `DEF`, a case in `startRound`/`ACT.start`, a branch in `tick()` (referee, host device), and a view.
-<<<<<<< HEAD
-
-## Pictionary
-One player draws a secret word and everyone else sees the strokes live and types guesses in the chat.
-If a guess is part of the word (for example "rain" for "rainbow"), those letters get locked into the hint for everyone
-and the guesser earns a point. Chat history is kept for the whole room, including the lobby and between turns.
-The server keeps two small append-only logs per room (strokes and chat) so late joiners see the full drawing and old chat.
-=======
->>>>>>> test

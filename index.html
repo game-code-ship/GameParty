@@ -31,30 +31,18 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 .swatch{height:150px;border-radius:14px;border:1px solid var(--line)}.sw2{display:inline-block;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);vertical-align:middle;margin-right:8px}
 .gal{display:grid;grid-template-columns:1fr 1fr;gap:14px}.gal img{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}.gal small{display:block;color:var(--mu);font-size:13px;line-height:1.3;margin-top:4px}
 .bar2{height:6px;background:var(--ink);border-radius:3px;margin-top:4px}
-<<<<<<< HEAD
-#pcv{width:100%;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:12px;touch-action:none;display:block;margin-top:10px}
-.phead{display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-size:14px;color:var(--mu)}.phead b{color:var(--ink);font-size:22px}
-.pword{margin-top:6px;text-align:center}.pword .lbl{margin:6px 0}
-.hint{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 5px;font:700 28px/1 ui-monospace,Menlo,monospace;text-transform:uppercase}
-.lt{display:inline-block;min-width:22px;height:36px;text-align:center;border-bottom:3px solid var(--ink)}.lt.lk{border-color:var(--acc);color:var(--acc)}.sp{display:inline-block;width:16px}
-.chat{height:200px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:8px 12px;font-size:15px}.chat.big{height:60vh}
-.msg{padding:2px 0;word-break:break-word}.msg b{margin-right:4px}.msg b.me{color:var(--acc)}.msg.sys{color:var(--mu);font-style:italic}
-.cin{display:flex;gap:8px;margin-top:8px}.cin .btn{width:84px;margin:0;flex:none}.crow{display:flex;justify-content:space-between;align-items:center}
-#fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--bg);border:0;font-family:inherit;font-weight:600;font-size:14px;display:none;align-items:center;justify-content:center;z-index:8;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-#fab i{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:var(--acc);color:#fff;font-size:12px;line-height:20px;font-style:normal;text-align:center;display:none;padding:0 5px}
-#fpanel{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:480px;height:65vh;background:var(--bg);border:1px solid var(--line);border-radius:16px 16px 0 0;z-index:10;display:none;flex-direction:column;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
-#fpanel .chat{flex:1;height:auto;margin-top:8px}
-#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;display:none;z-index:9;font-size:15px}
-</style></head><body><div id="app"></div><div id="toast"></div>
-<button id="fab" data-a="fopen">Chat<i id="fbadge"></i></button>
-<div id="fpanel"><div class="crow"><b>Chat</b><button class="btn s o" data-a="fclose">Close</button></div><div class="chat" id="fchat"></div><div class="cin"><input type="text" id="fci" maxlength="80" placeholder="Say something" autocomplete="off"><button class="btn a" data-a="csend" data-i="fci">Send</button></div></div>
-=======
 .tgl{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:.15s}.tgl i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.35);transition:.15s}.tgl.on{background:var(--acc)}.tgl.on i{left:21px}
 .badge{display:inline-block;border:1px solid var(--mu);border-radius:999px;padding:2px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
 .mv{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;margin:12px 0}.mv .big{font-size:30px;margin:8px 0 4px}.mv p{margin:8px 0 0}
+.how{margin:0;padding-left:20px}.how li{margin:0 0 8px;font-size:15px}.how li::marker{color:var(--mu)}.hw{display:flex;justify-content:space-between;align-items:center}.hw u{cursor:pointer;font-size:13px;letter-spacing:0;text-transform:none}
+.tt{display:flex;gap:8px;margin:0 0 10px}.tt .tool{height:52px;min-width:64px;font-size:15px}
+.pick button[disabled]{opacity:.45;cursor:default}.fo{text-transform:uppercase;letter-spacing:.02em}
+.blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--ink)}
+.btn.ok{background:#2f9e44;border-color:#2f9e44;color:#fff}
+.tabo{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:24px 16px 10px;text-align:center;margin:14px 0}.tabo .w{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1}.tabo ul{list-style:none;margin:16px 0 0;padding:0}.tabo li{padding:8px 0;border-top:1px solid var(--line);color:var(--acc);font-weight:600;font-size:19px;text-transform:uppercase;letter-spacing:.04em}
+.tbtn{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tbtn .btn{margin:0;height:64px;font-size:18px}
 #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;display:none;z-index:9;font-size:15px}
 </style></head><body><div id="app"></div><div id="toast"></div>
->>>>>>> test
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* ---------- Registry: add new games here ---------- */
@@ -64,29 +52,13 @@ const GAMES=[
  {id:'draw',n:'Draw & Guess',d:'Draw a secret word. A stranger guesses it.',min:3},
  {id:'color',n:'Color Match',d:'Memorize a color, then recreate it exactly.',min:2},
  {id:'likely',n:'Most Likely To',d:'Vote for who fits the prompt best.',min:3},
-<<<<<<< HEAD
- {id:'pict',n:'Pictionary',d:'One draws live, the rest guess in chat. Half-right words get locked in.',min:2}];
-const DEF={mafia:{mafia:1,doctor:1,police:1},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},pict:{secs:80,rounds:2}};
-const CATS=`Fruit|Apple-Pear,Mango-Peach,Orange-Tangerine,Banana-Plantain,Lemon-Lime,Grapes-Berry,Strawberry-Raspberry,Blueberry-Blackberry,Cherry-Plum,Apricot-Peach,Watermelon-Muskmelon,Pineapple-Jackfruit,Guava-Pomegranate,Papaya-Mango,Kiwi-Gooseberry,Lychee-Longan,Fig-Date,Coconut-Walnut,Grapefruit-Pomelo,Custard Apple-Soursop,Dragon Fruit-Passion Fruit,Mulberry-Blackberry,Cranberry-Cherry,Nectarine-Peach,Persimmon-Tomato,Apple-Guava,Pear-Quince,Orange-Mango,Banana-Papaya,Sapota-Kiwi,Amla-Gooseberry,Jamun-Grapes,Tamarind-Date,Raisin-Grapes,Melon-Watermelon,Cantaloupe-Honeydew,Avocado-Mango,Starfruit-Guava,Mandarin-Orange,Clementine-Tangerine,Lemon-Orange,Lime-Green Apple,Pomegranate-Cherry,Strawberry-Cherry,Raspberry-Blackberry,Blueberry-Grapes,Plum-Peach,Apricot-Mango,Jackfruit-Durian,Durian-Pineapple,Mango-Pineapple,Banana-Apple,Watermelon-Papaya,Kiwi-Avocado,Coconut-Pineapple,Fig-Raisin,Date-Prune,Prune-Plum,Chikoo-Persimmon,Lychee-Rambutan,Rambutan-Mangosteen,Mangosteen-Lychee,Guava-Pear,Papaya-Melon,Orange-Grapefruit,Lemon-Grapefruit,Apple-Peach,Apple-Plum,Pear-Peach,Cherry-Grapes,Strawberry-Tomato,Strawberry-Watermelon,Mango-Banana,Mango-Guava,Banana-Jackfruit,Pineapple-Orange,Pineapple-Papaya,Pomegranate-Apple,Pomegranate-Grapes,Grapes-Plum,Grapes-Lychee,Kiwi-Lime,Kiwi-Strawberry,Lime-Orange,Tangerine-Mandarin,Pomelo-Orange,Blackcurrant-Blueberry,Redcurrant-Cranberry,Elderberry-Blueberry,Gooseberry-Grapes,Cherry-Apricot,Peach-Orange,Watermelon-Cucumber,Muskmelon-Cantaloupe,Honeydew-Watermelon,Papaya-Pumpkin,Dragon Fruit-Kiwi,Passion Fruit-Guava,Custard Apple-Jackfruit,Jackfruit-Breadfruit,Coconut-Melon,Avocado-Pear
-Food|Pizza-Burger,Samosa-Kachori,Dosa-Uttapam,Biryani-Pulao,Pasta-Noodles,Jalebi-Imarti,Idli-Dhokla,Roti-Naan,Paratha-Puri,Paneer-Tofu,Gulab Jamun-Rasgulla,Ladoo-Barfi,Pav Bhaji-Misal Pav,Vada Pav-Burger,Chole Bhature-Rajma Chawal,Dal-Sambar,Rasam-Soup,Poha-Upma,Maggi-Pasta,Momos-Dumplings,Sushi-Sandwich,Taco-Burrito,Pizza-Garlic Bread,Fries-Chips,Chips-Namkeen,Sandwich-Burger,Hot Dog-Sub,Shawarma-Wrap,Kebab-Tikka,Tandoori Chicken-Butter Chicken,Fish Fry-Chicken Fry,Egg Curry-Chicken Curry,Omelette-Scrambled Eggs,Boiled Egg-Fried Egg,Pancake-Waffle,Crepe-Dosa,Cake-Pastry,Cupcake-Muffin,Donut-Bagel,Croissant-Puff,Cookie-Biscuit,Brownie-Cake,Ice Cream-Kulfi,Kulfi-Falooda,Milkshake-Smoothie,Lassi-Buttermilk,Chai-Coffee,Coffee-Cold Coffee,Cola-Soda,Lemonade-Nimbu Pani,Coconut Water-Sugarcane Juice,Orange Juice-Apple Juice,Rice-Khichdi,Fried Rice-Biryani,Curd Rice-Lemon Rice,Pulao-Jeera Rice,Dal Makhani-Rajma,Palak Paneer-Matar Paneer,Aloo Gobi-Aloo Matar,Bhindi-Baingan,Baingan Bharta-Bhurji,Pakora-Bhajiya,Bhel-Sev Puri,Pani Puri-Dahi Puri,Aloo Tikki-Samosa Chaat,Papdi Chaat-Raj Kachori,Dhokla-Khandvi,Thepla-Paratha,Fafda-Gathiya,Khakhra-Papad,Undhiyu-Mixed Veg,Pizza-Calzone,Lasagna-Pasta,Spaghetti-Macaroni,Ramen-Noodles,Chowmein-Hakka Noodles,Manchurian-Chilli Paneer,Spring Roll-Samosa,Soup-Stew,Salad-Raita,Pickle-Chutney,Ketchup-Mayonnaise,Butter-Ghee,Cheese-Paneer,Bread-Bun,Toast-Sandwich,Cornflakes-Oats,Muesli-Granola,Honey-Jam,Peanut Butter-Nutella,Chocolate-Candy,Toffee-Lollipop,Halwa-Kheer,Kheer-Payasam,Rabri-Malai,Rasmalai-Rasgulla,Sandesh-Peda,Mysore Pak-Soan Papdi,Gajar Halwa-Moong Dal Halwa,Falooda-Sundae,Pizza-Focaccia,Burger-Patty,Nachos-Tacos
-Actor|Shah Rukh Khan-Salman Khan,Tom Cruise-Brad Pitt,Amitabh Bachchan-Rajinikanth,Leonardo DiCaprio-Matt Damon,Deepika Padukone-Priyanka Chopra,Ranbir Kapoor-Ranveer Singh,Aamir Khan-Akshay Kumar,Hrithik Roshan-Tiger Shroff,Ajay Devgn-Sunny Deol,Anil Kapoor-Jackie Shroff,Shahid Kapoor-Ranbir Kapoor,Varun Dhawan-Tiger Shroff,Kartik Aaryan-Ayushmann Khurrana,Rajkummar Rao-Nawazuddin Siddiqui,Vicky Kaushal-Ranveer Singh,Sidharth Malhotra-Shahid Kapoor,Arjun Kapoor-Varun Dhawan,Sushant Singh Rajput-Rajkummar Rao,Irrfan Khan-Pankaj Tripathi,Manoj Bajpayee-Pankaj Tripathi,Alia Bhatt-Shraddha Kapoor,Katrina Kaif-Kareena Kapoor,Aishwarya Rai-Madhuri Dixit,Kajol-Rani Mukerji,Anushka Sharma-Kriti Sanon,Kangana Ranaut-Vidya Balan,Sonam Kapoor-Janhvi Kapoor,Sara Ali Khan-Ananya Panday,Taapsee Pannu-Bhumi Pednekar,Parineeti Chopra-Priyanka Chopra,Prabhas-Allu Arjun,Mahesh Babu-Jr NTR,Ram Charan-Allu Arjun,Yash-Prabhas,Vijay-Ajith,Suriya-Karthi,Dhanush-Vijay Sethupathi,Kamal Haasan-Rajinikanth,Mohanlal-Mammootty,Dulquer Salmaan-Fahadh Faasil,Nani-Vijay Deverakonda,Rashmika Mandanna-Pooja Hegde,Samantha-Tamannaah,Nayanthara-Trisha,Anushka Shetty-Kajal Aggarwal,Chiranjeevi-Balakrishna,Dharmendra-Jeetendra,Rishi Kapoor-Randhir Kapoor,Rajesh Khanna-Dev Anand,Dilip Kumar-Raj Kapoor,Govinda-Mithun Chakraborty,Sanjay Dutt-Sunil Shetty,Saif Ali Khan-Abhishek Bachchan,Bobby Deol-Sunny Deol,Dev Anand-Shammi Kapoor,Johnny Depp-Orlando Bloom,Robert Downey Jr-Chris Evans,Chris Evans-Chris Pratt,Chris Pratt-Chris Pine,Ryan Reynolds-Ryan Gosling,Hugh Jackman-Ryan Reynolds,Will Smith-Eddie Murphy,Dwayne Johnson-Vin Diesel,Jason Statham-Vin Diesel,Keanu Reeves-Tom Hardy,Christian Bale-Tom Hardy,Brad Pitt-George Clooney,George Clooney-Matt Damon,Tom Hanks-Tom Cruise,Denzel Washington-Morgan Freeman,Al Pacino-Robert De Niro,Jack Nicholson-Anthony Hopkins,Harrison Ford-Sean Connery,Daniel Craig-Pierce Brosnan,Henry Cavill-Chris Hemsworth,Robert Pattinson-Timothee Chalamet,Tom Holland-Tobey Maguire,Andrew Garfield-Tom Holland,Ben Affleck-Matt Damon,Jim Carrey-Rowan Atkinson,Adam Sandler-Ben Stiller,Seth Rogen-Jonah Hill,Jennifer Lawrence-Emma Stone,Scarlett Johansson-Emma Watson,Angelina Jolie-Jennifer Aniston,Julia Roberts-Sandra Bullock,Anne Hathaway-Natalie Portman,Margot Robbie-Gal Gadot,Zendaya-Selena Gomez,Meryl Streep-Judi Dench,Nicole Kidman-Cate Blanchett,Kate Winslet-Emma Thompson,Emma Watson-Emma Stone,Daniel Radcliffe-Rupert Grint,Shah Rukh Khan-Aamir Khan,Salman Khan-Akshay Kumar,Amitabh Bachchan-Dharmendra,Abhishek Bachchan-Ranbir Kapoor,Akshay Kumar-Ajay Devgn,Hrithik Roshan-Shahid Kapoor,Rajinikanth-Chiranjeevi
-Object|Pen-Pencil,Chair-Stool,Spoon-Fork,Mirror-Window,Bag-Backpack,Clock-Watch,Table-Desk,Sofa-Bed,Pillow-Cushion,Blanket-Quilt,Towel-Napkin,Plate-Bowl,Cup-Glass,Mug-Bottle,Knife-Scissors,Comb-Brush,Soap-Shampoo,Toothbrush-Toothpaste,Razor-Trimmer,Perfume-Deodorant,Lipstick-Kajal,Ring-Bangle,Necklace-Chain,Earring-Nose Pin,Watch-Bracelet,Shirt-Tee,Jeans-Trousers,Saree-Lehenga,Kurta-Sherwani,Cap-Hat,Scarf-Dupatta,Socks-Gloves,Shoes-Sandals,Slippers-Flip Flops,Belt-Tie,Wallet-Purse,Umbrella-Raincoat,Sunglasses-Spectacles,Phone-Tablet,Laptop-Desktop,Mouse-Keyboard,Charger-Power Bank,Headphones-Earphones,Speaker-Radio,Television-Monitor,Remote-Joystick,Camera-Camcorder,Torch-Lantern,Candle-Diya,Bulb-Tube Light,Fan-Cooler,AC-Heater,Fridge-Freezer,Oven-Microwave,Stove-Induction,Kettle-Pot,Pan-Tawa,Pressure Cooker-Pot,Ladle-Spatula,Grater-Peeler,Bucket-Mug,Broom-Mop,Dustbin-Basket,Key-Lock,Door-Gate,Curtain-Blind,Carpet-Mat,Rug-Blanket,Lamp-Torch,Calendar-Diary,Notebook-Textbook,Eraser-Sharpener,Ruler-Compass,Stapler-Punch,Tape-Glue,Marker-Highlighter,Crayon-Sketch Pen,Paintbrush-Pen,Scissors-Cutter,Hammer-Screwdriver,Spanner-Pliers,Nail-Screw,Drill-Saw,Ladder-Stairs,Rope-String,Chain-Wire,Needle-Pin,Thread-Wool,Button-Zip,Balloon-Ball,Doll-Teddy Bear,Kite-Drone,Bat-Racket,Football-Basketball,Cricket Ball-Tennis Ball,Dice-Cards,Chess-Ludo,Guitar-Violin,Piano-Keyboard,Drum-Tabla,Flute-Harmonica,Bicycle-Scooter,Bike-Scooty,Car-Jeep,Bus-Truck,Helmet-Cap,Suitcase-Trolley Bag,Mirror-Photo Frame,Painting-Poster,Vase-Pot,Clock-Alarm,Newspaper-Magazine,Book-Comic,Letter-Postcard,Coin-Note,Stamp-Sticker,Passport-Aadhaar Card
-Animal|Lion-Tiger,Dog-Wolf,Cat-Leopard,Horse-Donkey,Elephant-Rhino,Rabbit-Hare,Cheetah-Leopard,Jaguar-Panther,Puma-Cougar,Fox-Jackal,Hyena-Wolf,Bear-Panda,Polar Bear-Grizzly,Monkey-Gorilla,Chimpanzee-Orangutan,Baboon-Langur,Cow-Buffalo,Bull-Ox,Goat-Sheep,Camel-Llama,Alpaca-Llama,Deer-Antelope,Zebra-Horse,Giraffe-Okapi,Hippo-Rhino,Crocodile-Alligator,Lizard-Gecko,Chameleon-Iguana,Snake-Python,Cobra-Viper,Turtle-Tortoise,Frog-Toad,Salamander-Newt,Squirrel-Chipmunk,Rat-Mouse,Hamster-Guinea Pig,Rabbit-Guinea Pig,Mongoose-Meerkat,Otter-Beaver,Seal-Sea Lion,Walrus-Seal,Dolphin-Porpoise,Whale-Shark,Shark-Dolphin,Octopus-Squid,Crab-Lobster,Prawn-Shrimp,Jellyfish-Starfish,Eel-Snake,Goldfish-Betta,Salmon-Trout,Tuna-Mackerel,Bat-Flying Squirrel,Kangaroo-Wallaby,Koala-Panda,Sloth-Koala,Armadillo-Pangolin,Hedgehog-Porcupine,Skunk-Raccoon,Raccoon-Red Panda,Lemur-Monkey,Camel-Dromedary,Yak-Bull,Bison-Buffalo,Moose-Elk,Reindeer-Deer,Boar-Pig,Pig-Hog,Donkey-Mule,Pony-Horse,Zebra-Donkey,Tiger-Leopard,Lion-Lioness,Lion-Jaguar,Cat-Kitten,Dog-Puppy,Dog-Fox,Wolf-Coyote,Dingo-Wolf,Bulldog-Pug,Labrador-Golden Retriever,Poodle-Spaniel,Husky-Malamute,Ant-Termite,Bee-Wasp,Butterfly-Moth,Dragonfly-Damselfly,Mosquito-Fly,Cockroach-Beetle,Grasshopper-Cricket,Locust-Grasshopper,Ladybug-Beetle,Spider-Scorpion,Centipede-Millipede,Snail-Slug,Earthworm-Leech,Mantis-Stick Insect,Firefly-Glow Worm,Caterpillar-Worm,Komodo Dragon-Monitor Lizard,Anaconda-Boa,Rattlesnake-Cobra,Gharial-Crocodile,Manatee-Dugong,Platypus-Echidna,Tapir-Pig,Warthog-Boar
-Bird|Crow-Raven,Eagle-Hawk,Parrot-Macaw,Sparrow-Finch,Duck-Goose,Pigeon-Dove,Owl-Falcon,Vulture-Eagle,Kite-Hawk,Peacock-Peahen,Swan-Goose,Flamingo-Crane,Stork-Heron,Pelican-Cormorant,Penguin-Puffin,Albatross-Seagull,Seagull-Pigeon,Kingfisher-Bee Eater,Woodpecker-Hornbill,Toucan-Hornbill,Cuckoo-Koel,Mynah-Starling,Robin-Sparrow,Bulbul-Sparrow,Nightingale-Lark,Skylark-Sparrow,Swallow-Swift,Hummingbird-Sunbird,Weaver-Sparrow,Magpie-Crow,Jay-Magpie,Cardinal-Robin,Bluebird-Kingfisher,Canary-Finch,Budgerigar-Cockatiel,Cockatoo-Parrot,Lovebird-Budgerigar,Macaw-Cockatoo,Ostrich-Emu,Emu-Cassowary,Kiwi Bird-Emu,Rhea-Ostrich,Turkey-Chicken,Chicken-Rooster,Hen-Duck,Quail-Partridge,Pheasant-Peacock,Peahen-Hen,Grouse-Pheasant,Dodo-Pigeon,Crane-Stork,Heron-Egret,Egret-Crane,Ibis-Spoonbill,Spoonbill-Flamingo,Cormorant-Darter,Osprey-Eagle,Buzzard-Hawk,Harrier-Falcon,Condor-Vulture,Secretary Bird-Eagle,Barn Owl-Snowy Owl,Owl-Nightjar,Swift-Martin,Hoopoe-Woodpecker,Roller-Kingfisher,Shrike-Drongo,Drongo-Crow,Treepie-Magpie,Oriole-Canary,Tailorbird-Warbler,Lapwing-Plover,Sandpiper-Plover,Gull-Tern,Skua-Gull,Loon-Duck,Grebe-Duck,Coot-Moorhen,Rail-Crake,Bustard-Ostrich,Gannet-Booby,Frigatebird-Albatross,Tropicbird-Tern,Petrel-Shearwater,Mallard-Teal,Pintail-Mallard,Swan-Duck,Black Swan-White Swan,Raven-Rook,Rook-Jackdaw,Jackdaw-Crow,Chough-Jackdaw,Starling-Blackbird,Thrush-Blackbird,Wren-Sparrow,Tit-Chickadee,Nuthatch-Treecreeper,Bunting-Sparrow,Goldfinch-Canary,Pigeon-Cuckoo,Parakeet-Parrot,Eagle-Condor,Falcon-Kestrel`.split('\n').map(l=>{const[n,w]=l.split('|');return{n,w:w.split(',').map(x=>x.split('-'))}});
-const WORDS='cat,house,tree,sun,car,fish,pizza,guitar,rocket,umbrella,elephant,bicycle,flower,moon,clock,apple,bridge,crown,robot,snowman,castle,butterfly,cake,camera,key,boat,mountain,rainbow,snake,spider,glasses,phone,ghost,dragon,airplane,banana,cloud,shoe,candle,train,penguin,lighthouse,tent,pumpkin,diamond,balloon,owl,giraffe,volcano,windmill,dog,bird,star,heart,book,chair,table,door,window,lamp,bed,sofa,bus,truck,ship,helicopter,tractor,motorcycle,scooter,skateboard,kite,ball,bat,trophy,medal,flag,drum,piano,violin,trumpet,microphone,headphones,television,computer,laptop,keyboard,mouse,battery,bulb,fan,fridge,oven,toaster,kettle,spoon,fork,knife,plate,cup,bottle,bucket,broom,scissors,hammer,saw,ladder,axe,anchor,compass,map,globe,telescope,microscope,magnet,rain,snow,lightning,tornado,fire,island,beach,desert,forest,river,waterfall,cactus,palm tree,mushroom,carrot,strawberry,watermelon,pineapple,grapes,cherry,lemon,burger,hotdog,ice cream,donut,cookie,popcorn,egg,bread,cheese,lion,tiger,monkey,horse,cow,pig,sheep,duck,frog,turtle,shark,whale,dolphin,octopus,crab,bee,ant,snail,kangaroo,zebra,panda,bear,rabbit,tooth,eye,hand,foot,nose,ear,skull,pencil,envelope,gift,bomb,sword,shield,bow and arrow,campfire,igloo,pyramid,statue,tower,hospital,school,church,train station,traffic light,fence,swing,slide,seesaw,jellyfish,seahorse,hat,shirt,socks,dress,ring,necklace,watch,backpack,suitcase,wallet,toothbrush,soap,towel,mirror,clown,pirate,wizard,king,queen,knight,astronaut,alien,mermaid,fairy,vampire,zombie,scarecrow,snowflake,sunflower,rose,tulip,leaf,acorn,feather,nest,web,cave,tunnel,road,hill,moonlight,planet,comet,satellite,parachute,submarine,hot air balloon,roller coaster,ferris wheel,carousel,circus tent,magic wand,treasure chest,crystal ball,lantern,hourglass'.split(',');
-const PROMPTS=['Most likely to be late to their own wedding', 'Most likely to become famous', 'Most likely to survive a zombie apocalypse', 'Most likely to cry at a movie', 'Most likely to forget a birthday', 'Most likely to get lost with GPS on', 'Most likely to win a cooking show', 'Most likely to start a business', 'Most likely to talk to strangers', 'Most likely to oversleep tomorrow', 'Most likely to adopt ten pets', 'Most likely to laugh at a funeral', 'Most likely to spend all their money in a day', 'Most likely to travel the world alone', 'Most likely to become a millionaire', 'Most likely to break a world record', 'Most likely to become a politician', 'Most likely to become a movie star', 'Most likely to write a bestselling book', 'Most likely to win a Nobel Prize', 'Most likely to become a chef', 'Most likely to join the army', 'Most likely to move to another country', 'Most likely to live on a farm', 'Most likely to live on a boat', 'Most likely to quit their job and travel', 'Most likely to become a teacher', 'Most likely to become a doctor', 'Most likely to become a YouTuber', 'Most likely to go viral on social media', 'Most likely to become a stand up comedian', 'Most likely to become a singer', 'Most likely to become a professional gamer', 'Most likely to become a cricketer', 'Most likely to win an Olympic medal', 'Most likely to run a marathon', 'Most likely to climb Mount Everest', 'Most likely to go skydiving', 'Most likely to try bungee jumping', 'Most likely to eat something weird on a dare', 'Most likely to eat the last slice of pizza', 'Most likely to finish a whole cake alone', 'Most likely to order food at midnight', 'Most likely to burn water while cooking', 'Most likely to cook the best biryani', 'Most likely to always be hungry', 'Most likely to skip breakfast', 'Most likely to drink ten cups of chai a day', 'Most likely to forget their phone at home', 'Most likely to lose their keys', 'Most likely to lose their wallet', 'Most likely to drop their phone in water', 'Most likely to crack their phone screen', 'Most likely to be on their phone all day', 'Most likely to text back after three days', 'Most likely to leave someone on read', 'Most likely to have the most unread messages', 'Most likely to post too many selfies', 'Most likely to stalk someone on social media', 'Most likely to take a hundred photos of one meal', 'Most likely to talk in their sleep', 'Most likely to snore loudly', 'Most likely to sleep through an alarm', 'Most likely to fall asleep in a meeting', 'Most likely to fall asleep during a movie', 'Most likely to stay up all night', 'Most likely to get lost in a new city', 'Most likely to miss their flight', 'Most likely to pack too much luggage', 'Most likely to forget their passport', 'Most likely to make friends on a trip', 'Most likely to get into an argument with a shopkeeper', 'Most likely to bargain for everything', 'Most likely to buy something they do not need', 'Most likely to go shopping without a list', 'Most likely to wear the same clothes every day', 'Most likely to spend hours choosing an outfit', 'Most likely to be the best dressed', 'Most likely to dye their hair a crazy colour', 'Most likely to get a tattoo', 'Most likely to trip over nothing', 'Most likely to walk into a glass door', 'Most likely to spill food on their shirt', 'Most likely to laugh at their own joke', 'Most likely to laugh at the wrong time', 'Most likely to cry from laughing', 'Most likely to get the giggles in class', 'Most likely to tell the funniest story', 'Most likely to be the life of the party', 'Most likely to leave the party early', 'Most likely to dance on a table', 'Most likely to sing karaoke all night', 'Most likely to know every song lyric', 'Most likely to start a dance flash mob', 'Most likely to become a DJ', 'Most likely to be a great actor', 'Most likely to be a drama queen', 'Most likely to be dramatic about small things', 'Most likely to start a fight over nothing', 'Most likely to apologise first', 'Most likely to hold a grudge', 'Most likely to forgive anyone', 'Most likely to keep a secret', 'Most likely to spill a secret', 'Most likely to tell a white lie', 'Most likely to be the most honest friend', 'Most likely to give the best advice', 'Most likely to be everyones therapist', 'Most likely to be the group planner', 'Most likely to cancel plans last minute', 'Most likely to be the first to arrive', 'Most likely to be the last to arrive', 'Most likely to get a speeding ticket', 'Most likely to crash a car', 'Most likely to learn a new language', 'Most likely to become a billionaire', 'Most likely to be a great parent', 'Most likely to marry first', 'Most likely to have the biggest family', 'Most likely to name a pet after food', 'Most likely to talk to plants', 'Most likely to believe in ghosts', 'Most likely to get scared by a harmless thing', 'Most likely to scream at a spider', 'Most likely to be afraid of the dark', 'Most likely to go on a ghost hunt', 'Most likely to win an argument', 'Most likely to become a lawyer', 'Most likely to become an astronaut', 'Most likely to invent something useful', 'Most likely to build a rocket', 'Most likely to be on the news', 'Most likely to appear on a reality show', 'Most likely to win the lottery', 'Most likely to lose a bet', 'Most likely to cheat at a board game', 'Most likely to flip the board when losing', 'Most likely to win every game', 'Most likely to take a game too seriously', 'Most likely to binge a whole series in one night', 'Most likely to spoil a movie ending', 'Most likely to rewatch the same show forever', 'Most likely to quote movies all the time', 'Most likely to forget an important meeting', 'Most likely to work through a holiday', 'Most likely to retire early', 'Most likely to live to a hundred'];
-const ROLES={mafia:'Mafia',doctor:'Doctor',police:'Police',civilian:'Civilian'};
-const RDESC={mafia:'Each night your team picks one person to eliminate.',doctor:'Each night your team picks one person to save.',police:'Each night your team picks one person to investigate.',civilian:'Find the mafia and vote them out.'};
-const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b','#f783ac','#15aabf','#94d82d','#868e96','#ffd43b'];
-/* ---------- helpers ---------- */
-const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
-let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:''};
-=======
  {id:'charades',n:'Dumb Charades',d:'Act out underrated movies. Bollywood, Hollywood or both.',min:2},
  {id:'trivia',n:'Quick Trivia',d:'Fastest finger first. The first correct answer takes the points.',min:2},
- {id:'wyr',n:'Would You Rather',d:'Pick a side. Score by landing with the majority.',min:3}];
-const DEF={mafia:{mafia:1,doctor:1,police:1,anon:true},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},charades:{ind:'both',secs:90,mode:'ffa'},trivia:{secs:20},wyr:{}};
+ {id:'wyr',n:'Would You Rather',d:'Pick a side. Score by landing with the majority.',min:3},
+ {id:'truths',n:'Two Truths and a Lie',d:'Write two truths and a lie about yourself. Friends vote for the lie.',min:3},
+ {id:'fakefact',n:'Fake Fact',d:'Invent a believable fake answer, then spot the real one.',min:3},
+ {id:'taboo',n:'Taboo',d:'Get your team to say the word without the banned ones. Red vs Blue.',min:4}];
+const DEF={mafia:{mafia:1,doctor:1,police:1,anon:true},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},charades:{ind:'both',secs:90,mode:'ffa'},trivia:{secs:20},wyr:{},truths:{secs:90},fakefact:{secs:45},taboo:{secs:60,mode:'team'}};
 
 /* Trivia: question|correct answer|wrong|wrong|wrong (options are shuffled each round) */
 const QS=`What is the capital of Australia?|Canberra|Sydney|Melbourne|Perth
@@ -524,6 +496,202 @@ function draw(ind,used,not){let all=MOVIES.filter(m=>(ind==='both'||m.i===ind)&&
  if(!pool.length){pool=all;reset=true}
  if(ind==='both'){const w=rnd(['B','H']),sub=pool.filter(m=>m.i===w);if(sub.length)pool=sub}
  return{m:rnd(pool),used:reset?(not?[not]:[]):used}}
+/* Fake Fact: question with a ___ blank|real answer|optional alternates (separated by ;) that fakes are also blocked from matching */
+const FACTS=`India's first ___ was launched in 1975 and named after an ancient mathematician.|satellite
+In 1932, the Australian army went to war against ___ and lost.|emus
+A group of flamingos is called a ___.|flamboyance
+Octopuses have three ___.|hearts
+Wombat droppings are shaped like ___.|cubes
+Cleopatra lived closer in time to the ___ than to the building of the Great Pyramid.|Moon landing|lunar landing;apollo 11
+Scotland's national animal is the ___.|unicorn
+Nintendo was founded in 1889 to make handmade ___.|playing cards|cards;hanafuda;hanafuda cards
+Before it was Google, the search engine was called ___.|BackRub
+Bubble wrap was originally invented to be used as ___.|wallpaper|textured wallpaper
+The first product ever scanned with a barcode, in 1974, was a pack of ___.|chewing gum|gum;juicy fruit
+The first item ever sold on eBay was a broken ___.|laser pointer|laser
+The first message sent over ARPANET in 1969 was meant to be "LOGIN", but the system crashed after two letters, so it said "___".|LO
+Ruth Wakefield is credited with inventing the ___ at the Toll House Inn in the 1930s.|chocolate chip cookie|choc chip cookie;toll house cookie
+Jaipur was painted ___ in 1876 to welcome the Prince of Wales.|pink
+India's rupee symbol was officially adopted in ___.|2010
+India's first talking film, Alam Ara, was released in ___.|1931
+The English word "shampoo" comes from a Hindi word meaning to ___.|massage|press;knead
+In cricket, a score of 111 is superstitiously known as a ___.|Nelson
+In Italian, the @ symbol is called "chiocciola", which means ___.|snail
+A baby echidna is called a ___.|puggle
+The plastic tip on the end of a shoelace is called an ___.|aglet
+The dot over a lowercase "i" is called a ___.|tittle
+The Hawaiian pizza was invented in 1962 in ___.|Canada
+The Caesar salad was invented by chef Caesar Cardini in ___, not Italy.|Mexico|tijuana
+On Venus, a day is longer than a ___.|year
+Sharks are older than ___.|trees
+Oxford University is older than the ___ Empire.|Aztec
+Napoleon was once chased by a swarm of ___ during a hunting party.|rabbits|bunnies
+___ have fingerprints so similar to human ones that they could confuse a crime scene.|Koalas
+A day on Mars is called a ___.|sol
+In the original Donkey Kong, Mario worked as a ___.|carpenter
+The PlayStation began as a joint project with ___ to build a CD add-on for the Super Famicom.|Nintendo
+Jeff Bezos first wanted to name Amazon ___.|Cadabra|cadabra.com
+Pepsi was originally called ___.|Brad's Drink
+LEGO comes from the Danish phrase "leg godt", which means "___".|play well
+Male Gentoo penguins sometimes offer a ___ to a potential mate.|pebble|stone;rock
+Bhutan famously measures progress by Gross National ___.|Happiness
+Chandigarh was largely planned by the Swiss-French architect ___.|Le Corbusier|corbusier
+India's iconic Ambassador car was based on the British Morris ___.|Oxford
+Mawsynram in Meghalaya is often called the ___ place on Earth.|wettest
+Ludo evolved from an ancient Indian game called ___.|Pachisi|pachesi;chaupar
+Chail is often called the world's highest cricket ground. It is in the Indian state of ___.|Himachal Pradesh|himachal
+The only letter of the alphabet that appears in no US state name is ___.|Q
+The only national flag that is not a rectangle or a square is the flag of ___.|Nepal
+Canada has more ___ than the rest of the world's countries combined.|lakes
+The Hundred Years' War actually lasted ___ years.|116
+In ___, it is the male that gets pregnant and gives birth.|seahorses|pipefish
+Reindeer eyes change from gold in summer to ___ in winter.|blue
+Astronaut Buzz Aldrin's mother's maiden name was ___.|Moon
+The first toy ever advertised on television, in 1952, was Mr. ___ Head.|Potato
+Before it was named after its inventor, the Rubik's Cube was sold in Hungary as the ___ Cube.|Magic
+In 1968, the first Earth creatures to fly around the Moon were two Soviet ___.|tortoises|turtles
+Twitter's early prototype name, with no vowels, was ___.|twttr
+A group of owls is called a ___.|parliament
+Chess evolved from an ancient Indian game called ___.|Chaturanga
+The English word "pyjamas" comes from a Hindi-Urdu word that literally means "___ garment".|leg
+The word "cheetah" comes from a Sanskrit word meaning "___".|spotted|speckled;variegated
+India's first individual Olympic gold medallist, in 2008, was shooter ___.|Abhinav Bindra|bindra
+In its early days, Listerine was also marketed as a ___ cleaner.|floor
+Kolkata's Howrah Bridge was built entirely with rivets and has no ___ at all.|nuts and bolts|nuts;bolts
+In Kolkata, pani puri is famously called ___.|phuchka|fuchka;puchka;phuska`.split('\n').map(l=>{const[q,a,alt]=l.split('|');return{q,a,alt:alt?alt.split(';'):[]}});
+const fkey=s=>String(s).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9 ]/g,'').trim().replace(/^(the|a|an) /,'').replace(/ /g,'').replace(/s$/,'');
+const badFake=(f,t)=>{const k=fkey(t);return !k||[f.a,...f.alt].some(a=>{const r=fkey(a);return r===k||(r.length>5&&lev(r,k)<=1)})};
+/* Taboo: word|banned|banned|banned|banned */
+const TABOO=`Pizza|cheese|Italy|slice|crust
+Cricket|bat|ball|wicket|stumps
+Birthday|cake|candles|party|present
+Airport|plane|flight|terminal|luggage
+Samosa|potato|triangle|fried|chutney
+Chai|tea|milk|cup|masala
+Biryani|rice|Hyderabad|chicken|spices
+Cinema|movie|screen|popcorn|theatre
+Wedding|bride|groom|marriage|ceremony
+Selfie|photo|camera|phone|self
+Elephant|trunk|tusk|grey|zoo
+Diwali|lights|festival|crackers|diya
+Holi|colours|festival|powder|water
+Taj Mahal|Agra|Shah Jahan|marble|monument
+Bollywood|Hindi|Mumbai|films|dance
+Yoga|stretch|pose|mat|meditation
+Rickshaw|wheels|pull|taxi|driver
+Dosa|South Indian|crepe|sambar|batter
+Rain|water|umbrella|wet|clouds
+Monsoon|rain|season|India|July
+Train|railway|track|station|engine
+Doctor|hospital|medicine|patient|nurse
+Teacher|school|class|students|lesson
+Police|cop|arrest|jail|thief
+Library|books|read|quiet|borrow
+Football|goal|kick|soccer|referee
+Chocolate|sweet|cocoa|candy|bar
+Ice cream|cold|cone|scoop|dessert
+Coffee|cup|bean|caffeine|Starbucks
+Passport|travel|visa|country|document
+Rainbow|colours|rain|sky|arch
+Pillow|bed|sleep|soft|head
+Mirror|reflection|glass|face|look
+Umbrella|rain|wet|open|handle
+Torch|light|battery|dark|beam
+Pencil|write|eraser|lead|sharpen
+Scissors|cut|paper|blade|snip
+Clock|time|hands|tick|alarm
+Treadmill|run|gym|exercise|walk
+Shampoo|hair|wash|soap|conditioner
+Toothbrush|teeth|paste|mouth|bristles
+Spider|web|insect|legs|Spiderman
+Snake|slither|venom|cobra|reptile
+Tiger|stripes|cat|jungle|roar
+Peacock|feathers|national|tail|blue
+Monkey|banana|ape|tree|zoo
+Camel|desert|hump|Rajasthan|ride
+Lion|king|roar|mane|jungle
+Penguin|Antarctica|ice|waddle|bird
+Astronaut|space|moon|rocket|NASA
+Volcano|lava|erupt|mountain|hot
+Pirate|ship|treasure|sea|parrot
+Superhero|cape|powers|Marvel|save
+Zombie|dead|brains|apocalypse|bite
+Vampire|blood|Dracula|bite|fangs
+Ghost|haunted|spirit|boo|scary
+Santa Claus|Christmas|presents|reindeer|red
+Skyscraper|tall|building|floors|city
+Bridge|river|cross|over|road
+Lighthouse|ship|sea|light|coast
+Desert|sand|camel|hot|dry
+Island|water|beach|surrounded|sea
+Jungle|trees|animals|forest|Tarzan
+Waterfall|water|fall|cliff|river
+Whistle|blow|referee|sound|loud
+Guitar|strings|music|play|rock
+Piano|keys|music|grand|Mozart
+Drums|beat|sticks|music|band
+Microphone|sing|sound|speak|stage
+Karaoke|sing|song|microphone|lyrics
+Dance|music|move|steps|floor
+Remote|TV|channel|buttons|battery
+Laptop|computer|screen|keyboard|portable
+WiFi|internet|router|password|signal
+Password|login|secret|code|hack
+Email|message|inbox|send|Gmail
+Instagram|photo|reels|followers|filter
+YouTube|video|watch|channel|subscribe
+WhatsApp|chat|message|green|group
+Netflix|movies|shows|streaming|binge
+Shah Rukh Khan|Bollywood|actor|king|romance
+Virat Kohli|cricket|batsman|RCB|Anushka
+Amitabh Bachchan|Bollywood|Big B|Sholay|actor
+Sholay|Gabbar|Veeru|Jai|Amitabh
+Lagaan|cricket|Aamir|village|British
+Harry Potter|wizard|Hogwarts|magic|Voldemort
+Titanic|ship|iceberg|Jack|Rose
+Avengers|Marvel|Iron Man|Hulk|superheroes
+Batman|Gotham|Joker|cape|Bruce Wayne
+Frozen|Elsa|Disney|snow|Olaf
+Mickey Mouse|Disney|ears|cartoon|Minnie
+Pikachu|Pokemon|yellow|electric|mouse
+Minecraft|blocks|game|Creeper|build
+Ludo|dice|board|tokens|roll
+Chess|board|king|queen|pieces
+Carrom|board|striker|coins|pockets
+Kite|fly|string|wind|Makar Sankranti
+Fireworks|crackers|sky|bang|New Year
+Camera|photo|picture|lens|click
+Bicycle|pedal|wheels|ride|cycle
+Helmet|head|bike|safety|protect
+Handcuffs|arrest|wrists|metal|jail
+Mango|fruit|summer|juicy|Alphonso
+Banana|yellow|monkey|peel|fruit
+Watermelon|fruit|red|seeds|summer
+Popcorn|movie|corn|butter|kernel
+Burger|bun|patty|McDonald's|fast food
+Noodles|Maggi|pasta|chopsticks|instant
+Gulab Jamun|sweet|syrup|dessert|Indian
+Paneer|cheese|cottage|vegetarian|curry
+Lassi|yogurt|drink|Punjab|sweet
+Mehndi|henna|hands|wedding|design
+Saree|drape|six yards|Indian|woman
+Rangoli|colours|Diwali|floor|pattern`.split('\n').map(l=>{const[w,...b]=l.split('|');return{w,b}});
+const tdeal=used=>{const all=TABOO.map((_,i)=>i);let pool=all.filter(i=>!used.includes(i));if(pool.length<30){pool=all;used=[]}return{cards:shuf(pool).slice(0,30),used}};
+const cnt=(s,c)=>s.split(c).length-1;
+/* How to play, shown to everyone in the waiting room. One entry per game id. */
+const HOW={
+ mafia:['Everyone is secretly dealt a role: Mafia, Doctor, Police or Civilian. Tap your card to see yours and keep it hidden.','Night: the Mafia pick someone to eliminate, the Doctor picks someone to save and the Police pick someone to investigate. Teammates must choose the same person.','Morning: the result is announced. Then everyone alive discusses and votes someone out. A tie means a re-vote.','Town wins when all the Mafia are out. Mafia win when they equal or outnumber everyone else. Winners get +3 each.'],
+ imposter:['Everyone gets a secret word from the same category. The imposters get a similar but different word.','Take turns describing your word without saying it. Listen for the clue that does not quite fit.','When the host opens the vote, everyone picks who they think the imposter is. The most votes is out, and a tie means a re-vote.','Crew win when every imposter is out. Imposters win when they equal the crew. Winners get +3 each.'],
+ draw:['Everyone gets a secret word and draws it on their phone before the timer runs out.','Drawings are passed around. You get another player’s drawing and type what you think it shows.','A correct guess gives the guesser +2 and the artist +1. A spelling that is one letter off still counts.'],
+ color:['A random color is shown for 5 seconds. Memorize it.','Then recreate it from memory with the Hue, Saturation and Brightness sliders.','The closer you get, the more you score, up to 10 points per round.'],
+ likely:['A “Most likely to…” prompt appears on every phone.','Everyone votes for the player who fits it best. You can’t vote for yourself.','You score 1 point for every vote you receive.'],
+ charades:['Players take turns acting out a movie with no words and no sounds.','The actor taps to see the movie, its stars and what makes it unique, then acts before the timer ends.','Everyone else shouts guesses. The actor then taps who got it right.','Guesser +2, actor +1. In team mode (4+ players) only the actor’s teammates can guess, and the acting team gets +3.'],
+ trivia:['A multiple-choice question appears on every phone.','Tap your answer as fast as you can. You get one try per question, so a wrong tap locks you out.','The first correct answer wins +2 and ends the round. If nobody gets it before the timer ends, nobody scores.'],
+ wyr:['A would-you-rather dilemma appears with two options.','Pick one. You can change your pick until everyone has voted.','Everyone on the majority side gets +1. A tie scores nobody.'],
+ truths:['Each round one player writes three statements about themselves: two true and one lie. They tap “Lie” on the false one.','Everyone else sees the statements in a shuffled order and votes for the one they think is the lie.','A correct guess scores +1. The writer scores +2 for every player they fool.','Everyone gets a turn as the writer, so make your lie believable.'],
+ fakefact:['The game shows a quirky fact with a blank, like “Scotland’s national animal is the ___”.','Everyone secretly types a fake answer that sounds real. A fake that matches the real answer is rejected, so try another.','All the fakes and the real answer are shuffled together. Pick the one you think is real. You can’t pick your own fake.','Finding the real answer scores +2. Every player your fake fools scores you +1.'],
+ taboo:['Players are split into Red and Blue. Teams take turns, with one describer per turn.','The describer sees a word and 4 banned words, and must get their team to say the word without using the word or any banned word. The other team’s phones show the card so they can catch slip-ups.','When teammates guess it, the describer taps Got it (+1). If a banned word slips out, the other team shouts and the describer taps Buzz (−1). A hard card can be skipped up to 3 times for free.','When the timer ends, the turn’s score is added to the team total and the other team goes.']
+};
 const IND={B:'Bollywood',H:'Hollywood'},TN=['Red','Blue'];
 const WORDS='cat,house,tree,sun,car,fish,pizza,guitar,rocket,umbrella,elephant,bicycle,flower,moon,clock,apple,bridge,crown,robot,snowman,castle,butterfly,cake,camera,key,boat,mountain,rainbow,snake,spider,glasses,phone,ghost,dragon,airplane,banana,cloud,shoe,candle,train,penguin,lighthouse,tent,pumpkin,diamond,balloon,owl,giraffe,volcano,windmill'.split(',');
 const PROMPTS=['Most likely to be late to their own wedding','Most likely to become famous','Most likely to survive a zombie apocalypse','Most likely to cry at a movie','Most likely to forget a birthday','Most likely to get lost with GPS on','Most likely to win a cooking show','Most likely to start a business','Most likely to talk to strangers','Most likely to oversleep tomorrow','Most likely to adopt ten pets','Most likely to laugh at a funeral','Most likely to spend all their money in a day','Most likely to travel the world alone','Most likely to become a millionaire','Most likely to break a world record'];
@@ -533,8 +701,7 @@ const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
-let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:''};
->>>>>>> test
+let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:'',tt:['','',''],tli:-1,bl:'',blk:'',how:true};
 try{S.name=localStorage.getItem('pg-name')||''}catch(e){}
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2500)}
 const nm=p=>esc(S.P[p]?.name||'?'),G=id=>GAMES.find(g=>g.id===id),note=t=>`<div class="note">${t}</div>`;
@@ -552,11 +719,7 @@ function connectDB(){
  return new Promise((res,rej)=>{let first=true;
   (function conn(){
    ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
-<<<<<<< HEAD
-   ws.onopen=()=>{open=true;subs.forEach((s,sid)=>ws.send(JSON.stringify({t:'sub',sid,p:s.p,k:s.k})));out.splice(0).forEach(j=>ws.send(j));if(first){first=false;res({doc,collection:col,logAdd:(p,d)=>send({t:'ladd',p,d}),logSub:(p,f)=>sub(p,'l',f)})}else toast('Reconnected')};
-=======
    ws.onopen=()=>{open=true;subs.forEach((s,sid)=>ws.send(JSON.stringify({t:'sub',sid,p:s.p,k:s.k})));out.splice(0).forEach(j=>ws.send(j));if(first){first=false;res({doc,collection:col})}else toast('Reconnected')};
->>>>>>> test
    ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.t==='ack'){pend[m.rid]&&pend[m.rid](m);delete pend[m.rid]}else if(subs.get(m.sid))subs.get(m.sid).f(m)};
    ws.onclose=()=>{open=false;if(first)rej();else{toast('Reconnecting…');setTimeout(conn,1000)}};
   })();
@@ -582,15 +745,9 @@ async function enter(code){
  S.code=code;try{localStorage.setItem('pg-name',S.name)}catch(e){}
  await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
-<<<<<<< HEAD
-   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.pick=[200,50,60]}}
-   S.R=n;syncArt();chatSync();pictSync();render();paintPict();tick()}),
-  db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render();paintPict()}),
-=======
-   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60]}}
+   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60];S.tt=['','',''];S.tli=-1}}
    S.R=n;syncArt();render();tick()}),
   db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render()}),
->>>>>>> test
   db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
 }
 function syncArt(){
@@ -601,15 +758,15 @@ function syncArt(){
  else if(key[0]==='d'){const a=R.assign[S.id];S.artU=db.doc(`rooms/${S.code}/art/${a}`).onSnapshot(s=>{S.arts={};if(s.exists)S.arts[a]=s.data();render()})}
 }
 function leave(gone){
-<<<<<<< HEAD
- pictOff();chatOff();
-=======
->>>>>>> test
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
  S.un=[];S.code=null;S.R=null;S.P={};S.A={};render();
 }
 const upd=o=>db.doc('rooms/'+S.code).update(o),isHost=()=>S.R&&S.R.host===S.id;
+const secs=R=>Math.max(0,Math.ceil((R.end-Date.now())/1000));
+const did=R=>S.sub===R.k||S.A[S.id]?.k===R.k; // I already submitted this phase (survives a page reload)
+const blur=()=>{const a=document.activeElement;a&&a.blur&&a.blur()};
+const tlog=R=>{const a=S.A[R.desc],sv=a&&a.k===R.k&&typeof a.t==='string'?a.t:'';return R.desc===S.id&&S.blk===R.k&&S.bl.length>sv.length?S.bl:sv}; // Taboo turn log: g=got it, b=buzz, s=skip
 /* ---------- color maths ---------- */
 const rgb=([h,s,v])=>{s/=100;v/=100;const f=n=>{const k=(n+h/60)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return[f(5),f(3),f(1)].map(x=>Math.round(x*255))};
 const css=c=>`rgb(${rgb(c)})`;
@@ -626,10 +783,6 @@ function winner(R,al){
 function tick(){
  const R=S.R;if(!isHost()||S.busy||!R||!R.pl||R.phase==='lobby')return;
  const now=Date.now(),ok=p=>S.A[p]&&S.A[p].k===R.k,ph=R.phase,g=R.game,late=R.end&&now>R.end+(ph==='draw'?5000:1500);
-<<<<<<< HEAD
- if(g==='pict')return pictTick(R,now);
-=======
->>>>>>> test
  if(g==='mafia'&&ph==='night'){
   const al=alive(R),lock={...(R.lock||{})},bad=[];let wait=false;
   for(const r of ['mafia','doctor','police']){if(r in lock)continue;
@@ -666,13 +819,45 @@ function tick(){
    const res=R.pl.map(p=>{const c=ok(p)?S.A[p].t:null;return{p,c,acc:c?acc(R.tc,c):0}}).sort((a,b)=>b.acc-a.acc),d={};res.forEach(r=>d[r.p]=Math.round(r.acc/10));
    return upd({phase:'result',res,scores:sc(R,d)})}
  }
-<<<<<<< HEAD
-=======
  if(g==='charades'&&ph==='act'){
   const a=R.actor,gone=now>R.end+30000;if(!ok(a)&&!gone)return;S.busy=true;
   const tm=R.cfg.mode==='team',t=ok(a)?S.A[a].t:'none',hit=t!=='none'&&t!==a&&R.pl.includes(t)&&(!tm||R.teams[t]===R.teams[a]),d={},tsc={...(R.tsc||{0:0,1:0})};if(hit){d[t]=2;d[a]=1;if(tm)tsc[R.teams[a]]=(tsc[R.teams[a]]||0)+3}
   return upd({phase:'result',res:{g:hit?t:null,a},scores:sc(R,d),tsc:tm?tsc:null})}
 
+ if(g==='truths'){
+  if(ph==='write'){ // writer's statements arrive as an act; shuffle them so the lie isn't always in the writer's chosen slot
+   const w=R.writer,t=ok(w)?S.A[w].t:null;if(!t&&now<R.end+10000)return;S.busy=true;
+   if(!t||!Array.isArray(t.s)||t.s.length!==3||!(t.l>=0&&t.l<3))return upd({phase:'result',res:{skip:1},end:null});
+   const ord=shuf([0,1,2]);
+   return upd({phase:'vote',k:`${g}:${R.round}:v`,st:ord.map(i=>String(t.s[i])),lie:ord.indexOf(t.l),end:now+60000})}
+  if(ph==='vote'){
+   const vs=R.pl.filter(p=>p!==R.writer);if(!vs.every(ok)&&!late)return;S.busy=true;
+   const v={},d={};let fooled=0;
+   vs.forEach(p=>{const t=ok(p)?+S.A[p].t:-1;if(!(t>=0&&t<3))return;v[p]=t;if(t===R.lie)d[p]=1;else fooled++});
+   if(fooled)d[R.writer]=fooled*2;
+   return upd({phase:'result',res:{v,fooled,n:Object.keys(v).length},scores:sc(R,d),end:null})}
+ }
+ if(g==='fakefact'){
+  const f=FACTS.find(x=>x.q===R.fq);
+  if(ph==='fake'){
+   if(!R.pl.every(ok)&&!late)return;S.busy=true;const opts=[{t:f.a,by:[]}];
+   R.pl.forEach(p=>{const t=ok(p)?String(S.A[p].t||'').trim().slice(0,40):'';if(!t||badFake(f,t))return; // host re-checks, in case a client skipped the check
+    const o=opts.find(x=>x.by.length&&fkey(x.t)===fkey(t));o?o.by.push(p):opts.push({t,by:[p]})});
+   if(opts.length<2)return upd({phase:'result',res:{skip:1,v:{},d:{}},opts,end:null});
+   return upd({phase:'pick',k:`${g}:${R.round}:p`,opts:shuf(opts),end:now+45000})}
+  if(ph==='pick'){
+   if(!R.pl.every(ok)&&!late)return;S.busy=true;const v={},d={},add=(p,n)=>d[p]=(d[p]||0)+n;
+   R.pl.forEach(p=>{const i=ok(p)?+S.A[p].t:-1,o=R.opts[i];if(!o||o.by.includes(p))return;v[p]=i;o.by.length?o.by.forEach(a=>add(a,1)):add(p,2)});
+   return upd({phase:'result',res:{v,d},scores:sc(R,d),end:null})}
+ }
+ if(g==='taboo'){
+  if(ph==='ready'){if(!ok(R.desc))return;S.busy=true;return upd({phase:'play',k:`${g}:${R.round}:p`,end:now+(R.cfg.secs||60)*1000})}
+  if(ph==='play'){
+   const a=S.A[R.desc],lg=a&&a.k===R.k&&typeof a.t==='string'?a.t:'';
+   if(now<=R.end+1500&&lg.length<R.cards.length)return;S.busy=true; // 1.5s grace for the describer's last taps
+   const net=cnt(lg,'g')-cnt(lg,'b'),tsc={...(R.tsc||{0:0,1:0})};tsc[R.tm]=(tsc[R.tm]||0)+net;
+   return upd({phase:'result',res:{log:lg,net},tsc,end:null,used:[...new Set([...(R.used||[]),...R.cards.slice(0,Math.min(R.cards.length,lg.length+1))])]})}
+ }
  if(g==='trivia'&&ph==='ask'){
   const win=R.pl.filter(p=>ok(p)&&S.A[p].t===R.q.a).sort((a,b)=>(S.A[a]._ts||0)-(S.A[b]._ts||0))[0];
   if(!win&&!R.pl.every(ok)&&!late)return;S.busy=true;const d={};if(win)d[win]=2;
@@ -683,7 +868,6 @@ function tick(){
   R.pl.forEach(p=>{const t=S.A[p].t===1?1:0;v[p]=t;c[t]++});
   const maj=c[0]===c[1]?null:(c[0]>c[1]?0:1);if(maj!==null)R.pl.forEach(p=>{if(v[p]===maj)d[p]=1});
   return upd({phase:'result',res:{c,maj,v},scores:sc(R,d)})}
->>>>>>> test
  if(g==='likely'&&ph==='vote'){
   if(!R.pl.every(ok))return;S.busy=true;const c={};R.pl.forEach(p=>c[S.A[p].t]=(c[S.A[p].t]||0)+1);
   return upd({phase:'result',res:Object.keys(c).map(p=>({p,n:c[p]})).sort((a,b)=>b.n-a.n),scores:sc(R,c)})}
@@ -694,8 +878,6 @@ function startRound(R,rn){
  if(R.game==='draw'){const pool=shuf(WORDS),words={},s=shuf(ids),assign={};ids.forEach((p,i)=>words[p]=pool[i%pool.length]);s.forEach((p,i)=>assign[p]=s[(i+1)%s.length]);
   return upd({...b,words,assign,phase:'draw',k:`${g}:${rn}:d`,end:now+R.cfg.secs*1000})}
  if(R.game==='color')return upd({...b,tc:[Math.floor(Math.random()*360),30+Math.floor(Math.random()*70),35+Math.floor(Math.random()*65)],phase:'show',k:`${g}:${rn}:s`,end:now+5000});
-<<<<<<< HEAD
-=======
  if(R.game==='charades'){const ind=R.cfg.ind||'both',tm=R.cfg.mode==='team',dr=draw(ind,R.used||[],null),m=dr.m,used=dr.used;
   let teams=null,actor=ids[(rn-1)%ids.length];
   if(tm){teams={...(R.teams||{})};const cnt=[0,0];ids.forEach(p=>{if(teams[p]!==undefined)cnt[teams[p]]++});
@@ -703,12 +885,21 @@ function startRound(R,rn){
    const lst=[0,1].map(t=>ids.filter(p=>teams[p]===t)),l=lst[(rn-1)%2].length?lst[(rn-1)%2]:ids;actor=l[Math.floor((rn-1)/2)%l.length]}
   return upd({...b,movie:m,actor,teams,tsc:tm?(R.tsc||{0:0,1:0}):null,used:[...used,m.t],phase:'act',k:`${g}:${rn}:a`,end:now+(R.cfg.secs||90)*1000})}
 
+ if(R.game==='truths'){let wrote=R.wrote||[],c=ids.filter(p=>!wrote.includes(p)); // everyone writes once before anyone repeats
+  if(!c.length){c=ids;wrote=[]}const w=rnd(c);
+  return upd({...b,writer:w,wrote:[...wrote,w],st:null,lie:null,phase:'write',k:`${g}:${rn}:w`,end:now+(R.cfg.secs||90)*1000})}
+ if(R.game==='fakefact'){let used=R.used||[],pool=FACTS.filter(x=>!used.includes(x.q));if(!pool.length){pool=FACTS;used=[]}
+  const x=rnd(pool);return upd({...b,fq:x.q,used:[...used,x.q],opts:null,phase:'fake',k:`${g}:${rn}:f`,end:now+(R.cfg.secs||45)*1000})}
+ if(R.game==='taboo'){ // same Red/Blue logic as charades team mode
+  const teams={...(R.teams||{})},cn=[0,0];ids.forEach(p=>{if(teams[p]!==undefined)cn[teams[p]]++});
+  (rn===1?shuf(ids):ids).forEach(p=>{if(teams[p]===undefined){const t=cn[1]<cn[0]?1:0;teams[p]=t;cn[t]++}});
+  const tm=(rn-1)%2,lst=[0,1].map(t=>ids.filter(p=>teams[p]===t)),l=lst[tm].length?lst[tm]:ids,desc=l[Math.floor((rn-1)/2)%l.length],dl=tdeal(R.used||[]);
+  return upd({...b,teams,tsc:R.tsc||{0:0,1:0},tm,desc,cards:dl.cards,used:dl.used,phase:'ready',k:`${g}:${rn}:r`,end:null})}
  if(R.game==='trivia'){let used=R.used||[],pool=QS.filter(x=>!used.includes(x.q));if(!pool.length){pool=QS;used=[]}
   const x=rnd(pool),o=shuf(x.o.map((t,i)=>({t,i}))),q={q:x.q,o:o.map(y=>y.t),a:o.findIndex(y=>y.i===0)};
   return upd({...b,q,used:[...used,x.q],phase:'ask',k:`${g}:${rn}:q`,end:now+(R.cfg.secs||20)*1000})}
  if(R.game==='wyr'){let used=R.used||[],pool=WYRS.filter(x=>!used.includes(x[0]));if(!pool.length){pool=WYRS;used=[]}
   const w=rnd(pool);return upd({...b,wq:w,used:[...used,w[0]],phase:'vote',k:`${g}:${rn}:w`})}
->>>>>>> test
  let used=R.used||[],pool=PROMPTS.filter(x=>!used.includes(x));if(!pool.length){pool=PROMPTS;used=[]}const pr=rnd(pool);
  return upd({...b,prompt:pr,used:[...used,pr],phase:'vote',k:`${g}:${rn}:v`});
 }
@@ -723,14 +914,6 @@ const ACT={
  pick(d){if(S.R.alive&&!S.R.alive[S.id])return;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:S.R.k,t:d.p})},
  cfg(d){const c={...S.R.cfg};c[d.f]=Math.max(+d.m,(c[d.f]||0)+ +d.d);upd({cfg:c})},
  cat(d){upd({cfg:{...S.R.cfg,cat:+d.i}})},
-<<<<<<< HEAD
- start(){
-  if(S.R.game==='pict')return pictStart();
-  const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),roles={},alive={};
-  if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
-   if(R.game==='mafia'){const c=R.cfg;let i=0;['mafia','doctor','police'].forEach(r=>{for(let n=0;n<c[r];n++)roles[ids[i++]]=r});ids.slice(i).forEach(p=>roles[p]='civilian');
-    return upd({g,pl:ids,roles,alive,inv:{},lock:{},nrv:0,rej:[],log:'',winner:null,round:1,phase:'reveal',k:g+':r'})}
-=======
  anon(){const c=S.R.cfg;upd({cfg:{...c,anon:c.anon===false}})},
  ind(d){upd({cfg:{...S.R.cfg,ind:d.v}})},
  tans(d){if(S.sub!==S.R.k)submitAct(+d.i)},
@@ -743,7 +926,6 @@ const ACT={
   if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
    if(R.game==='mafia'){const c=R.cfg;let i=0;['mafia','doctor','police'].forEach(r=>{for(let n=0;n<c[r];n++)roles[ids[i++]]=r});ids.slice(i).forEach(p=>roles[p]='civilian');
     return upd({g,pl:ids,roles,alive,anon:c.anon!==false,inv:{},lock:{},nrv:0,rej:[],log:'',winner:null,round:1,phase:'reveal',k:g+':r'})}
->>>>>>> test
    const cat=CATS[R.cfg.cat||0],pr=shuf(rnd(cat.w).slice());ids.forEach((p,i)=>roles[p]=i<R.cfg.imp?'imp':'crew');
    return upd({g,pl:ids,roles,alive,log:'',winner:null,round:1,phase:'play',k:g+':1:p',words:{crew:pr[0],imp:pr[1]},cat:cat.n,first:rnd(ids)});}
   startRound({...R,g:null},1);
@@ -753,37 +935,36 @@ const ACT={
  nextRound(){const R=S.R;if(R.game==='mafia')upd({phase:'night',k:`${R.g}:${R.round}:n`});else if(R.game==='imposter')upd({phase:'play',k:`${R.g}:${R.round}:p`});else startRound(R,R.round+1)},
  toVote(){upd({phase:'vote',k:`${S.R.g}:${S.R.round}:v`})},
  flip(){S.show=!S.show;render()},
-<<<<<<< HEAD
- again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{}})},
-=======
- again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{},tsc:R.tsc||null})},
->>>>>>> test
+ again(){const R=S.R;db.doc('rooms/'+S.code).set({host:R.host,game:R.game,phase:'lobby',cfg:R.cfg,round:0,scores:R.scores||{},tsc:R.tsc||null,teams:R.teams||null})},
  leave(){leave()},join(){joinRoom($('#code').value)},create(d){createRoom(d.g)},
  tool(d){S.tool=d.t;markTools()},col(d){S.col=d.c;S.tool='pen';markTools()},sz(d){S.sz=+d.s;markTools()},
  clr(){const c=$('#cv');if(c){const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,480,480);S.artData=''}},
  done(){submitArt()},
  guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
-<<<<<<< HEAD
  cpick(){submitAct(S.pick.slice())},
- csend(d){const i=$('#'+((d&&d.i)||'ci'));if(!i)return;const v=i.value.trim().slice(0,80);if(!v)return;i.value='';i.focus();
-  if(S.R.game==='pict')db.logAdd(lp('guess'),{a:S.id,t:v});else db.logAdd(lp('chat'),{ts:Date.now(),a:S.id,n:(S.P[S.id]?.name)||S.name,t:v})},
- fopen(){$('#fpanel').style.display='flex';$('#fab').style.display='none';S.unread=0;updBadge();const l=$('#fchat');l.scrollTop=l.scrollHeight;$('#fci').focus()},
- fclose(){$('#fpanel').style.display='none';if(S.code)$('#fab').style.display='flex'},
- cexp(){S.cexp=!S.cexp;const e=$('#chat');e&&e.classList.toggle('big',!!S.cexp)},
- pundo(){if(!isDrawer()||P.cur)return;P.st.pop();pRedraw();db.logAdd(lp('draw'),{a:S.id,u:1})},
- pclr(){if(!isDrawer())return;P.st=[];P.cur=null;pRedraw();db.logAdd(lp('draw'),{a:S.id,x:1})},
- pskip(){db.logAdd(lp('guess'),{a:S.id,cmd:'skip'})},
- pnext(){if(isHost()&&S.R.phase==='tr'&&!S.busy){S.busy=true;nextTurn()}}
+ how(){S.how=S.how===false;render()},
+ /* Two Truths and a Lie */
+ tlie(d){S.tli=+d.i;tcheck()},
+ tsend(d,auto){const R=S.R;if(R.phase!=='write'||R.writer!==S.id||did(R))return;const s=S.tt.map(x=>x.trim().slice(0,90));
+  if(S.tli<0||s.some(x=>!x))return auto||toast('Fill in all three and mark the lie');blur();submitAct({s,l:S.tli})},
+ tvote(d){const R=S.R;if(R.phase!=='vote'||R.writer===S.id)return;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,t:+d.i})},
+ /* Fake Fact */
+ fsend(d,auto){const R=S.R,i=$('#ff');if(R.phase!=='fake'||!i||did(R))return;const t=i.value.trim().slice(0,40);
+  if(!fkey(t))return auto||toast('Type a fake answer first');
+  if(badFake(FACTS.find(x=>x.q===R.fq),t))return auto||toast('That’s too close to the real answer. Try another!');blur();submitAct(t)},
+ fpick(d){const R=S.R;if(R.phase!=='pick')return;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,t:+d.i})},
+ /* Taboo */
+ tgo(){const R=S.R;if(R.phase==='ready'&&R.desc===S.id&&!did(R))submitAct(1)},
+ tb(d){const R=S.R;if(R.phase!=='play'||R.desc!==S.id)return;const lg=tlog(R);if(lg.length>=R.cards.length||(d.o==='s'&&cnt(lg,'s')>=3))return;
+  S.bl=lg+d.o;S.blk=R.k;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,t:S.bl});render()}
 };
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&(e.target.id==='ci'||e.target.id==='fci')){e.preventDefault();ACT.csend({i:e.target.id})}});
-=======
- cpick(){submitAct(S.pick.slice())}
-};
->>>>>>> test
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&ACT[b.dataset.a])ACT[b.dataset.a](b.dataset)});
+document.addEventListener('keydown',e=>{const a=e.target.dataset&&e.target.dataset.enter;if(e.key==='Enter'&&a&&ACT[a])ACT[a]()});
+function tcheck(){const b=$('#tsend');if(b)b.disabled=!(S.tli>=0&&S.tt.every(x=>x.trim()));document.querySelectorAll('[data-a=tlie]').forEach(e=>e.classList.toggle('on',+e.dataset.i===S.tli))}
 setInterval(()=>{const R=S.R;if(!R)return;const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000));
  const p=$('#pg');if(p&&R.pl)p.textContent=R.pl.filter(x=>S.A[x]&&S.A[x].k===R.k).length+' of '+R.pl.length+' done';
- if(R.end&&Date.now()>=R.end&&S.sub!==R.k&&R.pl&&R.pl.includes(S.id)){if(R.game==='draw'&&R.phase==='draw')submitArt();if(R.game==='color'&&R.phase==='pick')ACT.cpick()}
+ if(R.end&&Date.now()>=R.end&&S.sub!==R.k&&R.pl&&R.pl.includes(S.id)){if(R.game==='draw'&&R.phase==='draw')submitArt();if(R.game==='color'&&R.phase==='pick')ACT.cpick();
+  if(R.game==='truths'&&R.phase==='write'&&R.writer===S.id)ACT.tsend(null,1);if(R.game==='fakefact'&&R.phase==='fake')ACT.fsend(null,1)}
  tick()},400);
 /* ---------- views ---------- */
 function home(){
@@ -794,25 +975,14 @@ function home(){
  <div class="lbl">Join with a code</div><input type="text" id="code" maxlength="4" placeholder="ABCD" style="text-transform:uppercase;letter-spacing:.3em;text-align:center"><button class="btn o" data-a="join">Join room</button></main>`;
 }
 const stepper=(l,f,v,step=1,min=0)=>`<div class="row"><span>${l}</span><span class="step"><button data-a="cfg" data-f="${f}" data-d="${-step}" data-m="${min}">−</button><b>${v}</b><button data-a="cfg" data-f="${f}" data-d="${step}" data-m="${min}">+</button></span></div>`;
-<<<<<<< HEAD
-=======
 const tgl=(l,a,on,sub)=>`<div class="row" data-a="${a}" style="cursor:pointer;gap:14px"><span>${l}<span class="mu" style="display:block">${sub}</span></span><span class="tgl ${on?'on':''}"><i></i></span></div>`;
->>>>>>> test
 const board=R=>{const ids=Object.keys(S.P).sort((a,b)=>((R.scores||{})[b]||0)-((R.scores||{})[a]||0));if(!ids.length||!Object.values(R.scores||{}).some(x=>x))return '';
  return `<div class="lbl">Scores</div>${ids.map((p,i)=>`<div class="row"><span>${i+1}. ${nm(p)}</span><b>${(R.scores||{})[p]||0}</b></div>`).join('')}`};
+const tsum=R=>R.game==='taboo'&&R.tsc&&(R.tsc[0]||R.tsc[1])?`<div class="lbl">Team scores</div>${[0,1].map(t=>`<div class="row"><span>${TN[t]}</span><b>${R.tsc[t]||0}</b></div>`).join('')}`:'';
+const how=g=>{const h=HOW[g.id];if(!h)return '';return `<div class="lbl hw"><span>How to play · ${g.min}+ players</span><u data-a="how">${S.how===false?'Show':'Hide'}</u></div>${S.how===false?'':`<ol class="how">${h.map(x=>`<li>${x}</li>`).join('')}</ol>`}`};
 const hostBtns=(next)=>isHost()?`${next?`<button class="btn" data-a="nextRound">Next round</button>`:''}<button class="btn o" data-a="again">Back to lobby</button>`:`<p class="mu">Waiting for the host…</p>`;
 function lobby(){
  const R=S.R,g=G(R.game),n=Object.keys(S.P).length,c=R.cfg;let cfg='',ok=n>=g.min,msg=`Need at least ${g.min} players`;
-<<<<<<< HEAD
- if(R.game==='mafia'){const sp=c.mafia+c.doctor+c.police;cfg=stepper('Mafia','mafia',c.mafia,1,1)+stepper('Doctor','doctor',c.doctor)+stepper('Police','police',c.police)+`<div class="mu" style="margin-top:8px">Civilians: ${Math.max(0,n-sp)}</div>`;ok=ok&&sp<n&&c.mafia<n-c.mafia;if(n>=g.min&&!ok)msg='Too many special roles for this many players'}
- else if(R.game==='imposter'){cfg=`<div class="mu" style="margin-bottom:8px">Category</div><div class="cats">${CATS.map((x,i)=>`<div class="cat ${i===(c.cat||0)?'on':''}" data-a="cat" data-i="${i}">${x.n}</div>`).join('')}</div>`+stepper('Imposters','imp',c.imp,1,1);ok=ok&&c.imp<n-c.imp;if(n>=g.min&&!ok)msg='Too many imposters'}
- else if(R.game==='draw')cfg=stepper('Seconds to draw','secs',c.secs,15,30);
- else if(R.game==='pict')cfg=stepper('Seconds per turn','secs',c.secs,15,30)+stepper('Rounds (turns each)','rounds',c.rounds,1,1);
- else cfg=`<div class="mu">No settings. Just start.</div>`;
- return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
- <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}
- ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}${R.game==='pict'?chatBox():''}</main>`;
-=======
  if(R.game==='mafia'){const sp=c.mafia+c.doctor+c.police;cfg=stepper('Mafia','mafia',c.mafia,1,1)+stepper('Doctor','doctor',c.doctor)+stepper('Police','police',c.police)+tgl('Anonymous roles','anon',c.anon!==false,c.anon!==false?'On: nobody knows anyone else’s role.':'Off: teammates know each other (mafia see mafia, doctors see doctors, police see police).')+`<div class="mu" style="margin-top:8px">Civilians: ${Math.max(0,n-sp)}</div>`;ok=ok&&sp<n&&c.mafia<n-c.mafia;if(n>=g.min&&!ok)msg='Too many special roles for this many players'}
  else if(R.game==='imposter'){cfg=`<div class="mu" style="margin-bottom:8px">Category</div><div class="cats">${CATS.map((x,i)=>`<div class="cat ${i===(c.cat||0)?'on':''}" data-a="cat" data-i="${i}">${x.n}</div>`).join('')}</div>`+stepper('Imposters','imp',c.imp,1,1);ok=ok&&c.imp<n-c.imp;if(n>=g.min&&!ok)msg='Too many imposters'}
  else if(R.game==='draw')cfg=stepper('Seconds to draw','secs',c.secs,15,30);
@@ -820,37 +990,25 @@ function lobby(){
   cfg=tgl('Team mode','team',tm,tm?'On: players split into Red and Blue. Teams alternate turns, and only the actor’s teammates can guess.':'Off: free for all. Everyone takes turns, and anyone can guess.')+`<div class="mu" style="margin:14px 0 8px">Movies</div><div class="cats">${[['both','Both'],['B','Bollywood'],['H','Hollywood']].map(([v,l])=>`<div class="cat ${ind===v?'on':''}" data-a="ind" data-v="${v}">${l}</div>`).join('')}</div>`+stepper('Seconds to act','secs',c.secs||90,15,30)+`<div class="mu" style="margin-top:8px">${cnt} underrated movies, all from 2000 onwards.</div>`;
   if(tm&&n<4){ok=false;msg='Team mode needs at least 4 players'}}
  else if(R.game==='trivia')cfg=stepper('Seconds per question','secs',c.secs||20,5,10)+`<div class="mu" style="margin-top:8px">${QS.length} questions. Fastest finger first: only the first correct answer scores +2, and the round ends right then. One answer per question, so a wrong tap locks you out.</div>`;
+ else if(R.game==='truths')cfg=stepper('Seconds to write','secs',c.secs||90,15,30)+`<div class="mu" style="margin-top:8px">One player per round writes two truths and a lie. Everyone gets a turn before anyone repeats.</div>`;
+ else if(R.game==='fakefact')cfg=stepper('Seconds to write a fake','secs',c.secs||45,15,15)+`<div class="mu" style="margin-top:8px">${FACTS.length} questions. Fakes that match the real answer are rejected.</div>`;
+ else if(R.game==='taboo')cfg=stepper('Seconds per turn','secs',c.secs||60,15,30)+`<div class="mu" style="margin-top:8px">${TABOO.length} cards. Players are split into Red and Blue, and teams alternate turns.</div>`;
  else if(R.game==='wyr')cfg=`<div class="mu">${WYRS.length} dilemmas. Everyone on the majority side gets +1.</div>`;
  else cfg=`<div class="mu">No settings. Just start.</div>`;
  return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
- <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}
+ <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}${tsum(R)}${how(g)}
  ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}</main>`;
->>>>>>> test
 }
 const pickList=(ids,me)=>{const m=S.A[S.id]?.k===S.R.k?S.A[S.id].t:null;return `<div class="pick">${ids.filter(p=>p!==me).map(p=>`<button class="${m===p?'on':''}" data-a="pick" data-p="${p}">${nm(p)}</button>`).join('')}</div>`};
 const waitN=need=>`<p class="mu">${need.filter(p=>S.A[p]?.k===S.R.k).length} of ${need.length} done</p>`;
 const logBox=R=>R.log?note(R.log):'';
-<<<<<<< HEAD
-=======
 const tboard=R=>{if(R.cfg.mode!=='team'||!R.teams)return board(R);return `<div class="lbl">Teams</div>`+[0,1].map(t=>`<div class="row" style="align-items:flex-start"><span><b>${TN[t]}</b><span class="mu" style="display:block">${R.pl.filter(p=>R.teams[p]===t).map(p=>nm(p)).join(', ')}</span></span><b>${(R.tsc||{})[t]||0}</b></div>`).join('')};
 const mateTxt=(R,role,me)=>{if(R.anon!==false||role==='civilian')return '';const m=Object.keys(R.roles).filter(p=>R.roles[p]===role&&p!==me);
  return m.length?`Your ${ROLES[role]} teammate${m.length>1?'s':''}: ${m.map(p=>`<b style="${R.alive[p]?'':'text-decoration:line-through;opacity:.6'}">${nm(p)}</b>`).join(', ')}`:`You are the only ${ROLES[role]}.`};
->>>>>>> test
 const chipsAll=R=>`<div class="lbl">Players</div>${Object.keys(R.roles||{}).map(p=>`<span class="chip ${p===S.id?'me':''} ${R.alive[p]?'':'dead'}">${nm(p)}</span>`).join('')}`;
 function mafiaView(){
  const R=S.R,me=S.id,role=R.roles[me],al=alive(R),dead=!R.alive[me],ph=R.phase;
  if(!role)return `<main>${note('Game in progress. You will join the next round.')}</main>`;
-<<<<<<< HEAD
- if(ph==='reveal')return `<main><div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">You are</div><div class="big">${ROLES[role]}</div><div class="mu">${RDESC[role]}</div><div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your role</div><div class="mu">Keep it secret</div>`}</div>${isHost()?`<button class="btn a" data-a="begin">Everyone is ready. Begin night</button>`:`<p class="mu">Waiting for the host…</p>`}</main>`;
- if(ph==='night'){
-  if(dead)return `<main>${note('You are out. Watch quietly.')}</main>`;
-  if(role==='civilian')return `<main><div class="big">Night</div><p class="mu">Everyone sleeps. Wait for morning.</p></main>`;
-  const cnt={};al.filter(p=>R.roles[p]===role&&S.A[p]?.k===R.k).forEach(p=>cnt[S.A[p].t]=(cnt[S.A[p].t]||0)+1);
-  const ttl={mafia:'Who do you eliminate?',doctor:'Who do you save?',police:'Who do you investigate?'}[role],opts=role==='doctor'?al:al.filter(p=>p!==me);
-  return `<main><div class="lbl" style="margin-top:8px">${ROLES[role]}</div><div class="big">${ttl}</div>${(R.rej||[]).includes(role)?note('Your team did not agree. Choose again.'):''}${pickList(opts,null)}
-  <div class="lbl">Team picks (anonymous)</div>${Object.keys(cnt).length?Object.keys(cnt).map(t=>`<div class="row"><span>${nm(t)}</span><span>${cnt[t]} ${cnt[t]>1?'votes':'vote'}</span></div>`).join(''):'<p class="mu">No picks yet.</p>'}
-  <p class="mu">If you have teammates, everyone on your team must pick the same person. You won’t see who they are.</p></main>`;
-=======
  if(ph==='reveal')return `<main><div class="reveal" data-a="flip">${S.show?`<div class="lbl" style="margin:0">You are</div><div class="big">${ROLES[role]}</div><div class="mu">${RDESC[role]}</div>${mateTxt(R,role,me)?`<div style="margin-top:14px">${mateTxt(R,role,me)}</div>`:''}<div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your role</div><div class="mu">Keep it secret</div>`}</div>${isHost()?`<button class="btn a" data-a="begin">Everyone is ready. Begin night</button>`:`<p class="mu">Waiting for the host…</p>`}</main>`;
  if(ph==='night'){
   if(dead)return `<main>${note('You are out. Watch quietly.')}</main>`;
@@ -860,7 +1018,6 @@ function mafiaView(){
   return `<main><div class="lbl" style="margin-top:8px">${ROLES[role]}</div><div class="big">${ttl}</div>${(R.rej||[]).includes(role)?note('Your team did not agree. Choose again.'):''}${pickList(opts,null)}
   <div class="lbl">Team picks${open?'':' (anonymous)'}</div>${Object.keys(by).length?Object.keys(by).map(t=>`<div class="row"><span>${nm(t)}</span><span>${open?by[t].map(nm).join(', '):`${by[t].length} ${by[t].length>1?'votes':'vote'}`}</span></div>`).join(''):'<p class="mu">No picks yet.</p>'}
   ${open?`<p class="mu">${mateTxt(R,role,me)}. If you have teammates, everyone on your team must pick the same person.</p>`:`<p class="mu">If you have teammates, everyone on your team must pick the same person. You won’t see who they are.</p>`}</main>`;
->>>>>>> test
  }
  if(ph==='morning'){const r=R.inv?.[me];return `<main><div class="lbl" style="margin-top:8px">${R.next==='day'?'Morning':'Day result'}</div>${logBox(R)||''}${role==='police'&&r&&r.r===R.round&&R.next==='day'?note(`Investigation: ${nm(r.t)} is ${r.m?'<b>Mafia</b>':'<b>not Mafia</b>'}.`):''}${isHost()?`<button class="btn a" data-a="${R.next==='day'?'toDay':'nextRound'}">${R.next==='day'?'Start discussion and vote':'Next night'}</button>`:`<p class="mu">Waiting for the host…</p>`}${chipsAll(R)}</main>`}
  if(ph==='day'){
@@ -900,8 +1057,6 @@ function partyView(){
   if(ph==='pick')return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Recreate it · <span id="tm"></span>s</div><div class="swatch" id="pv"></div>${sl(0,'Hue',360)}${sl(1,'Saturation',100)}${sl(2,'Brightness',100)}<button class="btn a" data-a="cpick">Lock in</button></main>`;
   return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} · target</div><div class="swatch" style="background:${css(R.tc)}"></div><div class="lbl">Accuracy</div>${R.res.map((r,i)=>`<div class="row"><span><span class="sw2" style="background:${r.c?css(r.c):'transparent'}"></span>${i+1}. ${nm(r.p)}</span><b>${r.acc.toFixed(1)}%</b></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
  }
-<<<<<<< HEAD
-=======
  if(g==='trivia'){
   const q=R.q;
   if(ph==='ask')return S.sub===R.k?`<main><div class="big">Locked in.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Fastest finger · Question ${R.round} · <span id="tm"></span>s</div><div class="big" style="font-size:30px">${esc(q.q)}</div><div class="pick">${q.o.map((o,i)=>`<button data-a="tans" data-i="${i}">${esc(o)}</button>`).join('')}</div></main>`;
@@ -920,7 +1075,39 @@ function partyView(){
    const others=R.pl.filter(p=>p!==me&&(!tm||R.teams[p]===R.teams[me]));
    return `<main><div class="lbl" style="margin-top:8px">${tm?TN[R.teams[me]]+' team · ':''}Your turn · <span id="tm"></span>s</div><div class="reveal" data-a="flip">${S.show?`<span class="badge">${IND[m.i]} · ${esc(m.y)}</span><div class="big">${esc(m.t)}</div><div class="mu">Starring</div><div>${esc(m.a)}</div><div class="mu" style="margin-top:10px">What makes it unique</div><div>${esc(m.s)}</div><div class="mu" style="margin-top:12px">Tap to hide</div>`:`<div class="big">Tap to see your movie</div><div class="mu">Don’t let anyone peek</div>`}</div><p>Act it out with no words. Then pick who guessed it.</p><div class="lbl">Who guessed it?</div><div class="pick">${others.map(p=>`<button class="${S.ch===p?'on':''}" data-a="chsel" data-p="${p}">${nm(p)}</button>`).join('')}<button class="${S.ch==='none'?'on':''}" data-a="chsel" data-p="none">Nobody guessed it</button></div><button class="btn a" data-a="chgo" ${S.ch?'':'disabled'}>Confirm</button></main>`}
   return `<main><div class="lbl" style="margin-top:8px">Round ${R.round} result</div><div class="win">${R.res.g?`${nm(R.res.g)} got it!`:'Nobody guessed it'}</div><p class="mu">${nm(R.res.a)} acted${R.res.g?' · +2 guesser, +1 actor'+(R.cfg.mode==='team'?` · ${TN[R.teams[R.res.a]]} team +3`:''):''}</p>${card}${tboard(R)}${hostBtns(true)}</main>`}
->>>>>>> test
+ if(g==='truths'){
+  const w=R.writer,isW=w===me,vs=R.pl.filter(p=>p!==w),mt=S.A[me]?.k===R.k?S.A[me].t:null,hd=`<div class="lbl" style="margin-top:8px">Round ${R.round}`;
+  if(ph==='write'){
+   if(!isW)return `<main>${hd} · <span id="tm">${secs(R)}</span>s</div><div class="big">${nm(w)} is writing</div><p>Two truths and a lie, all about ${nm(w)}. Get ready to spot the lie!</p></main>`;
+   if(did(R))return `<main><div class="big">Sent.</div><p class="mu">Waiting for the voting to begin…</p></main>`;
+   return `<main>${hd} · Your turn · <span id="tm">${secs(R)}</span>s</div><div class="big">Two truths and a lie</div><p class="mu">Write three statements about yourself and tap “Lie” on the false one. Make them believable.</p>${[0,1,2].map(i=>`<div class="tt"><input type="text" maxlength="90" placeholder="Statement ${i+1}" autocomplete="off" value="${esc(S.tt[i])}" oninput="S.tt[${i}]=this.value;tcheck()"><button class="tool ${S.tli===i?'on':''}" data-a="tlie" data-i="${i}">Lie</button></div>`).join('')}<button class="btn a" id="tsend" data-a="tsend" ${S.tli>=0&&S.tt.every(x=>x.trim())?'':'disabled'}>Send</button></main>`}
+  if(ph==='vote')return `<main>${hd} · <span id="tm">${secs(R)}</span>s</div><div class="big" style="font-size:30px">${isW?'Your friends are guessing':'Which one is the lie?'}</div><p class="mu">${isW?'Keep a poker face. You score +2 for every player you fool.':`Statements by <b>${nm(w)}</b>. Tap the one you think is the lie. You can change your vote until everyone has voted.`}</p><div class="pick">${R.st.map((s,i)=>isW?`<div class="mv">${esc(s)}</div>`:`<button class="${mt===i?'on':''}" data-a="tvote" data-i="${i}">${esc(s)}</button>`).join('')}</div>${waitN(vs)}</main>`;
+  const r=R.res;
+  if(r.skip)return `<main>${hd}</div><div class="win">${nm(w)} ran out of time</div><p class="mu">No statements this round.</p>${board(R)}${hostBtns(true)}</main>`;
+  return `<main>${hd} · ${nm(w)}’s statements</div><div class="win">${r.n===0?'Nobody voted':r.fooled===0?'Nobody was fooled':r.fooled===r.n?`${nm(w)} fooled everyone!`:`${nm(w)} fooled ${r.fooled} of ${r.n}`}</div>${R.st.map((s,i)=>{const v=vs.filter(p=>r.v[p]===i).map(nm).join(', ');return `<div class="mv"><span class="badge">${i===R.lie?'The lie':'Truth'}</span><div style="margin-top:8px;font-size:18px">${esc(s)}</div><div class="mu" style="margin-top:6px">${v?(i===R.lie?'Spotted it: ':'Fooled: ')+v:'No votes'}</div></div>`}).join('')}<p class="mu">Correct guess +1 each · ${nm(w)} +${r.fooled*2}</p>${board(R)}${hostBtns(true)}</main>`}
+ if(g==='fakefact'){
+  const f=FACTS.find(x=>x.q===R.fq)||{q:R.fq,a:'?'},qb=`<div class="big" style="font-size:28px">${esc(f.q).replace('___','<span class="blank"></span>')}</div>`,hd=`<div class="lbl" style="margin-top:8px">Round ${R.round}`;
+  if(ph==='fake'){
+   if(did(R))return `<main><div class="big">Locked in.</div>${waiting}</main>`;
+   return `<main>${hd} · Fake fact · <span id="tm">${secs(R)}</span>s</div>${qb}<p class="mu">Type a fake answer that could fool the others. If it matches the real one, you’ll be asked to try again.</p><input type="text" id="ff" maxlength="40" placeholder="Your fake answer" autocomplete="off" data-enter="fsend"><button class="btn a" data-a="fsend">Submit</button></main>`}
+  if(ph==='pick'){const m=S.A[me]?.k===R.k?S.A[me].t:null;
+   return `<main>${hd} · Which is real? · <span id="tm">${secs(R)}</span>s</div>${qb}<div class="pick">${R.opts.map((o,i)=>o.by.includes(me)?`<button class="fo" disabled><span>${esc(o.t)}</span><span class="mu" style="text-transform:none">your fake</span></button>`:`<button class="fo ${m===i?'on':''}" data-a="fpick" data-i="${i}">${esc(o.t)}</button>`).join('')}</div><p class="mu">Pick the real answer for +2. You can change your pick until everyone has picked.</p>${waitN(R.pl)}</main>`}
+  const r=R.res,full=esc(f.q).replace('___',`<b>${esc(f.a)}</b>`);
+  if(r.skip)return `<main>${hd} · answer</div><div class="win">Nobody wrote a fake</div><p>${full}</p>${board(R)}${hostBtns(true)}</main>`;
+  const ord=R.opts.map((o,i)=>({o,n:R.pl.filter(p=>r.v[p]===i)})).sort((a,b)=>(a.o.by.length>0)-(b.o.by.length>0)||b.n.length-a.n.length),gain=R.pl.filter(p=>r.d[p]).sort((a,b)=>r.d[b]-r.d[a]);
+  return `<main>${hd} · answer</div><p style="font-size:22px;margin:8px 0 14px">${full}</p>${ord.map(x=>`<div class="mv"><span class="badge">${x.o.by.length?'Fake by '+x.o.by.map(nm).join(', '):'Real answer'}</span><div class="big fo" style="font-size:24px">${esc(x.o.t)}</div><div class="mu">${x.n.length?(x.o.by.length?'Fooled: ':'Found it: ')+x.n.map(nm).join(', '):'Nobody picked this'}</div></div>`).join('')}${gain.length?`<div class="lbl">This round</div>${gain.map(p=>`<div class="row"><span>${nm(p)}</span><b>+${r.d[p]}</b></div>`).join('')}`:''}${board(R)}${hostBtns(true)}</main>`}
+ if(g==='taboo'){
+  const tm=R.tm,mate=R.teams[me]===tm,isD=R.desc===me,lg=tlog(R),cur=TABOO[R.cards[lg.length]],hd=`<div class="lbl" style="margin-top:8px">Round ${R.round} · ${TN[tm]} team`,
+   card=c=>c?`<div class="tabo"><div class="w">${esc(c.w)}</div><ul>${c.b.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'';
+  if(ph==='ready')return `<main>${hd}’s turn</div><div class="big">${isD?'You’re describing':nm(R.desc)+' is describing'}</div><p>${isD?'Get your team ready, then tap start. The timer begins straight away.':mate?'Get ready to guess. Don’t look at the describer’s phone.':'You’re the watchers. Once the turn starts you’ll see each card. Shout “BUZZ!” if the describer says a banned word.'}</p>${isD?`<button class="btn a" data-a="tgo" ${did(R)?'disabled':''}>${did(R)?'Starting…':'Start turn'}</button>`:''}${tboard(R)}${isHost()&&!isD?`<button class="btn o" data-a="nextRound">Skip this turn</button>`:''}</main>`;
+  if(ph==='play'){
+   const g1=cnt(lg,'g'),b1=cnt(lg,'b'),s1=cnt(lg,'s'),net=g1-b1,out=lg.length>=R.cards.length,
+    stat=`<p class="mu">✓ ${g1} · ✗ ${b1} · Turn score <b>${net>0?'+':''}${net}</b></p>`,top=`${hd} · <span id="tm">${secs(R)}</span>s</div>`;
+   if(isD)return `<main>${top}${out?'<div class="big">Out of cards</div>':card(cur)}${stat}<div class="tbtn"><button class="btn ok" data-a="tb" data-o="g" ${out?'disabled':''}>Got it +1</button><button class="btn a" data-a="tb" data-o="b" ${out?'disabled':''}>Buzz −1</button></div><button class="btn o" data-a="tb" data-o="s" ${out||s1>=3?'disabled':''}>Skip (${3-s1} left)</button></main>`;
+   if(mate)return `<main>${top}<div class="big">${nm(R.desc)} is describing</div><p>Shout your guesses! Don’t look at the describer’s phone.</p>${stat}${tboard(R)}</main>`;
+   return `<main>${top}<div class="lbl" style="margin-top:8px">Watch for banned words</div>${card(cur)}<p>Shout “BUZZ!” if ${nm(R.desc)} says the word or a banned word. ${nm(R.desc)} taps Buzz.</p>${stat}</main>`}
+  const r=R.res,l2=r.log||'';
+  return `<main>${hd}</div><div class="win">${r.net>0?'+':''}${r.net} for ${TN[tm]}</div><p class="mu">${nm(R.desc)} described · ✓ ${cnt(l2,'g')} · ✗ ${cnt(l2,'b')} · skipped ${cnt(l2,'s')}</p>${[...l2].map((c,i)=>`<div class="row"><span>${esc(TABOO[R.cards[i]].w)}</span><span>${c==='g'?'Got it +1':c==='b'?'Buzzed −1':'Skipped'}</span></div>`).join('')}${tboard(R)}${hostBtns(true)}</main>`}
  if(ph==='vote')return `<main><div class="lbl" style="margin-top:8px">Round ${R.round}</div><div class="big">${esc(R.prompt)}</div>${S.sub===R.k?'':''}${pickList(R.pl,me)}${waitN(R.pl)}</main>`;
  const mx=R.res[0]?.n||1;
  return `<main><div class="lbl" style="margin-top:8px">${esc(R.prompt)}</div>${R.res.map(r=>`<div style="padding:10px 0"><div style="display:flex;justify-content:space-between"><span>${nm(r.p)}</span><b>${r.n}</b></div><div class="bar2" style="width:${r.n/mx*100}%"></div></div>`).join('')}${board(R)}${hostBtns(true)}</main>`;
@@ -941,162 +1128,6 @@ function paintSl(){const[h,s,v]=S.pick;$('#pv').style.background=css(S.pick);
 function onSl(i,v){S.pick[i]=+v;paintSl()}
 function initSl(){$('#s0').style.background='linear-gradient(90deg,'+[0,60,120,180,240,300,360].map(h=>css([h,100,100])).join(',')+')';[0,1,2].forEach(i=>$('#s'+i).value=S.pick[i]);paintSl()}
 function after(){
-<<<<<<< HEAD
- if($('#cv'))initCv();if($('#s0'))initSl();markTools();pictAfter();
- if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
-}
-/* ---------- pictionary ---------- */
-const P={st:[],chat:[],si:0,cur:null,code:null,ud:null,tk:'',gq:0,gInit:0};
-const lt=s=>String(s||'').toLowerCase().replace(/[^a-z]/g,'');
-const lp=n=>`rooms/${S.code}/log/${n}`;
-const isDrawer=()=>!!S.R&&S.R.game==='pict'&&S.R.phase==='draw'&&S.R.drawer===S.id;
-const PTOOLS=TOOLS.replace('<button class="tool" data-a="clr">Clear</button>','<button class="tool" data-a="pundo">Undo</button><button class="tool" data-a="pclr">Clear</button>');
-const chatBox=()=>{const R=S.R,ph=R.phase==='draw'?(R.drawer===S.id?'Chat (don’t reveal the word)':'Type your guess'):'Say something';
- return `<div class="crow"><div class="lbl">Chat</div><button class="btn s o" data-a="cexp">Expand</button></div><div class="chat" id="chat"></div><div class="cin"><input type="text" id="ci" maxlength="80" placeholder="${ph}" autocomplete="off"><button class="btn a" data-a="csend">Send</button></div>`};
-function pictSync(){
- const R=S.R,want=R&&R.game==='pict'?S.code:null;
- if(want!==P.code){pictOff();if(want){P.code=want;
-  P.ud=[db.logSub(lp('draw'),onDraw)];
-  if(isHost())P.ud.push(db.logSub(lp('guess'),onGuess))}}
- if(want){const tk=R.g+':'+R.turn;if(tk!==P.tk){P.tk=tk;P.st=[];P.cur=null}}
-}
-function pictOff(){P.ud&&P.ud.forEach(u=>u());P.ud=null;P.code=null;P.st=[];P.cur=null;P.tk='';P.gq=0;P.gInit=0}
-/* drawing: strokes are replayed from a shared log so late joiners see everything */
-const pxCtx=()=>{const c=$('#pcv');return c&&c.getContext('2d')};
-function strokePath(x,s){x.strokeStyle=s.c;x.lineWidth=s.w;x.lineCap=x.lineJoin='round';x.beginPath();const p=s.p;x.moveTo(p[0],p[1]);if(p.length<4)x.lineTo(p[0]+.1,p[1]);else for(let i=2;i<p.length;i+=2)x.lineTo(p[i],p[i+1]);x.stroke()}
-function pRedraw(){const x=pxCtx();if(!x)return;x.fillStyle='#fff';x.fillRect(0,0,480,480);P.st.forEach(s=>strokePath(x,s))}
-function pApply(it,live){
- const x=live?pxCtx():null;
- if(it.x){P.st=[];if(live)pRedraw();return}
- if(it.u){P.st.pop();if(live)pRedraw();return}
- if(!Array.isArray(it.p)||it.p.length<2||it.p.length>400||!it.p.every(Number.isFinite))return;
- const l=P.st[P.st.length-1];
- if(l&&l.i===it.i&&l.a===it.a){l.p.push(...it.p.slice(2));if(x)strokePath(x,{c:l.c,w:l.w,p:it.p})}
- else{const s={i:it.i,a:it.a,c:/^#[0-9a-f]{6}$/i.test(it.c)?it.c:'#111111',w:Math.min(40,Math.max(1,+it.w||4)),p:it.p.slice()};P.st.push(s);if(x)strokePath(x,s)}
-}
-function onDraw(m){
- if(m.full){P.st=[];P.cur=null;m.items.forEach(it=>pApply(it,false));pRedraw()}
- else m.items.forEach(it=>{if(it.a!==S.id)pApply(it,true)});
-}
-function pFlush(){const s=P.cur;if(!s)return;const n=s.p.length;if(n<=s.sn)return;const from=Math.max(0,s.sn-2);s.sn=n;
- db.logAdd(lp('draw'),{a:S.id,i:s.i,c:s.c,w:s.w,p:s.p.slice(from)})}
-setInterval(pFlush,80);
-function initPcv(){
- const c=$('#pcv');pRedraw();if(!isDrawer())return;
- let d=false;const pt=e=>{const r=c.getBoundingClientRect();return[Math.round((e.clientX-r.left)*960/r.width)/2,Math.round((e.clientY-r.top)*960/r.height)/2]};
- c.onpointerdown=e=>{e.preventDefault();d=true;c.setPointerCapture(e.pointerId);const er=S.tool==='eraser';
-  const s={i:++P.si,a:S.id,c:er?'#ffffff':S.col,w:er?S.sz*3:S.sz,p:pt(e),sn:0};P.cur=s;P.st.push(s);strokePath(c.getContext('2d'),s);pFlush()};
- c.onpointermove=e=>{if(!d||!P.cur)return;const s=P.cur,x=c.getContext('2d');
-  for(const ev of (e.getCoalescedEvents?e.getCoalescedEvents():[e])){const p=pt(ev),n=s.p.length,lx=s.p[n-2],ly=s.p[n-1];
-   if(Math.hypot(p[0]-lx,p[1]-ly)<1.5)continue;s.p.push(p[0],p[1]);strokePath(x,{c:s.c,w:s.w,p:[lx,ly,p[0],p[1]]})}};
- c.onpointerup=c.onpointercancel=()=>{if(d){d=false;pFlush();P.cur=null}};
-}
-/* chat */
-function onChat(m){const n=m.full?0:m.items.filter(x=>!x.s&&x.a!==S.id).length;
- if(m.full)P.chat=m.items.slice();else P.chat.push(...m.items);if(P.chat.length>500)P.chat.splice(0,P.chat.length-500);
- if(n&&$('#fpanel').style.display!=='flex'){S.unread=(S.unread||0)+n;updBadge()}paintChat()}
-function updBadge(){const b=$('#fbadge');b.textContent=S.unread>99?'99+':S.unread||'';b.style.display=S.unread?'block':'none'}
-function fillChat(el){if(!el)return;
- const stick=!el.dataset.i||el.scrollTop+el.clientHeight>=el.scrollHeight-40;
- el.innerHTML=P.chat.length?P.chat.map(m=>m.s?`<div class="msg sys">${esc(m.t)}</div>`:`<div class="msg"><b class="${m.a===S.id?'me':''}">${esc(m.n)}</b>${esc(m.t)}</div>`).join(''):'<div class="mu">No messages yet.</div>';
- if(el.id==='chat')el.classList.toggle('big',!!S.cexp);el.dataset.i=1;if(stick)el.scrollTop=el.scrollHeight}
-function paintChat(){fillChat($('#chat'));fillChat($('#fchat'))}
-function chatSync(){if(S.code&&!P.cc)P.cc=db.logSub(lp('chat'),onChat)}
-function chatOff(){P.cc&&P.cc();P.cc=null;P.chat=[];S.unread=0;updBadge();paintChat()}
-function fabShow(on){const o=$('#fpanel').style.display==='flex';$('#fab').style.display=on&&!o?'flex':'none';if(!on)$('#fpanel').style.display='none'}
-function paintHint(){
- const el=$('#pword'),R=S.R;if(!el||R.phase!=='draw')return;
- const me=S.id,dr=R.drawer===me,got=!!(R.solved&&R.solved[me]!=null),full=dr||got,w=R.word||'';
- let i=0,h='';for(const ch of w){if(/[a-z]/i.test(ch)){const lk=(R.lk||'')[i++]==='1';h+=`<span class="lt ${lk?'lk':''}">${full||lk?esc(ch):''}</span>`}
-  else if(ch===' ')h+='<span class="sp"></span>';else h+=`<span class="lt">${esc(ch)}</span>`}
- const lbl=dr?'Draw this':got?'You got it!':`Guess the word · ${lt(w).length} letters`;
- const skip=dr&&!R.skip&&!Object.keys(R.solved||{}).length?`<button class="btn s o" style="margin-top:10px" data-a="pskip">New word</button>`:'';
- const sig=lbl+h+skip;if(el.dataset.sig!==sig){el.dataset.sig=sig;el.innerHTML=`<div class="lbl">${lbl}</div><div class="hint">${h}</div>${skip}`}
-}
-function paintPlayers(){
- const el=$('#pplayers'),R=S.R;if(!el||R.phase!=='draw')return;
- el.innerHTML=(R.pl||[]).filter(p=>S.P[p]).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${p===R.drawer?' · drawing':R.solved&&R.solved[p]!=null?' ✓':''} · ${(R.scores||{})[p]||0}</span>`).join('')}
-function paintPict(){
- const R=S.R;if(!R||R.game!=='pict')return;
- paintHint();paintPlayers();paintChat();
- const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000))}
-function pictAfter(){if($('#pcv'))initPcv();paintPict()}
-/* views */
-function pictView(){
- const R=S.R,me=S.id,ph=R.phase,K=`data-k="${esc(R.k)}"`;
- if(ph==='over'){const sc=R.scores||{},ids=Object.keys(S.P).sort((a,b)=>(sc[b]||0)-(sc[a]||0)),top=ids.length&&(sc[ids[0]]||0)>0?ids.filter(p=>(sc[p]||0)===(sc[ids[0]]||0)):[];
-  return `<main ${K}><div class="win">${top.length?top.map(nm).join(' & ')+(top.length>1?' win':' wins'):'Game over'}</div>${board(R)}${hostBtns(false)}${chatBox()}</main>`}
- if(ph==='tr'){
-  const rows=R.pl.filter(p=>p!==R.drawer&&S.P[p]).map(p=>`<div class="row"><span>${nm(p)}</span><span>${R.solved&&R.solved[p]!=null?'+'+R.solved[p]:'no guess'}</span></div>`).join('');
-  return `<main ${K}><div class="lbl" style="margin-top:8px">The word was · next turn in <span id="tm"></span>s</div><div class="big">${esc(R.word)}</div><p class="mu">Drawn by ${nm(R.drawer)}</p><canvas id="pcv" width="480" height="480"></canvas><div class="lbl">This turn</div>${rows}${board(R)}${isHost()?`<button class="btn o" data-a="pnext">Next turn now</button>`:''}${chatBox()}</main>`}
- const dr=R.drawer===me;
- return `<main ${K}><div class="phead"><span>${dr?'You are drawing':nm(R.drawer)+' is drawing'} · round ${R.round} of ${R.cfg.rounds}</span><b><span id="tm"></span>s</b></div><div id="pword" class="pword"></div><canvas id="pcv" width="480" height="480"></canvas>${dr?PTOOLS:''}<div class="lbl">Players</div><div id="pplayers"></div>${chatBox()}</main>`;
-}
-/* referee: runs on the host device. Guessers write to a private log; the host judges and posts to chat,
-   so a correct guess never appears in the chat as text. */
-let H={k:''};
-function hs(){const R=S.R;if(H.k!==R.k)H={k:R.k,solved:{...(R.solved||{})},lk:(R.lk||'').split(''),scores:{...(R.scores||{})}};return H}
-const chatPost=o=>db.logAdd(lp('chat'),{ts:Date.now(),...o});
-function onGuess(m){
- if(m.full&&!P.gInit){P.gInit=1;P.gq=Math.max(0,...m.items.map(x=>x.q||0));return}
- m.items.forEach(it=>{if(it.q>P.gq){P.gq=it.q;try{pictGuess(it)}catch(e){console.error(e)}}})}
-function newWord(R){let used=R.used||[],pool=WORDS.filter(w=>!used.includes(w));if(!pool.length){pool=WORDS;used=[]}const word=rnd(pool);return{word,used:[...used,word]}}
-function pictGuess(it){
- const R=S.R;if(!R||R.game!=='pict'||!S.P[it.a])return;
- const a=it.a,name=S.P[a].name,live=R.phase==='draw'&&!S.busy,H=hs();
- if(it.cmd==='skip'){
-  if(!live||a!==R.drawer||R.skip||Object.keys(H.solved).length)return;
-  const nw=newWord(R);H.lk='0'.repeat(lt(nw.word).length).split('');R.word=nw.word;
-  db.logAdd(lp('draw'),{x:1,a:S.id});chatPost({s:1,t:`${name} swapped the word. Drawing was cleared.`});
-  return upd({word:nw.word,used:nw.used,lk:H.lk.join(''),skip:1})}
- const t=String(it.t||'').trim().slice(0,80);if(!t)return;
- const inGame=live&&R.pl.includes(a)&&a!==R.drawer&&H.solved[a]==null;
- if(!inGame){ // plain chat; never let the answer leak
-  if(R.phase==='draw'&&lt(t).includes(lt(R.word)))return;
-  return chatPost({a,n:name,t})}
- if(close(t,R.word)){
-  const left=Math.max(0,R.end-Date.now()),pts=1+Math.ceil(4*left/(R.cfg.secs*1000));
-  H.solved[a]=pts;H.scores[a]=(H.scores[a]||0)+pts;H.scores[R.drawer]=(H.scores[R.drawer]||0)+2;
-  chatPost({s:1,t:`${name} guessed the word! +${pts}`});
-  const need=R.pl.filter(p=>p!==R.drawer&&S.P[p]);
-  if(need.every(p=>H.solved[p]!=null)){S.busy=true;return endTurn()}
-  return upd({solved:H.solved,scores:H.scores})}
- chatPost({a,n:name,t});
- const w=lt(R.word);let found=null;
- for(const g of t.toLowerCase().split(/\s+/).map(lt)){if(g.length<3||g===w)continue;let i=w.indexOf(g),hit=false;
-  while(i>=0){for(let j=i;j<i+g.length;j++)if(H.lk[j]!=='1'){H.lk[j]='1';hit=true}i=w.indexOf(g,i+1)}
-  if(hit&&!found)found=g}
- if(found){H.scores[a]=(H.scores[a]||0)+1;chatPost({s:1,t:`“${found}” is part of the word! +1 for ${name}`});
-  return upd({lk:H.lk.join(''),scores:H.scores})}
-}
-function endTurn(){const R=S.R,H=hs();chatPost({s:1,t:`The word was “${R.word}”.`});
- return upd({phase:'tr',k:`${R.g}:${R.turn}:r`,end:Date.now()+7000,solved:H.solved,scores:H.scores,lk:'1'.repeat(lt(R.word).length)})}
-function pictTurn(R,t,x={}){
- const nw=newWord(R),dr=R.order[t],rd=Math.floor(t/R.pl.length)+1;
- db.logAdd(lp('draw'),{x:1,a:S.id});
- chatPost({s:1,t:`${S.P[dr]?.name||'?'} is drawing · round ${rd} of ${R.cfg.rounds}`});
- return upd({...x,turn:t,drawer:dr,word:nw.word,used:nw.used,lk:'0'.repeat(lt(nw.word).length),solved:{},skip:0,round:rd,phase:'draw',k:`${R.g}:${t}:d`,end:Date.now()+R.cfg.secs*1000})}
-function nextTurn(){const R=S.R;let t=R.turn+1;while(t<R.order.length&&!S.P[R.order[t]])t++;
- if(t>=R.order.length){chatPost({s:1,t:'Game over!'});return upd({phase:'over',k:`${R.g}:over`})}
- return pictTurn(R,t)}
-function pictStart(){
- const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),order=[];for(let r=0;r<R.cfg.rounds;r++)order.push(...ids);
- return pictTurn({...R,g,pl:ids,order,used:[]},0,{g,pl:ids,order,scores:{}})}
-function pictTick(R,now){
- if(R.phase==='draw'&&R.end&&now>=R.end){S.busy=true;return endTurn()}
- if(R.phase==='tr'&&R.end&&now>=R.end){S.busy=true;return nextTurn()}
-}
-
-function render(){
- if(!$('#app'))return;const R=S.R;let h;fabShow(!!(S.code&&R));
- if(!S.code||!R)h=home();
- else{const g=G(R.game);
-  h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;
-  h+=R.phase==='lobby'?lobby():R.game==='pict'?pictView():R.phase==='over'?over():R.game==='mafia'?mafiaView():R.game==='imposter'?imposterView():partyView();
- }
- const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
- if(ae&&ae.tagName==='INPUT'&&ae.closest('#app')&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
-=======
  if($('#cv'))initCv();if($('#s0'))initSl();markTools();
  if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
 }
@@ -1109,13 +1140,8 @@ function render(){
  }
  const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
  if(ae&&ae.tagName==='INPUT'&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
->>>>>>> test
  if(h===render.h)return;const y=window.scrollY;
  $('#app').classList.toggle('noanim',key===render.key);
  $('#app').innerHTML=h;window.scrollTo(0,y);render.h=h;render.key=key;after();
 }
-<<<<<<< HEAD
 </script></body></html>
-=======
-</script></body></html>
->>>>>>> test
