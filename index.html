@@ -46,6 +46,13 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 input.npi.good{border-color:#2f9e44}
 .npr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:9px 0;border-top:1px solid var(--line)}.npr.t{cursor:pointer}.npr.t:active{opacity:.6}
 .npr .st{font-size:13px;text-align:right;color:var(--mu);flex:none;max-width:48%}.st.ok{color:#2f9e44}.st.sp{color:#d98a00}.st.no,.st.wl{color:var(--acc)}
+.chf{position:fixed;right:70px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);background:var(--card);color:var(--ink);font-size:20px;box-shadow:0 2px 10px rgba(0,0,0,.3);cursor:pointer;z-index:5}
+.chf i{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--acc);color:#fff;font:700 11px/18px sans-serif;font-style:normal;display:none}.chf i.on{display:block}
+.chs{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;height:min(70vh,520px);display:flex;flex-direction:column;background:var(--bg);border-top:1px solid var(--ink);border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));z-index:7}
+.chl{flex:1;overflow:auto;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.cm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;max-width:85%;align-self:flex-start;word-break:break-word;font-size:15px}.cm b{display:block;font-size:12px;color:var(--mu)}
+.cm.me{align-self:flex-end;background:var(--ink);color:var(--bg);border-color:var(--ink)}.cm.me b{color:var(--bg);opacity:.7}
+.cr{display:flex;gap:8px;align-items:center}.cr input{height:44px;font-size:16px}
 .hwf{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-size:22px;font-weight:700;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.3);cursor:pointer;z-index:5}
 .hwb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:6}
 .hws{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;max-height:80vh;overflow:auto;background:var(--bg);border-top:1px solid var(--ink);border-radius:18px 18px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));z-index:7}
@@ -54,7 +61,7 @@ input.npi.good{border-color:#2f9e44}
 .hc{aspect-ratio:1/1.1;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);font-weight:600;font-size:15px;font-family:inherit;padding:0;cursor:pointer}
 .hc.bl{background:var(--line);opacity:.45;border-color:transparent;cursor:default}.hc.cl{border-color:var(--acc);color:var(--acc)}.hc.mk{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .hb{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}.hb span{text-align:center;font-size:12px;padding:5px 0;border-radius:5px;border:1px solid var(--line);color:var(--mu)}.hb span.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.hb span.cur{background:var(--acc);border-color:var(--acc);color:#fff}
-</style></head><body><div id="app"></div><div id="toast"></div>
+</style></head><body><div id="app"></div><div id="chatbox"></div><div id="toast"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* ---------- Registry: add new games here ---------- */
@@ -735,7 +742,7 @@ const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
-let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:'',tt:['','',''],np:['','','',''],rv:[2,2,2,2],hm:null,npst:'',tli:-1,bl:'',blk:'',hw:false};
+let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:'',tt:['','',''],np:['','','',''],rv:[2,2,2,2],hm:null,npst:'',tli:-1,bl:'',blk:'',hw:false,chat:[],cOpen:false,cSeen:0,cInit:false};
 try{S.name=localStorage.getItem('pg-name')||''}catch(e){}
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2500)}
 const nm=p=>esc(S.P[p]?.name||'?'),G=id=>GAMES.find(g=>g.id===id),note=t=>`<div class="note">${t}</div>`;
@@ -776,13 +783,16 @@ async function joinRoom(code){
  if(!s.exists)return toast('Room not found');await enter(code);
 }
 async function enter(code){
- S.code=code;try{localStorage.setItem('pg-name',S.name)}catch(e){}
+ S.code=code;S.chat=[];S.cInit=false;S.cSeen=0;S.cOpen=false;try{localStorage.setItem('pg-name',S.name)}catch(e){}
  await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
    if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60];S.tt=['','',''];S.np=['','','',''];S.rv=[2,2,2,2];S.tli=-1}}
    S.R=n;syncArt();render();tick()}),
   db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render()}),
-  db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
+  db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()}),
+  db.collection(`rooms/${code}/chat`).onSnapshot(q=>{S.chat=q.docs.map(d=>d.data()).sort((a,b)=>a.ts-b.ts);
+   if(!S.cInit){S.cInit=true;S.cSeen=S.chat.length?S.chat[S.chat.length-1].ts:0} // history from before you joined isn't unread
+   chatList()})];
 }
 function syncArt(){
  const R=S.R;let key='';
@@ -794,7 +804,7 @@ function syncArt(){
 function leave(gone){
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
- S.un=[];S.hw=false;S.code=null;S.R=null;S.P={};S.A={};render();
+ S.un=[];S.hw=false;S.chat=[];S.cOpen=false;S.code=null;S.R=null;S.P={};S.A={};render();
 }
 const upd=o=>db.doc('rooms/'+S.code).update(o),isHost=()=>S.R&&S.R.host===S.id;
 const secs=R=>Math.max(0,Math.ceil((R.end-Date.now())/1000));
@@ -1035,6 +1045,12 @@ const ACT={
  guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
  cpick(){submitAct(S.pick.slice())},
  hw(){blur();S.hw=!S.hw;render()},
+ chat(){blur();S.cOpen=!S.cOpen;if(S.cOpen)S.cSeen=S.chat.length?S.chat[S.chat.length-1].ts:0;chatSync()},
+ csend(){const i=$('#chi');if(!i||!S.code)return;const t=i.value.trim().slice(0,200);if(!t)return;i.value='';i.focus();
+  const id='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  db.doc(`rooms/${S.code}/chat/${id}`).set({id,p:S.id,n:(S.P[S.id]&&S.P[S.id].name)||S.name,t,ts:Date.now()});
+  if(S.chat.length>=100)S.chat.slice(0,S.chat.length-99).forEach(m=>db.doc(`rooms/${S.code}/chat/${m.id}`).delete()); // keep the last 100 messages
+ },
  /* Two Truths and a Lie */
  tlie(d){S.tli=+d.i;tcheck()},
  tsend(d,auto){const R=S.R;if(R.phase!=='write'||R.writer!==S.id||did(R))return;const s=S.tt.map(x=>x.trim().slice(0,90));
@@ -1266,12 +1282,29 @@ function paintSl(){const[h,s,v]=S.pick;$('#pv').style.background=css(S.pick);
  $('#s1').style.background=`linear-gradient(90deg,${css([h,0,v])},${css([h,100,v])})`;$('#s2').style.background=`linear-gradient(90deg,#000,${css([h,s,100])})`}
 function onSl(i,v){S.pick[i]=+v;paintSl()}
 function initSl(){$('#s0').style.background='linear-gradient(90deg,'+[0,60,120,180,240,300,360].map(h=>css([h,100,100])).join(',')+')';[0,1,2].forEach(i=>$('#s'+i).value=S.pick[i]);paintSl()}
+/* ---------- chat: floating button + sheet, in #chatbox so game re-renders never steal focus from the input ---------- */
+function chatUI(){
+ const b=$('#chatbox');if(!b)return;
+ if(!S.code||!S.R){b.innerHTML='';return}
+ if(!S.cOpen){b.innerHTML='<button class="chf" data-a="chat" aria-label="Chat">💬<i id="chb"></i></button>';chatList();return}
+ b.innerHTML='<div class="hwb" data-a="chat"></div><div class="chs"><div class="hw" style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:20px">Chat</b><button class="btn s o" data-a="chat">Close</button></div><div class="chl" id="chl"></div><div class="cr"><input type="text" id="chi" maxlength="200" placeholder="Message" autocomplete="off" data-enter="csend"><button class="btn s a" style="height:44px" data-a="csend">Send</button></div></div>';
+ chatList();
+}
+function chatSync(){const k=(S.code&&S.R?'1':'0')+(S.cOpen?'o':'c');if(chatSync.k===k)return;chatSync.k=k;chatUI()}
+function chatList(){
+ const last=S.chat.length?S.chat[S.chat.length-1].ts:0;
+ if(S.cOpen){const l=$('#chl');if(!l)return;const bot=l.scrollHeight-l.scrollTop-l.clientHeight<60;
+  l.innerHTML=S.chat.length?S.chat.map(m=>`<div class="cm ${m.p===S.id?'me':''}"><b>${esc(m.n)}</b>${esc(m.t)}</div>`).join(''):'<p class="mu">No messages yet. Say hi!</p>';
+  if(bot||!l.dataset.s){l.scrollTop=l.scrollHeight;l.dataset.s=1}S.cSeen=last;return}
+ const n=S.chat.filter(m=>m.p!==S.id&&m.ts>S.cSeen).length,e=$('#chb');
+ if(e){e.textContent=n>9?'9+':n;e.classList.toggle('on',n>0)}
+}
 function after(){
  if($('#cv'))initCv();if($('#s0'))initSl();if($('#npdone'))npcheck();markTools();
  if(S.R&&S.R.phase==='lobby'&&window.QRCode&&$('#qr'))new QRCode($('#qr'),{text:location.href.split('#')[0]+'#'+S.code,width:140,height:140});
 }
 function render(){
- if(!$('#app'))return;const R=S.R;let h;
+ if(!$('#app'))return;chatSync();const R=S.R;let h;
  if(!S.code||!R)h=home();
  else{const g=G(R.game);
   h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;

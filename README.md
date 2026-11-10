@@ -12,6 +12,8 @@ The group comes from the `min` value of each entry in `GAMES` in `index.html`, s
 
 Every game has a floating **?** button (bottom right) on every screen, lobby and in-game. It opens a "How to play" sheet for that game (the `HOW` map in `index.html`, one entry per game id).
 
+Every room also has a floating **chat** button (next to the ?) on every screen. Messages go to everyone in the room, are plain text (max 200 characters), and the last 100 are kept. A red badge shows unread messages while the chat is closed. Chat messages live under `rooms/CODE/chat/*` in the same store as everything else, so `server.js` needs no change.
+
 ## Two Truths and a Lie (3+)
 One player per round writes three statements and marks the lie. The others vote on a shuffled list. +1 per correct guess, writer +2 per player fooled. Everyone writes once before anyone repeats.
 
