@@ -1,9 +1,16 @@
 # Party games
 
-Twelve realtime multiplayer games, played on phones with a room code or QR. No player limit.
-Mafia, Imposter, Draw & Guess, Color Match, Most Likely To, Dumb Charades, Quick Trivia, Would You Rather, Two Truths and a Lie, Fake Fact, Taboo, Name Place Animal Thing. Scores are tracked per room across rounds.
+Thirteen realtime multiplayer games, played on phones with a room code or QR. No player limit.
+Scores are tracked per room across rounds.
 
-Every game shows a "How to play" section in the waiting room (the `HOW` map in `index.html`, one entry per game id).
+The home screen groups the games by how many players they need:
+- **2 players minimum:** Color Match, Dumb Charades, Quick Trivia, Name Place Animal Thing, Housie
+- **3 players minimum:** Imposter, Draw & Guess, Most Likely To, Would You Rather, Two Truths and a Lie, Fake Fact
+- **4 players minimum:** Mafia, Taboo
+
+The group comes from the `min` value of each entry in `GAMES` in `index.html`, so a new game lands in the right group automatically.
+
+Every game has a floating **?** button (bottom right) on every screen, lobby and in-game. It opens a "How to play" sheet for that game (the `HOW` map in `index.html`, one entry per game id).
 
 ## Two Truths and a Lie (3+)
 One player per round writes three statements and marks the lie. The others vote on a shuffled list. +1 per correct guess, writer +2 per player fooled. Everyone writes once before anyone repeats.
@@ -38,13 +45,22 @@ Dilemmas live in the `WYRS` list in `index.html` (`Option A|Option B`).
 ## Name Place Animal Thing (2+)
 Each round the game picks a random letter (never repeated within a game; Q, U, X, Y, Z are left out). Everyone writes a Name, a Place, an Animal and a Thing starting with it. Done only unlocks once all four fields start with the letter. **The first Done stops the round for everyone**: all other phones submit whatever they have typed (the server timestamp decides who was first). If nobody taps Done, the round ends when the timer does.
 
-Then the game verifies every answer against its word lists and shows what everyone wrote:
-- spelled correctly: **10** points
-- spelling slip (one or two letters off, a swapped pair, etc.): **5** points, and the correct spelling is shown
-- not in the lists, wrong first letter, or blank: **0**
+There are no word lists any more. Instead, **every player reviews one other player's answers**, picked at random (the players are shuffled into a ring, so nobody reviews themselves and everyone is reviewed exactly once; with 2 players you review each other). The reviewer marks each answer:
+- Correct: **10** points
+- Spelling mistake: **5** points
+- Wrong: **0**
 
-The lists can't know every real word, so the **host can tap a "Not found" or misspelled answer to accept it** as correct (tap again to undo). The host sets seconds per round and the number of rounds (3, 5, 8, 10, 15 or endless).
-Word lists live in `NPW` (one line per letter, `Letter: word,word,...`; Name, Place, Animal, Thing) near the top of `index.html`. Add words any time. The point values are `NP_OK` and `NP_SP`.
+Blank answers and answers that start with the wrong letter score 0 automatically and can't be changed. Reviewers have 45 seconds (`NP_RV`). Answers they leave untouched count as Correct, and a reviewer who runs out of time is submitted as it stands, so one slow player never costs somebody else points. Everyone then sees all answers, who reviewed them and the points. The host sets seconds per round and the number of rounds (3, 5, 8, 10, 15 or endless). The point values are `NP_OK` and `NP_SP`.
+
+## Housie / Tambola (2+)
+Every player gets 1 to 3 tickets (host setting): 3 rows by 9 columns, 5 numbers per row, 15 numbers from 1 to 90 (column 1 holds 1 to 9, column 2 holds 10 to 19, and so on). The **host's phone calls a random number** every few seconds (host setting, default 6; keep that phone open), and the host can pause, call the next number now, or end the game. Players tap a called number to mark it.
+
+Prizes, each won once by the first valid claim:
+- Early Five: any 5 numbers on one ticket, **+2**
+- Top Line, Middle Line, Bottom Line: **+3** each
+- Full House: all 15 numbers, **+5**, ends the game
+
+Claims are checked by the host's phone against the numbers that were really called (not against what the player marked). The server timestamp decides who claimed first. A false claim costs **1 point**, and a claim for a prize that was already won is ignored. Prizes and points live in `HS_PR`.
 
 ## Run it
 1. Install Node.js 18+

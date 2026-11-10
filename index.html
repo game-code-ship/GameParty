@@ -46,6 +46,14 @@ input[type=text]{width:100%;height:52px;padding:0 14px;border-radius:12px;border
 input.npi.good{border-color:#2f9e44}
 .npr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:9px 0;border-top:1px solid var(--line)}.npr.t{cursor:pointer}.npr.t:active{opacity:.6}
 .npr .st{font-size:13px;text-align:right;color:var(--mu);flex:none;max-width:48%}.st.ok{color:#2f9e44}.st.sp{color:#d98a00}.st.no,.st.wl{color:var(--acc)}
+.hwf{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-size:22px;font-weight:700;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.3);cursor:pointer;z-index:5}
+.hwb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:6}
+.hws{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;max-height:80vh;overflow:auto;background:var(--bg);border-top:1px solid var(--ink);border-radius:18px 18px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));z-index:7}
+.hn{display:flex;align-items:center;justify-content:center;width:132px;height:132px;margin:8px auto 10px;border:3px solid var(--acc);border-radius:50%;font-size:60px;font-weight:700;letter-spacing:-.03em;color:var(--acc)}
+.hst{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin:8px 0 14px;padding:6px;border:1px solid var(--ink);border-radius:12px;background:var(--card)}
+.hc{aspect-ratio:1/1.1;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);font-weight:600;font-size:15px;font-family:inherit;padding:0;cursor:pointer}
+.hc.bl{background:var(--line);opacity:.45;border-color:transparent;cursor:default}.hc.cl{border-color:var(--acc);color:var(--acc)}.hc.mk{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hb{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}.hb span{text-align:center;font-size:12px;padding:5px 0;border-radius:5px;border:1px solid var(--line);color:var(--mu)}.hb span.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.hb span.cur{background:var(--acc);border-color:var(--acc);color:#fff}
 </style></head><body><div id="app"></div><div id="toast"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -62,8 +70,9 @@ const GAMES=[
  {id:'truths',n:'Two Truths and a Lie',d:'Write two truths and a lie about yourself. Friends vote for the lie.',min:3},
  {id:'fakefact',n:'Fake Fact',d:'Invent a believable fake answer, then spot the real one.',min:3},
  {id:'taboo',n:'Taboo',d:'Get your team to say the word without the banned ones. Red vs Blue.',min:4},
- {id:'npat',n:'Name Place Animal Thing',d:'A random letter, four words. The first to finish stops everyone.',min:2}];
-const DEF={mafia:{mafia:1,doctor:1,police:1,anon:true},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},charades:{ind:'both',secs:90,mode:'ffa'},trivia:{secs:20,qn:10},wyr:{qn:10},truths:{secs:90},fakefact:{secs:45},taboo:{secs:60,mode:'team'},npat:{secs:90,qn:5}};
+ {id:'npat',n:'Name Place Animal Thing',d:'A random letter, four words. Another player reviews your answers.',min:2},
+  {id:'housie',n:'Housie',d:'Tambola. Mark your ticket as numbers are called, then claim prizes.',min:2}];
+const DEF={mafia:{mafia:1,doctor:1,police:1,anon:true},imposter:{imp:1,cat:0},draw:{secs:60},color:{},likely:{},charades:{ind:'both',secs:90,mode:'ffa'},trivia:{secs:20,qn:10},wyr:{qn:10},truths:{secs:90},fakefact:{secs:45},taboo:{secs:60,mode:'team'},npat:{secs:90,qn:5},housie:{secs:6,tk:1}};
 
 /* Trivia: question|correct answer|wrong|wrong|wrong (options are shuffled each round) */
 const QS=`What is the capital of Australia?|Canberra|Sydney|Melbourne|Perth
@@ -684,107 +693,23 @@ Rangoli|colours|Diwali|floor|pattern`.split('\n').map(l=>{const[w,...b]=l.split(
 const tdeal=used=>{const all=TABOO.map((_,i)=>i);let pool=all.filter(i=>!used.includes(i));if(pool.length<30){pool=all;used=[]}return{cards:shuf(pool).slice(0,30),used}};
 const cnt=(s,c)=>s.split(c).length-1;
 /* How to play, shown to everyone in the waiting room. One entry per game id. */
-/* Name Place Animal Thing: word lists used to check answers.
-   One line per letter, "Letter: word,word,...". Add more words any time; spelling is matched loosely. */
-const NPL='ABCDEFGHIJKLMNOPRSTVW'.split(''),NPC=['Name','Place','Animal','Thing'],NP_OK=10,NP_SP=5;
-const NPW=[`A: Aarav,Aditya,Aisha,Ajay,Akash,Alia,Amit,Amitabh,Ananya,Anil,Anita,Anjali,Ankit,Anushka,Arjun,Arnav,Aryan,Asha,Ashok,Aman,Alice,Alex,Andrew,Anna,Adam,Amy,Abhishek,Aarti,Akshay,Alok,Abdul,Ayesha,Ayaan
-B: Bhavna,Bharat,Bhumi,Bobby,Bipasha,Bhavya,Balaji,Bala,Bunty,Bella,Ben,Benjamin,Brian,Bruce,Bob,Barbara,Betty,Bhuvan,Bhaskar,Babita,Bani,Binod,Brijesh,Bimal,Brad,Billy,Beena,Bhagat,Bhavesh
-C: Chandni,Chetan,Chirag,Charu,Chitra,Charlie,Chris,Christopher,Catherine,Carol,Clara,Cathy,Carlos,Claire,Chandan,Charan,Chaitanya,Champak,Chhavi,Cyrus,Colin,Connor,Cameron,Celina,Cindy,Chhaya,Chinmay
-D: Deepak,Deepika,Dev,Devika,Dhruv,Divya,Diya,Dinesh,Disha,Dilip,Darshan,Daksh,Dhanush,Daniel,David,Diana,Dave,Dylan,Donna,Deepa,Dravid,Dharmendra,Dolly,Dhoni,Daisy,Dennis,Dimple
-E: Esha,Eshaan,Ekta,Elina,Eknath,Ella,Emma,Emily,Ethan,Eric,Edward,Elizabeth,Eva,Eddie,Elon,Elena,Ewan,Evan,Eleanor,Elsa,Ezra,Ehsaan,Ela,Eeshan,Edison,Einstein
-F: Farhan,Fatima,Faizal,Falguni,Farah,Feroz,Firoz,Faisal,Fiona,Frank,Fred,Felix,Freddie,Florence,Francis,Finn,Freya,Fardeen,Fahad,Farida,Fareed,Faria,Fawad,Fenil
-G: Gaurav,Gauri,Geeta,Girish,Gopal,Govind,Gautam,Gagan,Ganesh,Gayatri,Gargi,Gita,George,Grace,Gary,Gina,Greta,Gabriel,Gloria,Gordon,Gurpreet,Gulzar,Govinda,Gunjan,Gaurang,Gia,Gandhi
-H: Harsh,Harshad,Harish,Hari,Hema,Heena,Himanshu,Hardik,Hrithik,Hina,Hitesh,Hemant,Harpreet,Harry,Henry,Hannah,Helen,Hazel,Hugo,Hank,Hassan,Hamza,Hetal,Hiral,Harleen,Haider,Hiten,Hanuman
-I: Ishaan,Isha,Ishita,Indira,Imran,Indu,Ila,Irfan,Ira,Ishant,Iqbal,Ian,Isabella,Ivy,Ivan,Irene,Isaac,Ibrahim,Inaya,Ishwar,Indrani,Ilesh,Ishani,Ilyas,Ishan
-J: Jay,Jaya,Jayesh,Jagdish,Jatin,Jignesh,Jyoti,Janhvi,Jasmine,Javed,Juhi,Jitendra,John,James,Jack,Jessica,Jennifer,Julia,Jacob,Jake,Jane,Joseph,Jiya,Jaspreet,Jasleen,Jhanvi,Jagan,Jinal,Jeet,Jaswant
-K: Kabir,Kajal,Kamal,Kareena,Karan,Karishma,Kavita,Kiran,Komal,Krish,Krishna,Kunal,Kartik,Kriti,Kushal,Kapil,Kavya,Keshav,Kishore,Kyle,Kevin,Kate,Karen,Kim,Katrina,Kamlesh,Kirti,Kinjal,Kinnari,Kohli
-L: Lakshmi,Lata,Lalit,Lavanya,Laxmi,Lokesh,Leela,Layla,Lara,Lily,Lucy,Liam,Luke,Laura,Leo,Linda,Lisa,Logan,Lucas,Lilly,Luv,Lakshya,Lalita,Lopa,Leena,Lisha,Leon,Louis
-M: Mohan,Mohit,Mahesh,Manish,Meera,Mira,Manoj,Madhuri,Mansi,Mayur,Megha,Mukesh,Mahi,Maya,Mihir,Mitali,Michael,Mary,Mark,Matthew,Mia,Maria,Monica,Mohammed,Mustafa,Mehul,Malvika,Mrunal,Mamta,Manav,Madhav
-N: Neha,Nikhil,Nisha,Naman,Nandini,Naveen,Neeraj,Nirmala,Nitin,Navya,Nitya,Naina,Nilesh,Namrata,Natasha,Nancy,Nathan,Nick,Noah,Nora,Nina,Nicole,Nadia,Narendra,Naresh,Neelam,Niharika,Nimish,Nehru
-O: Om,Omkar,Ojas,Oliver,Olivia,Oscar,Owen,Omar,Ovi,Ojasvi,Orlando,Otis,Oprah,Opal,Odette,Omprakash,Ola,Osman,Orla,Ophelia,Orion,Ozzy
-P: Priya,Pooja,Prakash,Pranav,Pratik,Prashant,Preeti,Pankaj,Parth,Paresh,Payal,Piyush,Poonam,Prem,Priyanka,Puneet,Pallavi,Pawan,Paul,Peter,Patrick,Penny,Philip,Pamela,Paige,Pritam,Purvi,Pinky,Pavan,Pari,Prabhas
-R: Rahul,Raj,Rajesh,Ramesh,Ravi,Rohan,Rohit,Riya,Ritu,Rekha,Ritika,Rakesh,Rani,Radha,Rashmi,Reena,Rishabh,Roshni,Rajat,Rachel,Robert,Richard,Rose,Ryan,Ruby,Rhea,Rudra,Ranbir,Ranveer,Rupali,Rutvi,Rajinikanth
-S: Sachin,Sandeep,Sanjay,Sneha,Suresh,Sunita,Shreya,Shruti,Siddharth,Simran,Sita,Sonia,Sonam,Suhana,Sameer,Samar,Sara,Sarah,Sam,Sophia,Steve,Stephen,Susan,Sofia,Salman,Saurabh,Shubham,Sakshi,Sumit,Swati,Shweta,Shivam,Shilpa,Shahrukh
-T: Tanvi,Tanya,Tarun,Tushar,Tina,Tejas,Trisha,Tara,Tanmay,Tapan,Tabu,Taapsee,Tom,Thomas,Tim,Tony,Tyler,Tiffany,Teresa,Theo,Tessa,Trupti,Tarak,Tripti,Tushita
-V: Vikram,Vijay,Vivek,Varun,Vidya,Vinod,Vaishali,Vandana,Vishal,Vinay,Vedant,Veena,Vani,Vihaan,Vansh,Victor,Victoria,Vincent,Violet,Vanessa,Vera,Vikas,Vaibhav,Vrushali,Vedika,Vyom,Virat
-W: Waqar,Wasim,Wamiq,William,Walter,Wendy,Wyatt,Wesley,Whitney,Winston,Willow,Wanda,Warren,Wayne,Wilma,Waheeda,Wali,Wilson,Wren,Willa,Wazir,Wriddhiman`,
-`A: Agra,Ahmedabad,Ajmer,Allahabad,Amritsar,Andhra Pradesh,Assam,Aurangabad,Alwar,Aligarh,Ahmednagar,Anand,Amravati,Argentina,Australia,Austria,Afghanistan,Albania,Algeria,Angola,Athens,Amsterdam,Asia,Africa,Antarctica,Alaska,Arizona,Atlanta,Auckland,Abu Dhabi,Armenia,Alps,Amazon,Arunachal Pradesh,Andaman
-B: Bangalore,Bengaluru,Bhopal,Bhubaneswar,Bihar,Bikaner,Baroda,Bareilly,Belgaum,Bhavnagar,Bhuj,Bodh Gaya,Bangladesh,Belgium,Bhutan,Brazil,Bolivia,Bulgaria,Brunei,Berlin,Bangkok,Beijing,Barcelona,Boston,Brussels,Budapest,Brisbane,Bali,Bombay,Bahamas,Bahrain,Belarus,Botswana,Bern
-C: Chandigarh,Chennai,Calcutta,Coimbatore,Cuttack,Chhattisgarh,Chittorgarh,Cochin,Canada,Chile,China,Colombia,Croatia,Cuba,Cyprus,Cairo,Chicago,Copenhagen,Cape Town,Casablanca,Colombo,California,Colorado,Calicut,Chandrapur,Czech Republic,Cambodia,Cameroon,Canberra,Caribbean,Cardiff
-D: Delhi,Dehradun,Darjeeling,Dhanbad,Dwarka,Daman,Dibrugarh,Dharamshala,Denmark,Dubai,Dhaka,Dublin,Doha,Detroit,Dallas,Damascus,Delaware,Denver,Durban,Dominica,Dominican Republic,Dortmund,Dresden,Durgapur,Dindigul,Dausa,Davos
-E: Egypt,Ecuador,England,Estonia,Ethiopia,El Salvador,Edinburgh,Ernakulam,Erode,Etawah,Europe,Everest,Eritrea,Equatorial Guinea,Essex,Eindhoven,Edmonton,Eilat,Elephanta,Ellora,Eluru
-F: France,Finland,Fiji,Florida,Florence,Frankfurt,Faridabad,Firozabad,Fatehpur Sikri,Faridkot,Fazilka,Fukuoka,Falkland Islands,Faroe Islands,Fez,Funchal,Fresno,Fujairah,Fort Kochi,Fortaleza,Freetown,Fuzhou
-G: Gujarat,Goa,Gandhinagar,Guwahati,Gurgaon,Gurugram,Gwalior,Gaya,Gorakhpur,Gangtok,Greece,Germany,Ghana,Georgia,Guatemala,Geneva,Glasgow,Guyana,Guinea,Gambia,Galway,Giza,Guntur,Gulmarg,Ghaziabad,Gandhidham,Godhra,Gir,Greenland,Granada
-H: Hyderabad,Haryana,Himachal Pradesh,Haridwar,Hubli,Howrah,Hisar,Hampi,Hosur,Hungary,Holland,Honduras,Haiti,Havana,Helsinki,Hanoi,Hamburg,Houston,Hawaii,Hong Kong,Honolulu,Himalayas,Hokkaido,Hiroshima,Harare,Halifax,Haldwani
-I: India,Indore,Imphal,Itanagar,Idukki,Indonesia,Iran,Iraq,Ireland,Israel,Italy,Iceland,Istanbul,Islamabad,Ibiza,Ithaca,Ivory Coast,Illinois,Indiana,Iowa,Innsbruck,Irkutsk,Ichalkaranji,Itarsi,Isfahan,Indus,Ipoh
-J: Jaipur,Jodhpur,Jaisalmer,Jammu,Jamnagar,Jabalpur,Jalandhar,Jamshedpur,Jhansi,Junagadh,Jharkhand,Jamaica,Japan,Jordan,Jakarta,Johannesburg,Jerusalem,Jeddah,Jhelum,Jalgaon,Jorhat,Jaunpur,Jersey,Java,Jutland
-K: Kerala,Karnataka,Kolkata,Kanpur,Kochi,Kota,Kolhapur,Kanyakumari,Kashmir,Kullu,Kasol,Kedarnath,Kohima,Kenya,Kuwait,Kazakhstan,Kathmandu,Kabul,Karachi,Kyoto,Kiev,Kyiv,Kuala Lumpur,Korea,Kentucky,Kansas,Kingston,Khajuraho,Karnal,Kovalam,Kutch,Kodaikanal
-L: Lucknow,Ludhiana,Leh,Ladakh,Lakshadweep,Lonavala,Latur,Lahore,London,Los Angeles,Lisbon,Lima,Libya,Laos,Latvia,Lebanon,Liberia,Lithuania,Luxembourg,Liverpool,Las Vegas,Lagos,Lyon,Leeds,Louisiana,Lusaka,Lhasa,Lothal,Lahaul
-M: Mumbai,Madras,Madurai,Mysore,Mysuru,Meerut,Moradabad,Mangalore,Manali,Mathura,Maharashtra,Madhya Pradesh,Manipur,Meghalaya,Mizoram,Mussoorie,Mount Abu,Malaysia,Mexico,Morocco,Mongolia,Myanmar,Maldives,Madrid,Manchester,Melbourne,Miami,Milan,Moscow,Munich,Montreal,Mecca,Medina,Mauritius,Mozambique,Malta
-N: Nagpur,Nashik,Noida,Nagaland,Nainital,Navi Mumbai,Nellore,Nanded,Nepal,Netherlands,New Zealand,Nigeria,Norway,Nicaragua,Namibia,Nairobi,Naples,New York,New Delhi,Nice,Nottingham,Nevada,Nile,Nizamabad,Nalanda,Niagara,North Pole,Nuremberg
-O: Odisha,Orissa,Ooty,Oman,Oslo,Ottawa,Osaka,Oxford,Orlando,Ohio,Oregon,Oklahoma,Ontario,Okinawa,Odessa,Ongole,Osmanabad,Oakland,Orchha,Olympia
-P: Pune,Patna,Punjab,Puducherry,Pondicherry,Panaji,Panipat,Pushkar,Puri,Prayagraj,Pathankot,Palakkad,Pakistan,Peru,Poland,Portugal,Paris,Prague,Panama,Paraguay,Philippines,Palestine,Perth,Pittsburgh,Philadelphia,Phoenix,Pretoria,Phuket,Pahalgam,Palitana,Porbandar,Pacific
-R: Rajasthan,Ranchi,Raipur,Rajkot,Rishikesh,Rameswaram,Ratlam,Rohtak,Roorkee,Rourkela,Rome,Russia,Romania,Rwanda,Riyadh,Rio de Janeiro,Rotterdam,Reykjavik,Riga,Rhine,Ranthambore,Rewa,Rampur,Rangoon,Rabat,Richmond
-S: Surat,Shimla,Srinagar,Sikkim,Silchar,Solapur,Salem,Siliguri,Somnath,Shirdi,Sikar,Singapore,Spain,Sweden,Switzerland,Scotland,Sri Lanka,Sudan,Syria,Saudi Arabia,Seoul,Shanghai,Sydney,San Francisco,Seattle,Stockholm,Sahara,Santiago,Serbia,Slovakia,Slovenia,Somalia,Sonipat,Sanchi,Saharanpur
-T: Tamil Nadu,Telangana,Tripura,Thane,Thanjavur,Tirupati,Trivandrum,Thiruvananthapuram,Trichy,Tiruchirappalli,Tirunelveli,Tezpur,Thailand,Turkey,Tunisia,Tanzania,Tokyo,Toronto,Tehran,Taiwan,Tibet,Texas,Tennessee,Tashkent,Tbilisi,Trinidad,Tuticorin,Tawang,Taj Mahal,Thimphu,Tonga,Tijuana
-V: Varanasi,Vadodara,Vapi,Valsad,Vijayawada,Visakhapatnam,Vizag,Vellore,Vrindavan,Vasai,Vietnam,Venezuela,Vatican,Venice,Vienna,Vancouver,Valencia,Vermont,Virginia,Vanuatu,Vilnius,Vladivostok,Volgograd,Vaishali,Vidisha,Vijayanagar,Victoria
-W: Wales,Washington,Warsaw,Wellington,West Bengal,Wayanad,Wardha,Warangal,Wisconsin,Wyoming,Windsor,Winnipeg,Wuhan,Waikiki,Wimbledon,Wembley,Woodstock,Wollongong,West Indies,Westminster,Winchester,Wagah,Wankhede,Wichita`,
-`A: Alligator,Ant,Antelope,Ape,Armadillo,Ass,Alpaca,Albatross,Anaconda,Anteater,Aye-aye,Axolotl,Angelfish,Arctic fox,Asp,Adder,Addax,Aardvark,Anchovy,Aphid,African elephant,Arowana,Auk
-B: Bear,Bee,Buffalo,Bat,Bull,Butterfly,Bison,Boar,Baboon,Badger,Beaver,Bulbul,Bulldog,Bluebird,Bobcat,Buzzard,Barracuda,Beetle,Blue whale,Bengal tiger,Bandicoot,Bonobo,Budgie,Bullfrog,Bushbaby,Bumblebee,Boa
-C: Cat,Cow,Camel,Crow,Cheetah,Crocodile,Chimpanzee,Cobra,Cockroach,Chameleon,Chicken,Crab,Caterpillar,Cougar,Coyote,Cricket,Chinchilla,Cuckoo,Caribou,Cockatoo,Centipede,Clownfish,Condor,Cod,Crane,Chipmunk,Calf,Civet,Capybara,Coral,Cormorant
-D: Dog,Donkey,Deer,Dolphin,Duck,Dove,Dragonfly,Dinosaur,Dingo,Dromedary,Dugong,Dodo,Dachshund,Dalmatian,Dormouse,Dung beetle,Drongo,Dhole,Doe,Drake,Damselfly,Dik-dik,Duckling,Dory
-E: Elephant,Eagle,Eel,Emu,Elk,Echidna,Earthworm,Egret,Ermine,Eland,Earwig,Electric eel,Eagle owl,Emperor penguin,Eurasian lynx,Elephant seal,Eft,Ewe,Eaglet,Ethiopian wolf
-F: Frog,Fox,Fish,Flamingo,Fly,Falcon,Firefly,Ferret,Finch,Flea,Fawn,Flying squirrel,Fruit bat,Fossa,Fowl,Fieldmouse,Filly,Fennec fox,Frigatebird,Flatfish,Flounder,Fire ant,Frilled lizard,Flying fox,Fantail
-G: Goat,Giraffe,Gorilla,Goose,Gecko,Gazelle,Grasshopper,Gnu,Goldfish,Gibbon,Guinea pig,Gharial,Goshawk,Gull,Grizzly,Gopher,Greyhound,Grouse,Guppy,Gander,Giant panda,Gila monster,Galah,Gerbil,Grub
-H: Horse,Hen,Hippopotamus,Hippo,Hawk,Hedgehog,Hamster,Hyena,Heron,Hornet,Hare,Hummingbird,Humpback whale,Hornbill,Hog,Hound,Hermit crab,Husky,Hawksbill,Hoopoe,Hyrax,Housefly,Harrier,Honeybee,Haddock
-I: Iguana,Ibis,Impala,Ibex,Insect,Indian elephant,Indian cobra,Indian rhino,Inchworm,Isopod,Indri,Irish setter,Ice fish,Indian bison,Indian peafowl,Imperial eagle,Indian roller
-J: Jaguar,Jackal,Jellyfish,Jay,Jackrabbit,Javelina,Jerboa,Jacana,Junglefowl,Japanese macaque,John dory,Jungle cat,Jumping spider,Jewel beetle,Jersey cow,Jack russell,Jackdaw,Joey
-K: Kangaroo,Koala,Kingfisher,Kite,Kiwi,Komodo dragon,Kitten,Krill,Katydid,Kudu,Kestrel,Killer whale,King cobra,Kookaburra,Kid,Kingfish,Koi,Kakapo,Kinkajou,Kitty,Kob
-L: Lion,Leopard,Lizard,Lobster,Llama,Lemur,Lynx,Ladybug,Locust,Lamb,Lark,Langur,Lovebird,Loris,Leech,Lamprey,Limpet,Lioness,Lemming,Labrador,Leatherback,Lacewing,Lungfish,Lorikeet,Louse,Loon
-M: Monkey,Mouse,Mosquito,Mule,Moose,Mongoose,Mole,Meerkat,Magpie,Macaw,Manatee,Mallard,Moth,Marmot,Mink,Mandrill,Maggot,Marten,Mackerel,Millipede,Mynah,Mare,Manta ray,Mustang,Macaque,Mudskipper,Marmoset,Marlin
-N: Newt,Nightingale,Narwhal,Nilgai,Numbat,Nuthatch,Nighthawk,Nurse shark,Nautilus,Nene,Nutria,Night heron,Nandu,Nanny goat,Nile crocodile,Nematode,Nightjar,Nubian ibex,Northern pike
-O: Owl,Ox,Otter,Ostrich,Octopus,Orangutan,Oyster,Opossum,Orca,Okapi,Oriole,Osprey,Ocelot,Oryx,Oriental magpie robin,Oxpecker,Olm,Oribi,Ovenbird,Oarfish,Onager,Opah
-P: Peacock,Parrot,Pig,Penguin,Panda,Pigeon,Python,Panther,Platypus,Pony,Puppy,Porcupine,Puma,Pelican,Pheasant,Pangolin,Piranha,Prawn,Polar bear,Puffin,Pug,Pit bull,Puffer fish,Peafowl,Partridge,Polecat,Pika
-R: Rabbit,Rat,Rhinoceros,Rhino,Raccoon,Raven,Reindeer,Robin,Rooster,Ram,Red panda,Rattlesnake,Roach,Rottweiler,Rockhopper,Ray,Redstart,Roe deer,Rock python,Ringtail,Razorbill,Rosella,Redwing,Ruddy duck,Racer snake
-S: Snake,Sparrow,Squirrel,Shark,Sheep,Seal,Swan,Spider,Scorpion,Starfish,Sea lion,Seahorse,Salmon,Sloth,Snail,Skunk,Stork,Swordfish,Sardine,Squid,Stingray,Sambar,Sea turtle,Sloth bear,Snow leopard,Sheepdog,Shrimp,Swallow,Siberian tiger
-T: Tiger,Turtle,Tortoise,Toad,Turkey,Termite,Tapir,Tarantula,Tuna,Trout,Toucan,Tern,Tamarin,Tick,Tit,Tasmanian devil,Thrush,Tree frog,Tigress,Tarsier,Tahr,Tetra,Takin,Tree shrew,Turkey vulture,Thresher shark,Tapeworm
-V: Vulture,Viper,Vole,Vicuna,Vampire bat,Vervet monkey,Vaquita,Vixen,Velvet worm,Vine snake,Veiled chameleon,Vermilion flycatcher,Viperfish,Vampire squid,Verdin,Vizsla
-W: Wolf,Whale,Wasp,Worm,Wombat,Walrus,Woodpecker,Weasel,Warthog,Wildebeest,Wolverine,Wallaby,Weaver,Whippet,Water buffalo,Waterbuck,Wagtail,Whale shark,Wild boar,Wren,Woodchuck,Walleye,Whiting,Weevil,Wood duck,Water snake,Wild dog,Wildcat`,
-`A: Apple,Axe,Alarm clock,Aeroplane,Airplane,Ambulance,Anchor,Anvil,Apron,Arrow,Atlas,Almirah,Album,Antenna,Aquarium,Ashtray,Auto,Avocado,Alphabet,Accordion,Armchair,Amplifier,Abacus,Air conditioner,Aloe vera,Axle,Awning
-B: Ball,Bag,Bat,Bed,Bell,Bench,Bicycle,Book,Bottle,Bowl,Box,Brush,Bucket,Button,Balloon,Banana,Basket,Battery,Blanket,Belt,Bulb,Bus,Biscuit,Bread,Broom,Binoculars,Briefcase,Bracelet,Backpack,Blender,Bangle,Bookshelf
-C: Chair,Car,Cup,Cap,Camera,Candle,Carpet,Clock,Comb,Computer,Cupboard,Curtain,Cushion,Cycle,Calculator,Calendar,Cake,Cart,Chalk,Coat,Coin,Cooler,Crayon,Crown,Cricket bat,Charger,Compass,Cooker,Chain,Chimney,Chopsticks,Cot,Cello
-D: Door,Desk,Doll,Drum,Diary,Dice,Dustbin,Duster,Drawer,Dress,Diamond,Drill,Dish,Dryer,Dumbbell,Dagger,Dashboard,Drone,Dupatta,Doormat,Dhol,Dishwasher,Dictionary,Diya,Dinner table,Detergent,Deodorant,Dart,Drumstick
-E: Egg,Earphones,Envelope,Eraser,Elevator,Engine,Eyeglasses,Earring,Electric fan,Easel,Escalator,Eyelash,Extension cord,Exhaust fan,Emerald,Electric kettle,Earbuds,Eye patch,Espresso machine,Exercise bike,Encyclopedia,Easy chair
-F: Fan,Fork,Flag,Flower,Fridge,Frame,Football,Flute,Fire extinguisher,Flashlight,File,Fence,Fountain,Frying pan,Funnel,Futon,Feather,Folder,Fishing rod,Flowerpot,First aid kit,Fireplace,Fax machine,Fridge magnet,Fruit bowl,Foil,Fiddle
-G: Glass,Gate,Globe,Glue,Guitar,Gloves,Grinder,Gas stove,Geyser,Gift,Gramophone,Garland,Garden hose,Gong,Goggles,Gown,Gadget,Game console,Gauge,Grater,Gavel,Gym ball,Gold,Greeting card,Guitar pick,Gumboot,Gutter
-H: Hat,Hammer,Hanger,Helmet,Headphones,Handbag,Hairbrush,Heater,Hose,Hourglass,Handkerchief,Hot plate,Harmonium,Harp,Hairdryer,Hacksaw,Hammock,Hairpin,Hookah,Headband,Hockey stick,Hard disk,Highlighter,Hoodie,Handle,Hinge,Helicopter
-I: Iron,Ink,Ice cream,Idol,Ice box,Incense,Inkpot,Internet,Invitation,Instrument,Iron box,Ironing board,Igloo,Inverter,Insect repellent,Ice tray,Ice pack,Index card,Intercom,Ipad,Iphone,Immersion rod,Indicator,Inhaler
-J: Jug,Jar,Jacket,Jeans,Jewellery,Jam,Joystick,Jigsaw,Juicer,Jersey,Jumper,Jet,Jeep,Jack,Jellybean,Jewel,Journal,Jute bag,Jaggery,Jogging shoes,Jotter,Jumpsuit,Jukebox,Jhula,Jamdani,Jar lid
-K: Key,Kettle,Knife,Kite,Keyboard,Keychain,Kitchen,Kurta,Kerosene,Kayak,Kaleidoscope,Karahi,Kulhad,Kohl,Kitbag,Knob,Knitting needle,Kitchen sink,Kimono,Kit,Kazoo,Kneepad,Keypad,Kitchen knife,Kerchief
-L: Lamp,Lock,Ladder,Laptop,Lantern,Lighter,Lunchbox,Lipstick,Letter,Lens,Leash,Lawn mower,Laundry basket,Leaf,Lace,Ladle,Light bulb,Lemon squeezer,Locket,Loudspeaker,Luggage,Lift,Lorry,Lathe,Laser pointer,Laptop bag,Lehenga,Loom
-M: Mirror,Mobile,Mobile phone,Mug,Map,Mat,Matchbox,Microphone,Microwave,Mop,Mouse,Magnet,Mattress,Medal,Marker,Mask,Mixer,Monitor,Money,Muffler,Motorcycle,Mixer grinder,Mailbox,Mortar,Magazine,Mosquito net,Megaphone,Mala,Mandolin
-N: Notebook,Needle,Necklace,Napkin,Newspaper,Net,Nail,Nail cutter,Nail polish,Nutcracker,Notepad,Nightlamp,Neck pillow,Necktie,Nozzle,Nib,Noticeboard,Nightgown,Nose ring,Nest,Nylon rope,Nameplate,Needle case
-O: Oven,Ottoman,Oil lamp,Oar,Organ,Office chair,Overcoat,Oxygen mask,Oil can,Oven glove,Oscilloscope,Ointment,Ornament,Opener,Odometer,Oil pump,Overhead projector,Olive oil,Ocarina,Opera glasses,Overalls,Office desk
-P: Pen,Pencil,Plate,Pillow,Phone,Pot,Pan,Paper,Painting,Piano,Purse,Pin,Pump,Puzzle,Parachute,Printer,Projector,Perfume,Photo frame,Paintbrush,Plug,Pipe,Poster,Pressure cooker,Pliers,Pillowcase,Padlock,Pendrive,Paperweight,Parasol,Pocket watch
-R: Radio,Ring,Rope,Ruler,Remote,Rug,Razor,Rocket,Racket,Refrigerator,Rubber,Ribbon,Rack,Rolling pin,Raincoat,Robot,Ruby,Rickshaw,Rattle,Router,Rangoli,Rocking chair,Rubiks cube,Rubber band,Radiator,Record player,Rucksack,Rain gauge
-S: Spoon,Shoes,Shirt,Socks,Soap,Scissors,Sofa,Stool,Stove,Shelf,Sweater,Slate,Saw,Screw,Screwdriver,Stapler,Stethoscope,Scarf,Sandal,Satellite,Sieve,Suitcase,Shovel,Sunglasses,Switch,Sword,Saree,Safety pin,Spectacles,Smartphone,Speaker,Skateboard,Skipping rope,Sketch pen,Sharpener,Spade
-T: Table,Telephone,Television,TV,Torch,Towel,Toothbrush,Toothpaste,Tray,Tyre,Tent,Tie,Teapot,Thermos,Thread,Ticket,Tap,Tablet,Tambourine,Trophy,Trolley,Truck,Tractor,Train,Tongs,Trumpet,Trousers,Tripod,Typewriter,Tape,Tape recorder,Telescope,Thermometer,Tiffin,Tabla,Toy
-V: Vase,Violin,Van,Vest,Vacuum cleaner,Video camera,Veil,Vehicle,Volleyball,Vinyl record,Vending machine,Valve,Vanity bag,Vice,Vault,Visor,Velvet,Vinegar,Vial,Voltmeter,Velcro,Vessel,Ventilator,Veena,Voucher,Video game,Vacuum flask,VR headset
-W: Watch,Wallet,Window,Wheel,Whistle,Wire,Wardrobe,Washing machine,Water bottle,Wig,Wand,Wrench,Wheelchair,Whiteboard,Windmill,Wristband,Wok,Webcam,Wheelbarrow,Wall clock,Wine glass,Wicker basket,Watering can,Wifi router,Whisk,Wallpaper,Walkie-talkie,Wooden spoon,Wrapper,Windshield`
-].map(t=>{const m={};t.split('\n').forEach(l=>{const i=l.indexOf(':');m[l.slice(0,i).trim()]=l.slice(i+1).split(',').map(x=>x.trim()).filter(Boolean)});return m});
-const nrm=s=>String(s).toLowerCase().replace(/[^a-z]/g,'').replace(/s$/,'');
-const osa=(a,b)=>{const d=[];for(let i=0;i<=a.length;i++){d[i]=[i];for(let j=1;j<=b.length;j++)d[i][j]=i?0:j}
- for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}
- return d[a.length][b.length]}; // edit distance where a swapped pair of letters counts as one slip
-/* Judge one answer: s = ok (correct) | sp (spelling slip, closest word in c) | no (not in the lists) | wl (wrong first letter) | em (blank) */
-function npJudge(L,c,w){w=String(w||'').trim();
- if(!w)return{s:'em',c:'',pt:0,m:0};
- if(w[0].toUpperCase()!==L)return{s:'wl',c:'',pt:0,m:0};
- const k=nrm(w);let best=null,bd=99;
- for(const x of NPW[c][L]||[]){const kx=nrm(x);if(kx===k)return{s:'ok',c:'',pt:NP_OK,m:0};const d=osa(k,kx);if(d<bd){bd=d;best=x}}
- const lim=k.length<=3?0:k.length<=5?1:k.length<=9?2:3;
- return best&&bd<=lim?{s:'sp',c:best,pt:NP_SP,m:0}:{s:'no',c:'',pt:0,m:0}}
+/* Name Place Animal Thing: after the round, another player (picked at random) reviews each player's answers. No word lists. */
+const NPL='ABCDEFGHIJKLMNOPRSTVW'.split(''),NPC=['Name','Place','Animal','Thing'],NP_OK=10,NP_SP=5,NP_RV=45; // NP_RV = seconds the reviewers get
 const npOK=(w,L)=>{w=String(w||'').trim();return w.length>=2&&w[0].toUpperCase()===L};
+/* Housie (Tambola): 3x9 tickets, 15 numbers each. Tickets are flat arrays of 27 (row by row, 0 = blank). */
+const HS_PR=[{id:'e5',n:'Early Five',pt:2,d:'Any 5 numbers on one ticket'},{id:'top',n:'Top Line',pt:3,d:'All numbers in the top row'},{id:'mid',n:'Middle Line',pt:3,d:'All numbers in the middle row'},{id:'bot',n:'Bottom Line',pt:3,d:'All numbers in the bottom row'},{id:'full',n:'Full House',pt:5,d:'All 15 numbers on one ticket. Ends the game'}];
+function hsTicket(){
+ for(;;){
+  const cnt=Array(9).fill(1);let left=6;
+  while(left){const c=Math.floor(Math.random()*9);if(cnt[c]<3){cnt[c]++;left--}}
+  const rc=[0,0,0],pos=[],cols=shuf([0,1,2,3,4,5,6,7,8]).sort((a,b)=>cnt[b]-cnt[a]);
+  for(const c of cols){const rs=shuf([0,1,2]).sort((a,b)=>rc[a]-rc[b]).slice(0,cnt[c]);rs.forEach(r=>rc[r]++);pos[c]=rs.sort((a,b)=>a-b)}
+  if(rc.some(x=>x!==5))continue; // every row must hold exactly 5 numbers
+  const t=Array(27).fill(0);
+  for(let c=0;c<9;c++){const lo=c?c*10:1,hi=c===8?90:c*10+9,pool=shuf(Array.from({length:hi-lo+1},(_,i)=>lo+i)).slice(0,cnt[c]).sort((a,b)=>a-b);pos[c].forEach((r,i)=>t[r*9+c]=pool[i])}
+  return t}}
+const hsValid=(tks,called,t)=>{const cs=new Set(called);return tks.some(tk=>{const rows=[0,1,2].map(r=>tk.slice(r*9,r*9+9).filter(x=>x)),hit=r=>r.every(x=>cs.has(x));
+ return t==='e5'?tk.filter(x=>x&&cs.has(x)).length>=5:t==='top'?hit(rows[0]):t==='mid'?hit(rows[1]):t==='bot'?hit(rows[2]):t==='full'?rows.every(hit):false})};
 
 const HOW={
  mafia:['Everyone is secretly dealt a role: Mafia, Doctor, Police or Civilian. Tap your card to see yours and keep it hidden.','Night: the Mafia pick someone to eliminate, the Doctor picks someone to save and the Police pick someone to investigate. Teammates must choose the same person.','Morning: the result is announced. Then everyone alive discusses and votes someone out. A tie means a re-vote.','Town wins when all the Mafia are out. Mafia win when they equal or outnumber everyone else. Winners get +3 each.'],
@@ -798,7 +723,8 @@ const HOW={
  truths:['Each round one player writes three statements about themselves: two true and one lie. They tap “Lie” on the false one.','Everyone else sees the statements in a shuffled order and votes for the one they think is the lie.','A correct guess scores +1. The writer scores +2 for every player they fool.','Everyone gets a turn as the writer, so make your lie believable.'],
  fakefact:['The game shows a quirky fact with a blank, like “Scotland’s national animal is the ___”.','Everyone secretly types a fake answer that sounds real. A fake that matches the real answer is rejected, so try another.','All the fakes and the real answer are shuffled together. Pick the one you think is real. You can’t pick your own fake.','Finding the real answer scores +2. Every player your fake fools scores you +1.'],
  taboo:['Players are split into Red and Blue. Teams take turns, with one describer per turn.','The describer sees a word and 4 banned words, and must get their team to say the word without using the word or any banned word. The other team’s phones show the card so they can catch slip-ups.','When teammates guess it, the describer taps Got it (+1). If a banned word slips out, the other team shouts and the describer taps Buzz (−1). A hard card can be skipped up to 3 times for free.','When the timer ends, the turn’s score is added to the team total and the other team goes.'],
- npat:['A random letter appears on every phone. A letter never repeats within a game.','Write a Name, a Place, an Animal and a Thing that all start with that letter. Check your spelling, because autocorrect is off.','Tap Done as soon as all four are filled in. The first Done stops the round for everyone, and everyone’s answers are submitted as they are.','Answers are checked against the game’s word lists: correct = 10, a spelling mistake = 5, not found or wrong letter = 0. If the game doesn’t know a real word, the host can tap it to accept it.','Everyone’s answers and scores are shown after each round, and final scores after the last one.']
+ npat:['A random letter appears on every phone. A letter never repeats within a game.','Write a Name, a Place, an Animal and a Thing that all start with that letter. Check your spelling, because autocorrect is off.','Tap Done as soon as all four are filled in. The first Done stops the round for everyone, and everyone’s answers are submitted as they are.','Now every player reviews one other player’s answers, picked at random. Mark each answer Correct (10), Spelling mistake (5) or Wrong (0). Blank answers and answers with the wrong letter score 0 automatically.','If a reviewer runs out of time, their unmarked answers count as correct. Everyone’s answers and scores are shown after each round, and final scores after the last one.'],
+ housie:['Everyone gets a Housie (Tambola) ticket: 3 rows of 5 numbers, all between 1 and 90. The host can give each player up to 3 tickets.','The host’s phone calls a random number every few seconds. Tap that number on your ticket to mark it.','Claim a prize the moment you complete it: Early Five (any 5 numbers, +2), Top, Middle or Bottom Line (+3 each) and Full House (all 15, +5). Each prize goes to the first valid claim.','The game checks your claim against the numbers that were really called. A false claim costs you 1 point.','Full House ends the game and the final scores are shown.']
 };
 const IND={B:'Bollywood',H:'Hollywood'},TN=['Red','Blue'];
 const WORDS='cat,house,tree,sun,car,fish,pizza,guitar,rocket,umbrella,elephant,bicycle,flower,moon,clock,apple,bridge,crown,robot,snowman,castle,butterfly,cake,camera,key,boat,mountain,rainbow,snake,spider,glasses,phone,ghost,dragon,airplane,banana,cloud,shoe,candle,train,penguin,lighthouse,tent,pumpkin,diamond,balloon,owl,giraffe,volcano,windmill'.split(',');
@@ -809,7 +735,7 @@ const COLS=['#111111','#e03131','#f59f00','#2f9e44','#1971c2','#9c36b5','#8d5a2b
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rnd=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
-let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:'',tt:['','',''],np:['','','',''],npst:'',tli:-1,bl:'',blk:'',how:true};
+let db=null,S={id:null,name:'',code:null,R:null,P:{},A:{},un:[],show:false,busy:false,err:'',pick:[200,50,60],tool:'pen',col:'#111111',sz:6,artU:null,artKey:'',arts:{},sub:'',artData:'',ch:'',tt:['','',''],np:['','','',''],rv:[2,2,2,2],hm:null,npst:'',tli:-1,bl:'',blk:'',hw:false};
 try{S.name=localStorage.getItem('pg-name')||''}catch(e){}
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2500)}
 const nm=p=>esc(S.P[p]?.name||'?'),G=id=>GAMES.find(g=>g.id===id),note=t=>`<div class="note">${t}</div>`;
@@ -853,7 +779,7 @@ async function enter(code){
  S.code=code;try{localStorage.setItem('pg-name',S.name)}catch(e){}
  await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
-   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60];S.tt=['','',''];S.np=['','','',''];S.tli=-1}}
+   if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60];S.tt=['','',''];S.np=['','','',''];S.rv=[2,2,2,2];S.tli=-1}}
    S.R=n;syncArt();render();tick()}),
   db.collection(`rooms/${code}/players`).onSnapshot(q=>{S.P={};q.docs.forEach(d=>S.P[d.id]=d.data());render()}),
   db.collection(`rooms/${code}/acts`).onSnapshot(q=>{S.A={};q.docs.forEach(d=>S.A[d.id]=d.data());render();tick()})];
@@ -868,7 +794,7 @@ function syncArt(){
 function leave(gone){
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
- S.un=[];S.code=null;S.R=null;S.P={};S.A={};render();
+ S.un=[];S.hw=false;S.code=null;S.R=null;S.P={};S.A={};render();
 }
 const upd=o=>db.doc('rooms/'+S.code).update(o),isHost=()=>S.R&&S.R.host===S.id;
 const secs=R=>Math.max(0,Math.ceil((R.end-Date.now())/1000));
@@ -972,10 +898,30 @@ function tick(){
    const dn=R.pl.filter(p=>ok(p)&&S.A[p].done).sort((a,b)=>(S.A[a]._ts||0)-(S.A[b]._ts||0));
    if(dn.length){if(S.npst!==R.k){S.npst=R.k;upd({stop:dn[0],stopAt:now})}return}}
   if(!R.pl.every(ok)&&!late&&!(R.stop&&now>R.stopAt+3000))return;S.busy=true;
+  const a={},rv={},o=shuf(R.pl);
+  R.pl.forEach(p=>{const t=ok(p)&&Array.isArray(S.A[p].t)?S.A[p].t:[];a[p]=[0,1,2,3].map(i=>String(t[i]||'').trim().slice(0,30))});
+  o.forEach((p,i)=>rv[p]=o[(i+1)%o.length]); // rv[author] = the player who reviews that author. Everyone reviews exactly one other player.
+  return upd({phase:'review',k:`${R.g}:${R.round}:v`,ans:a,rv,end:now+NP_RV*1000})}
+ if(g==='npat'&&ph==='review'){
+  if(!R.pl.every(ok)&&!late)return;S.busy=true;
   const a={},tot={};
-  R.pl.forEach(p=>{const t=ok(p)&&Array.isArray(S.A[p].t)?S.A[p].t:[];
-   a[p]=[0,1,2,3].map(i=>{const w=String(t[i]||'').trim().slice(0,30);return{w,...npJudge(R.L,i,w)}});tot[p]=a[p].reduce((x,e)=>x+e.pt,0)});
-  return upd({phase:'result',res:{L:R.L,by:R.stop||null,a,tot},scores:sc(R,tot),end:null})}
+  R.pl.forEach(p=>{const rr=R.rv[p],t=ok(rr)&&Array.isArray(S.A[rr].t)?S.A[rr].t:[]; // reviewer's marks: 0 wrong, 1 spelling, 2 correct (default)
+   a[p]=R.ans[p].map((w,i)=>{if(!w)return{w,s:'em',pt:0};if(w[0].toUpperCase()!==R.L)return{w,s:'wl',pt:0};const v=+t[i];
+    return v===0?{w,s:'no',pt:0}:v===1?{w,s:'sp',pt:NP_SP}:{w,s:'ok',pt:NP_OK}});
+   tot[p]=a[p].reduce((x,e)=>x+e.pt,0)});
+  return upd({phase:'result',res:{L:R.L,by:R.stop||null,a,tot,rv:R.rv},scores:sc(R,tot),end:null})}
+ if(g==='housie'&&ph==='play'){ // the host's phone calls numbers and referees claims
+  const hk=R.g+':hs',cn={...(R.cn||{})},bump=o=>upd({...o,hv:(R.hv||0)+1,k:`${R.g}:h${(R.hv||0)+1}`});
+  const cl=R.pl.filter(p=>S.A[p]&&S.A[p].k===hk&&S.A[p].c&&S.A[p].n>(cn[p]||0)).sort((a,b)=>(S.A[a]._ts||0)-(S.A[b]._ts||0));
+  if(cl.length){S.busy=true;const won={...(R.won||{})},d={},ev=[...(R.ev||[])];
+   cl.forEach(p=>{const a=S.A[p],pr=HS_PR.find(x=>x.id===a.c);cn[p]=a.n;if(!pr||won[pr.id])return; // already won by someone faster: ignored
+    if(hsValid((R.tk||{})[p]||[],R.called||[],pr.id)){won[pr.id]=p;d[p]=(d[p]||0)+pr.pt;ev.push({p,t:pr.id,w:1})}
+    else{d[p]=(d[p]||0)-1;ev.push({p,t:pr.id,w:0})}});
+   return bump({cn,won,ev:ev.slice(-8),scores:sc(R,d),...(won.full?{phase:'result'}:{})})}
+  if(R.pause||now<(R.nextAt||0))return;S.busy=true;
+  const left=Array.from({length:90},(_,i)=>i+1).filter(n=>!(R.called||[]).includes(n));
+  if(!left.length)return bump({phase:'result'});
+  const nn=rnd(left);return bump({called:[...(R.called||[]),nn],last:nn,nextAt:now+(R.cfg.secs||6)*1000})}
  if(g==='trivia'&&ph==='ask'){
   const win=R.pl.filter(p=>ok(p)&&S.A[p].t===R.q.a).sort((a,b)=>(S.A[a]._ts||0)-(S.A[b]._ts||0))[0];
   if(!win&&!R.pl.every(ok)&&!late)return;S.busy=true;const d={};if(win)d[win]=2;
@@ -1015,7 +961,9 @@ function startRound(R,rn){
   return upd({...b,teams,tsc:R.tsc||{0:0,1:0},tm,desc,cards:dl.cards,used:dl.used,phase:'ready',k:`${g}:${rn}:r`,end:null})}
  if(R.game==='npat'){let u=R.usedL||[],pool=NPL.filter(x=>!u.includes(x)); // a letter never repeats until all have been played
   if(!pool.length){pool=NPL;u=[]}const L=rnd(pool);
-  return upd({...b,L,usedL:[...u,L],stop:null,stopAt:null,phase:'write',k:`${g}:${rn}:n`,end:now+(R.cfg.secs||90)*1000})}
+  return upd({...b,L,usedL:[...u,L],stop:null,stopAt:null,ans:null,rv:null,phase:'write',k:`${g}:${rn}:n`,end:now+(R.cfg.secs||90)*1000})}
+ if(R.game==='housie'){const tk={};ids.forEach(p=>tk[p]=Array.from({length:R.cfg.tk||1},hsTicket));
+  return upd({...b,tk,called:[],last:0,won:{},cn:{},ev:[],pause:false,hv:1,phase:'play',k:`${g}:h1`,nextAt:now+4000,end:null})}
  if(R.game==='trivia'){let used=R.used||[],pool=QS.filter(x=>!used.includes(x.q));if(!pool.length){pool=QS;used=[]}
   const x=rnd(pool),o=shuf(x.o.map((t,i)=>({t,i}))),q={q:x.q,o:o.map(y=>y.t),a:o.findIndex(y=>y.i===0)};
   return upd({...b,q,used:[...used,x.q],phase:'ask',k:`${g}:${rn}:q`,end:now+(R.cfg.secs||20)*1000})}
@@ -1051,11 +999,20 @@ const ACT={
   const t=S.np.map(x=>x.trim().slice(0,30));
   if(!auto&&!t.every(x=>npOK(x,R.L)))return toast('Fill in all four, each starting with '+R.L);
   blur();S.sub=R.k;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,t,done:auto?0:1}).then(render);render()},
- npov(d){const R=S.R;if(!isHost()||R.game!=='npat'||R.phase!=='result')return; // host accepts (or un-accepts) a word the lists didn't know
-  const res=JSON.parse(JSON.stringify(R.res)),e=res.a[d.p]&&res.a[d.p][+d.i];if(!e||e.s==='em'||e.s==='wl')return;
-  const n=e.m?npJudge(R.L,+d.i,e.w):{s:'ok',c:'',pt:NP_OK,m:1};
-  if(!e.m&&e.pt>=NP_OK)return;const dl=n.pt-e.pt;Object.assign(e,n);res.tot[d.p]=(res.tot[d.p]||0)+dl;
-  upd({res,scores:sc(R,{[d.p]:dl})})},
+  nprate(d){const R=S.R;if(R.game!=='npat'||R.phase!=='review'||did(R))return;S.rv[+d.i]=+d.v;render()},
+  nprsend(d,auto){const R=S.R;if(R.game!=='npat'||R.phase!=='review'||!R.pl||!R.pl.includes(S.id)||did(R))return;
+   S.sub=R.k;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:R.k,t:S.rv.slice()}).then(render);render()},
+  /* Housie */
+  hstk(d){upd({cfg:{...S.R.cfg,tk:+d.v}})},
+  hmark(d){const R=S.R;if(R.game!=='housie'||R.phase!=='play'||!R.pl.includes(S.id))return;const n=+d.n,h=hsMine(R);
+   if(!(R.called||[]).includes(n))return toast('Not called yet');
+   h.m=h.m.includes(n)?h.m.filter(x=>x!==n):[...h.m,n];hsPut();render()},
+  hclaim(d){const R=S.R;if(R.game!=='housie'||R.phase!=='play'||!R.pl.includes(S.id)||(R.won||{})[d.t])return;const h=hsMine(R);
+   if(Date.now()-h.n<3000)return toast('Wait a moment before claiming again');
+   h.c=d.t;h.n=Date.now();hsPut();toast('Claim sent')}, // n = timestamp, so it keeps growing even after a page reload
+  hspause(){const R=S.R;if(!isHost()||R.game!=='housie'||R.phase!=='play')return;upd({pause:!R.pause,nextAt:Date.now()+(R.cfg.secs||6)*1000})},
+  hscall(){const R=S.R;if(!isHost()||R.game!=='housie'||R.phase!=='play'||R.pause)return;upd({nextAt:0})},
+  hsend(){const R=S.R;if(!isHost()||R.game!=='housie'||R.phase!=='play')return;if(confirm('End the game now?'))upd({phase:'result'})},
  start(){
   const R=S.R,ids=shuf(Object.keys(S.P)),g=Date.now(),roles={},alive={};
   if(R.game==='mafia'||R.game==='imposter'){ids.forEach(p=>alive[p]=true);
@@ -1077,7 +1034,7 @@ const ACT={
  done(){submitArt()},
  guess(){const v=$('#gs').value.trim();if(v)submitAct(v.slice(0,30))},
  cpick(){submitAct(S.pick.slice())},
- how(){S.how=S.how===false;render()},
+ hw(){blur();S.hw=!S.hw;render()},
  /* Two Truths and a Lie */
  tlie(d){S.tli=+d.i;tcheck()},
  tsend(d,auto){const R=S.R;if(R.phase!=='write'||R.writer!==S.id||did(R))return;const s=S.tt.map(x=>x.trim().slice(0,90));
@@ -1102,7 +1059,7 @@ function tcheck(){const b=$('#tsend');if(b)b.disabled=!(S.tli>=0&&S.tt.every(x=>
 setInterval(()=>{const R=S.R;if(!R)return;const t=$('#tm');if(t&&R.end)t.textContent=Math.max(0,Math.ceil((R.end-Date.now())/1000));
  const p=$('#pg');if(p&&R.pl)p.textContent=R.pl.filter(x=>S.A[x]&&S.A[x].k===R.k).length+' of '+R.pl.length+' done';
  if(R.end&&Date.now()>=R.end&&S.sub!==R.k&&R.pl&&R.pl.includes(S.id)){if(R.game==='draw'&&R.phase==='draw')submitArt();if(R.game==='color'&&R.phase==='pick')ACT.cpick();
-  if(R.game==='truths'&&R.phase==='write'&&R.writer===S.id)ACT.tsend(null,1);if(R.game==='fakefact'&&R.phase==='fake')ACT.fsend(null,1);if(R.game==='npat'&&R.phase==='write')ACT.npsend(null,1)}
+  if(R.game==='truths'&&R.phase==='write'&&R.writer===S.id)ACT.tsend(null,1);if(R.game==='fakefact'&&R.phase==='fake')ACT.fsend(null,1);if(R.game==='npat'&&R.phase==='write')ACT.npsend(null,1);if(R.game==='npat'&&R.phase==='review')ACT.nprsend(null,1)}
  if(R.game==='npat'&&R.phase==='write'&&R.stop&&R.pl&&R.pl.includes(S.id)&&!did(R))ACT.npsend(null,1);
  tick()},400);
 /* ---------- views ---------- */
@@ -1110,7 +1067,7 @@ function home(){
  if(S.err)return `<main><h1>Party games</h1>${note(S.err)}</main>`;
  return `<main><h1>Party games</h1><div class="mu">Play together on your phones.</div>
  <div class="lbl">Your name</div><input type="text" id="nm" maxlength="14" placeholder="Name" value="${esc(S.name)}" oninput="S.name=this.value">
- <div class="lbl">Start a game</div>${GAMES.map((g,i)=>`<div class="g" data-a="create" data-g="${g.id}"><i>${i+1}</i><div><b>${g.n}</b><span>${g.d}</span></div></div>`).join('')}
+ ${(()=>{let n=0;return [2,3,4].map(m=>{const l=GAMES.filter(g=>g.min===m);return l.length?`<div class="lbl">${m} players minimum</div>`+l.map(g=>`<div class="g" data-a="create" data-g="${g.id}"><i>${++n}</i><div><b>${g.n}</b><span>${g.d}</span></div></div>`).join(''):''}).join('')})()}
  <div class="lbl">Join with a code</div><input type="text" id="code" maxlength="4" placeholder="ABCD" style="text-transform:uppercase;letter-spacing:.3em;text-align:center"><button class="btn o" data-a="join">Join room</button></main>`;
 }
 const stepper=(l,f,v,step=1,min=0)=>`<div class="row"><span>${l}</span><span class="step"><button data-a="cfg" data-f="${f}" data-d="${-step}" data-m="${min}">−</button><b>${v}</b><button data-a="cfg" data-f="${f}" data-d="${step}" data-m="${min}">+</button></span></div>`;
@@ -1118,7 +1075,8 @@ const tgl=(l,a,on,sub)=>`<div class="row" data-a="${a}" style="cursor:pointer;ga
 const board=R=>{const ids=Object.keys(S.P).sort((a,b)=>((R.scores||{})[b]||0)-((R.scores||{})[a]||0));if(!ids.length||!Object.values(R.scores||{}).some(x=>x))return '';
  return `<div class="lbl">Scores</div>${ids.map((p,i)=>`<div class="row"><span>${i+1}. ${nm(p)}</span><b>${(R.scores||{})[p]||0}</b></div>`).join('')}`};
 const tsum=R=>R.game==='taboo'&&R.tsc&&(R.tsc[0]||R.tsc[1])?`<div class="lbl">Team scores</div>${[0,1].map(t=>`<div class="row"><span>${TN[t]}</span><b>${R.tsc[t]||0}</b></div>`).join('')}`:'';
-const how=g=>{const h=HOW[g.id];if(!h)return '';return `<div class="lbl hw"><span>How to play · ${g.min}+ players</span><u data-a="how">${S.how===false?'Show':'Hide'}</u></div>${S.how===false?'':`<ol class="how">${h.map(x=>`<li>${x}</li>`).join('')}</ol>`}`};
+const hwBtn=()=>`<button class="hwf" data-a="hw" aria-label="How to play">?</button>`;
+const hwSheet=g=>`<div class="hwb" data-a="hw"></div><div class="hws"><div class="lbl" style="margin-top:0">How to play · ${g.min}+ players</div><div class="big" style="font-size:28px">${g.n}</div><ol class="how">${(HOW[g.id]||[]).map(x=>`<li>${x}</li>`).join('')}</ol><button class="btn o" data-a="hw">Close</button></div>`;
 const hostBtns=(next)=>isHost()?`${next?`<button class="btn" data-a="nextRound">Next round</button>`:''}<button class="btn o" data-a="again">Back to lobby</button>`:`<p class="mu">Waiting for the host…</p>`;
 const qnOf=R=>{const q=R.cfg.qn;return q===undefined?(R.game==='npat'?5:10):q}; // 0 = endless
 const qof=R=>{const q=qnOf(R);return q>0?` of ${q}`:''};
@@ -1140,11 +1098,12 @@ function lobby(){
  else if(R.game==='truths')cfg=stepper('Seconds to write','secs',c.secs||90,15,30)+`<div class="mu" style="margin-top:8px">One player per round writes two truths and a lie. Everyone gets a turn before anyone repeats.</div>`;
  else if(R.game==='fakefact')cfg=stepper('Seconds to write a fake','secs',c.secs||45,15,15)+`<div class="mu" style="margin-top:8px">${FACTS.length} questions. Fakes that match the real answer are rejected.</div>`;
  else if(R.game==='taboo')cfg=stepper('Seconds per turn','secs',c.secs||60,15,30)+`<div class="mu" style="margin-top:8px">${TABOO.length} cards. Players are split into Red and Blue, and teams alternate turns.</div>`;
- else if(R.game==='npat')cfg=stepper('Seconds per round','secs',c.secs||90,15,30)+qchips(R,'Number of rounds')+`<div class="mu" style="margin-top:8px">A random letter each round, never repeated. Everyone writes a name, place, animal and thing. The first Done stops the round for all. Correct = 10, spelling mistake = 5, not found = 0.</div>`;
+ else if(R.game==='npat')cfg=stepper('Seconds per round','secs',c.secs||90,15,30)+qchips(R,'Number of rounds')+`<div class="mu" style="margin-top:8px">A random letter each round, never repeated. Everyone writes a name, place, animal and thing. The first Done stops the round for all. Then another random player reviews your answers: correct = 10, spelling mistake = 5, wrong = 0.</div>`;
+ else if(R.game==='housie')cfg=stepper('Seconds between numbers','secs',c.secs||6,1,3)+`<div class="mu" style="margin:14px 0 8px">Tickets per player</div><div class="cats">${[1,2,3].map(v=>`<div class="cat ${(c.tk||1)===v?'on':''}" data-a="hstk" data-v="${v}">${v}</div>`).join('')}</div><div class="mu" style="margin-top:8px">The host’s phone calls numbers 1 to 90 at random, so keep it open. Early Five +2, Top, Middle and Bottom Line +3 each, Full House +5 (ends the game). A false claim costs 1 point.</div>`;
  else if(R.game==='wyr')cfg=qchips(R,'Number of questions')+`<div class="mu" style="margin-top:8px">${WYRS.length} dilemmas. Everyone on the majority side gets +1.</div>`;
  else cfg=`<div class="mu">No settings. Just start.</div>`;
  return `<main><div class="lbl">Room code</div><div class="code">${S.code}</div><div id="qr"></div><div class="mu">Scan the QR or enter the code. No player limit.</div>
- <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}${tsum(R)}${how(g)}
+ <div class="lbl">Players (${n})</div>${Object.keys(S.P).map(p=>`<span class="chip ${p===S.id?'me':''}">${nm(p)}${R.host===p?' · host':''}</span>`).join('')}${board(R)}${tsum(R)}
  ${isHost()?`<div class="lbl">${g.n} settings</div>${cfg}${ok?'':`<p class="mu">${msg}</p>`}<button class="btn a" data-a="start" ${ok?'':'disabled'}>Start game</button>`:`<p class="mu" style="margin-top:20px">Waiting for the host to start…</p>`}</main>`;
 }
 const pickList=(ids,me)=>{const m=S.A[S.id]?.k===S.R.k?S.A[S.id].t:null;return `<div class="pick">${ids.filter(p=>p!==me).map(p=>`<button class="${m===p?'on':''}" data-a="pick" data-p="${p}">${nm(p)}</button>`).join('')}</div>`};
@@ -1190,10 +1149,27 @@ const TOOLS=`<div class="tools"><button class="tool" data-a="tool" data-t="pen">
 <div class="tools">${COLS.map(c=>`<button class="tool sw" data-a="col" data-c="${c}" style="background:${c}"></button>`).join('')}</div>
 <div class="tools"><button class="tool" data-a="sz" data-s="3">Thin</button><button class="tool" data-a="sz" data-s="6">Medium</button><button class="tool" data-a="sz" data-s="12">Thick</button></div>`;
 const sl=(i,l,mx)=>`<label class="sl"><span class="lbl" style="margin:10px 0 0">${l}</span><input type="range" id="s${i}" min="0" max="${mx}" oninput="onSl(${i},this.value)"></label>`;
+const hsMine=R=>{const k=R.g+':hs';if(!S.hm||S.hm.k!==k){const a=S.A[S.id];S.hm=a&&a.k===k?{k,m:a.m||[],c:a.c||'',n:a.n||0}:{k,m:[],c:'',n:0}}return S.hm};
+const hsPut=()=>{const h=S.hm;db.doc(`rooms/${S.code}/acts/${S.id}`).set({k:h.k,m:h.m,c:h.c,n:h.n})};
+function hsView(){
+ const R=S.R,me=S.id,H=isHost(),called=R.called||[],cs=new Set(called),won=R.won||{},play=R.phase==='play';
+ const prizes=`<div class="lbl">Prizes</div>`+HS_PR.map(pr=>`<div class="row"><span>${pr.n}<span class="mu" style="display:block">${pr.d}</span></span>${won[pr.id]?`<b>${nm(won[pr.id])} · +${pr.pt}</b>`:play?`<button class="btn s a" data-a="hclaim" data-t="${pr.id}">Claim +${pr.pt}</button>`:'<span class="mu">Not won</span>'}</div>`).join('');
+ const evl=(R.ev||[]).slice().reverse().map(e=>{const pr=HS_PR.find(x=>x.id===e.t);return `<div class="row"><span>${e.w?`<b>${nm(e.p)}</b> won ${pr.n}`:`${nm(e.p)} made a false claim for ${pr.n}`}</span><b>${e.w?'+'+pr.pt:'−1'}</b></div>`}).join('');
+ if(!play)return `<main><div class="lbl" style="margin-top:8px">Housie · ${called.length} numbers called</div>${prizes}${finalBox(R)}${hostBtns(false)}</main>`;
+ const h=hsMine(R),tks=(R.tk&&R.tk[me])||[],prev=called.slice(-6,-1).reverse();
+ const tkHtml=t=>`<div class="hst">${t.map(n=>n?`<button class="hc ${h.m.includes(n)?'mk':cs.has(n)?'cl':''}" data-a="hmark" data-n="${n}">${n}</button>`:'<span class="hc bl"></span>').join('')}</div>`;
+ return `<main><div class="lbl" style="margin-top:8px">Housie · ${called.length} of 90 called${R.pause?' · paused':''}</div><div class="hn">${R.last||'—'}</div>
+ <p class="mu" style="text-align:center;margin:0">${prev.length?'Before: '+prev.map(n=>`<b>${n}</b>`).join(' · '):R.last?'':'First number coming up…'}</p>
+ <div class="lbl">Your ticket${tks.length>1?'s':''}</div>${tks.map(tkHtml).join('')}
+ <p class="mu">Tap a number to mark it once it has been called. Claim a prize as soon as you complete it. The game checks your claim against the numbers really called, and a false claim costs 1 point.</p>
+ ${prizes}${evl?`<div class="lbl">Claims</div>${evl}`:''}
+ ${H?`<div class="lbl">Host</div><div class="tbtn"><button class="btn o" data-a="hspause">${R.pause?'Resume':'Pause'}</button><button class="btn o" data-a="hscall" ${R.pause?'disabled':''}>Call now</button></div><button class="btn o" data-a="hsend">End game</button>`:''}
+ <div class="lbl">Called numbers</div><div class="hb">${Array.from({length:90},(_,i)=>`<span class="${R.last===i+1?'cur':cs.has(i+1)?'on':''}">${i+1}</span>`).join('')}</div>${board(R)}</main>`}
 function partyView(){
  const R=S.R,me=S.id,ph=R.phase,g=R.game;
  if(!R.pl.includes(me))return `<main>${note('Round in progress. You will join the next one.')}</main>`;
  const waiting=`<p class="mu" style="margin-top:20px">Submitted. Waiting for others… <span id="tm"></span>s · <span id="pg"></span></p>`;
+ if(g==='housie')return hsView();
  if(g==='draw'){
   if(ph==='draw')return S.sub===R.k?`<main><div class="big">Nice.</div>${waiting}</main>`:`<main><div class="lbl" style="margin-top:8px">Draw this · <span id="tm"></span>s</div><div class="big">${esc(R.words[me])}</div><canvas id="cv" width="480" height="480"></canvas>${TOOLS}<button class="btn a" data-a="done">Done</button></main>`;
   if(ph==='guess'){const a=S.arts[R.assign[me]],img=a&&a.k===R.g+':'+R.round?safe(a.img):'';
@@ -1250,9 +1226,15 @@ function partyView(){
    if(did(R))return `<main><div class="big">Submitted.</div><p class="mu">${R.stop?nm(R.stop)+' tapped Done first.':'Waiting for the others…'}</p>${waiting}</main>`;
    if(R.stop)return `<main><div class="big">${nm(R.stop)} tapped Done</div><p class="mu">Submitting your answers…</p></main>`;
    return `<main>${hd} · <span id="tm">${secs(R)}</span>s</div><div class="npl">${R.L}</div><p class="mu">Write one of each that starts with <b>${R.L}</b>. Check your spelling. Tap Done when all four are ready: the first Done ends the round for everyone.</p>${NPC.map((c,i)=>`<div class="lbl" style="margin:12px 0 4px">${c}</div><input type="text" class="npi" maxlength="30" placeholder="${c} starting with ${R.L}" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" value="${esc(S.np[i])}" oninput="S.np[${i}]=this.value;npcheck()" ${i===3?'data-enter="npdone"':''}>`).join('')}<button class="btn a" id="npdone" data-a="npdone" disabled>Done</button></main>`}
-  const r=R.res,H=isHost(),ids=R.pl.slice().sort((a,b)=>(r.tot[b]||0)-(r.tot[a]||0)),
-   lab=e=>e.s==='em'?'Blank · 0':e.s==='wl'?'Wrong letter · 0':e.s==='no'?'Not found · 0':e.s==='sp'?`Spelling, it’s “${esc(e.c)}” · +${e.pt}`:`${e.m?'Accepted by host':'Correct'} · +${e.pt}`;
-  return `<main>${hd} · Letter ${r.L}</div><div class="win">${r.by?nm(r.by)+' tapped Done first':'Time’s up'}</div>${ids.map(p=>`<div class="mv"><div class="row" style="border:0;padding:0 0 6px"><b>${nm(p)}</b><b>+${r.tot[p]||0}</b></div>${(r.a[p]||[]).map((e,i)=>`<div class="npr${H&&(e.s==='no'||e.s==='sp'||e.m)?' t':''}" data-a="npov" data-p="${p}" data-i="${i}"><span><span class="mu">${NPC[i]}</span><br><b>${esc(e.w)||'—'}</b></span><span class="st ${e.s}">${lab(e)}</span></div>`).join('')}</div>`).join('')}<p class="mu">Correct +${NP_OK} · Spelling mistake +${NP_SP} · Not found or wrong letter 0.${H?' Host: tap a “Not found” or misspelled answer to accept it as correct. Tap again to undo.':''}</p>${endBox(R)}</main>`}
+  if(ph==='review'){
+   const au=Object.keys(R.rv).find(x=>R.rv[x]===me),ans=(R.ans&&R.ans[au])||[];
+   if(did(R))return `<main><div class="big">Review sent.</div>${waiting}</main>`;
+   const V=[[0,'✗ Wrong'],[1,'~ Spelling'],[2,'✓ Correct']];
+   return `<main>${hd} · Review · <span id="tm">${secs(R)}</span>s</div><div class="big" style="font-size:30px">${nm(au)}’s answers</div><p class="mu">Letter <b>${R.L}</b>. Mark each answer: Correct +${NP_OK}, Spelling mistake +${NP_SP}, Wrong 0. Blank answers and answers with the wrong letter score 0 automatically. Answers you leave as they are count as correct.</p>${ans.map((w,i)=>{const bad=!w?'Blank · 0':w[0].toUpperCase()!==R.L?'Wrong letter · 0':'';
+    return `<div class="mv"><div class="mu">${NPC[i]}</div><div class="big" style="font-size:26px;margin:4px 0 10px">${esc(w)||'—'}</div>${bad?`<span class="badge">${bad}</span>`:`<div class="tt" style="margin:0">${V.map(([v,l])=>`<button class="tool ${S.rv[i]===v?'on':''}" style="flex:1;min-width:0" data-a="nprate" data-i="${i}" data-v="${v}">${l}</button>`).join('')}</div>`}</div>`}).join('')}<button class="btn a" data-a="nprsend">Submit review</button></main>`}
+  const r=R.res,ids=R.pl.slice().sort((a,b)=>(r.tot[b]||0)-(r.tot[a]||0)),
+   lab=e=>e.s==='em'?'Blank · 0':e.s==='wl'?'Wrong letter · 0':e.s==='no'?'Wrong · 0':e.s==='sp'?`Spelling mistake · +${e.pt}`:`Correct · +${e.pt}`;
+  return `<main>${hd} · Letter ${r.L}</div><div class="win">${r.by?nm(r.by)+' tapped Done first':'Time’s up'}</div>${ids.map(p=>`<div class="mv"><div class="row" style="border:0;padding:0 0 2px"><b>${nm(p)}</b><b>+${r.tot[p]||0}</b></div><div class="mu" style="margin-bottom:6px">Reviewed by ${nm(r.rv[p])}</div>${(r.a[p]||[]).map((e,i)=>`<div class="npr"><span><span class="mu">${NPC[i]}</span><br><b>${esc(e.w)||'—'}</b></span><span class="st ${e.s}">${lab(e)}</span></div>`).join('')}</div>`).join('')}<p class="mu">Another player reviewed each player’s answers: Correct +${NP_OK} · Spelling mistake +${NP_SP} · Wrong, blank or wrong letter 0.</p>${endBox(R)}</main>`}
  if(g==='taboo'){
   const tm=R.tm,mate=R.teams[me]===tm,isD=R.desc===me,lg=tlog(R),cur=TABOO[R.cards[lg.length]],hd=`<div class="lbl" style="margin-top:8px">Round ${R.round} · ${TN[tm]} team`,
    card=c=>c?`<div class="tabo"><div class="w">${esc(c.w)}</div><ul>${c.b.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'';
@@ -1294,8 +1276,9 @@ function render(){
  else{const g=G(R.game);
   h=`<div class="bar"><b>${g.n}</b><span><span class="mu">${S.code}</span><button class="btn s o" data-a="leave">Exit</button></span></div>`;
   h+=R.phase==='lobby'?lobby():R.phase==='over'?over():R.game==='mafia'?mafiaView():R.game==='imposter'?imposterView():partyView();
+  h+=S.hw?hwSheet(g):hwBtn(); // floating How to play button, on every screen of every game
  }
- const key=(S.code||'')+(R?R.phase+R.k:''),ae=document.activeElement;
+ const key=(S.code||'')+(R?R.phase+(R.game==='housie'?'':R.k):''),ae=document.activeElement;
  if(ae&&ae.tagName==='INPUT'&&(ae.id==='nm'||ae.id==='code'||key===render.key))return;
  if(h===render.h)return;const y=window.scrollY;
  $('#app').classList.toggle('noanim',key===render.key);
