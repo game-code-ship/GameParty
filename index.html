@@ -769,6 +769,8 @@ function connectDB(){
 (async()=>{
  try{S.id=sessionStorage.getItem('pg-id');if(!S.id){S.id='u'+Math.random().toString(36).slice(2,10);sessionStorage.setItem('pg-id',S.id)}}catch(e){S.id='u'+Math.random().toString(36).slice(2,10)}
  try{db=await connectDB()}catch(e){S.err='Can’t reach the game server. Start it with “npm start” and open the address it prints.'}
+ let rj=null;try{rj=sessionStorage.getItem('pg-room')}catch(e){}
+ if(db&&rj&&S.name.trim()){try{const r=await db.doc('rooms/'+rj).get();if(!r.exists||!(await enter(rj,true)))forgetRoom()}catch(e){forgetRoom()}}
  render();const h=location.hash.replace('#','').toUpperCase();if(h&&$('#code'))$('#code').value=h;
 })();
 /* ---------- rooms ---------- */
@@ -782,9 +784,17 @@ async function joinRoom(code){
  code=(code||'').trim().toUpperCase();const s=await db.doc('rooms/'+code).get();
  if(!s.exists)return toast('Room not found');await enter(code);
 }
-async function enter(code){
- S.code=code;S.chat=[];S.cInit=false;S.cSeen=0;S.cOpen=false;try{localStorage.setItem('pg-name',S.name)}catch(e){}
- await db.doc(`rooms/${code}/players/${S.id}`).set({name:S.name.trim().slice(0,14),ts:Date.now()});
+const sameName=(a,b)=>String(a||'').trim().toLowerCase()===String(b||'').trim().toLowerCase();
+const forgetRoom=()=>{try{sessionStorage.removeItem('pg-room')}catch(e){}};
+const playersOnce=code=>new Promise(res=>{let u;u=db.collection(`rooms/${code}/players`).onSnapshot(q=>{res(q.docs.map(d=>({id:d.id,...d.data()})));setTimeout(()=>u&&u(),0)})});
+async function enter(code,rejoin){
+ let ps=await playersOnce(code);const me=ps.find(p=>p.id===S.id),name=(rejoin&&me?me.name:S.name).trim().slice(0,14),ts=me?me.ts:Date.now();
+ const taken=()=>toast('That name is already taken in this room. Pick another one.');
+ if(ps.some(p=>p.id!==S.id&&sameName(p.name,name))){taken();return false}
+ await db.doc(`rooms/${code}/players/${S.id}`).set({name,ts});
+ ps=await playersOnce(code); // two people joining at the same moment: the one who joined first keeps the name
+ if(ps.some(p=>p.id!==S.id&&sameName(p.name,name)&&((p.ts||0)<ts||((p.ts||0)===ts&&p.id<S.id)))){await db.doc(`rooms/${code}/players/${S.id}`).delete();taken();return false}
+ S.name=name;S.code=code;S.chat=[];S.cInit=false;S.cSeen=0;S.cOpen=false;try{localStorage.setItem('pg-name',name);sessionStorage.setItem('pg-room',code)}catch(e){}
  S.un=[db.doc('rooms/'+code).onSnapshot(s=>{if(!s.exists)return leave(true);const n=s.data();
    if(!S.R||S.R.k!==n.k||S.R.phase!==n.phase){S.busy=false;S.show=false;if(!S.R||S.R.k!==n.k){S.artData='';S.ch='';S.pick=[200,50,60];S.tt=['','',''];S.np=['','','',''];S.rv=[2,2,2,2];S.tli=-1}}
    S.R=n;syncArt();render();tick()}),
@@ -793,6 +803,7 @@ async function enter(code){
   db.collection(`rooms/${code}/chat`).onSnapshot(q=>{S.chat=q.docs.map(d=>d.data()).sort((a,b)=>a.ts-b.ts);
    if(!S.cInit){S.cInit=true;S.cSeen=S.chat.length?S.chat[S.chat.length-1].ts:0} // history from before you joined isn't unread
    chatList()})];
+ return true;
 }
 function syncArt(){
  const R=S.R;let key='';
@@ -802,6 +813,7 @@ function syncArt(){
  else if(key[0]==='d'){const a=R.assign[S.id];S.artU=db.doc(`rooms/${S.code}/art/${a}`).onSnapshot(s=>{S.arts={};if(s.exists)S.arts[a]=s.data();render()})}
 }
 function leave(gone){
+ forgetRoom();
  S.un.forEach(u=>u&&u());S.artU&&S.artU();S.artU=null;S.artKey='';
  if(S.code&&!gone&&S.R?.phase==='lobby')db.doc(`rooms/${S.code}/players/${S.id}`).delete().catch(()=>{});
  S.un=[];S.hw=false;S.chat=[];S.cOpen=false;S.code=null;S.R=null;S.P={};S.A={};render();
